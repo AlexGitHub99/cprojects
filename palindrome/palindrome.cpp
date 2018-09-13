@@ -17,7 +17,7 @@ main() {
     while(cin.get() != '\n'); //eats characters until a return is reached, eats the return then stops
     char string[81];
     int j = 0;
-    for(int i = 0; i < strlen(input) + 1; i++) { 
+    for(int i = 0; i < strlen(input) + 1; i++) { //steps the number of time of the length of input + 1 for the null terminating character
       //friend: Nathan class: C++ Programming 5
       //I am using their idea to check what type of character a character is using ASCII ranges
       //This code checks whether a character is a capital or lowercase letter
