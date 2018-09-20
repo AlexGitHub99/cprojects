@@ -42,7 +42,7 @@ int main() {
     while(cin.get() != '\n'); //eats characters until a return character is reached, eats it, then stops
 
     while(!checkInput(input)) {//repeats until input is valid
-	cout << "Invalid input, please enter a number followed by a letter, for example, 1a" << endl;
+	cout << "Invalid input, please enter a number from 1 to 3 followed by a letter from a to c, for example, 1a" << endl;
 	cin.get(input, 3);
 	while(cin.get() != '\n');
     }
@@ -75,6 +75,7 @@ int main() {
       cout << "Do you want to play again? y/n" << endl;
       char yn;
       cin >> yn;
+      while(cin.get() != '\n');
       if(yn == 'n') {//stop playing
 	playing = false;
       }
@@ -140,8 +141,8 @@ bool inputBoard(int board[3][3], int column, char row, int turn) {
 }
 
 bool checkInput(char input[2]) {//checks that the input is formatted correctly (letter followed by number)
-  if(input[0] == '1' || input[0] == '2' || input[0] == '3' && //the first value of the input is a 1, 2, or 3
-     input[1] == 'a' || input[1] == 'b' || input [1] == 'c') { //the second value of the input is an a, b, or c
+  if((input[0] == '1' || input[0] == '2' || input[0] == '3') && //the first value of the input is a 1, 2, or 3
+     (input[1] == 'a' || input[1] == 'b' || input [1] == 'c')) { //the second value of the input is an a, b, or c
      return true;
    } else {
      return false;
