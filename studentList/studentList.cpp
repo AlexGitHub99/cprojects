@@ -32,17 +32,17 @@ int main() {
       char first[11];
       char last[11];
       int id = 0;
-      float gpa;
+      float gpa = 0.00;
       
-      cout << "Please enter the students first name (10 letters or less)";   
+      cout << "Please enter the students first name (10 letters or less): ";   
       cin.get(first, 11);	
       while(cin.get() != '\n');
 
-      cout << "Please enter the student last name (10 letters or less)";
+      cout << "Please enter the student last name (10 letters or less): ";
       cin.get(last, 11);
       while(cin.get() != '\n');
 
-      cout << "Please enter the students id (6 numbers)";
+      cout << "Please enter the students id (6 numbers): ";
       char idText[7];
       cin.get(idText, 7);
       while(cin.get() != '\n');
@@ -55,7 +55,26 @@ int main() {
       }
       cout << id;
 
+      cout << "Please enter the students gpa: ";
+      char gpaText[6];
+      cin.get(gpaText, 6);
+      while(cin.get() != '\n');
+      if(gpaText[0] >= 48 && gpaText[0] =< 57 &&
+	 gpaText[1] == '.' &&
+	 gpaText[2] >= 48 && gpaText[2] =< 57 &&
+	 gpaText[3] >= 48 && gpaText[3] =< 57 &&
+	 gpaText[4] >= 48 && gpaText[4] =< 57) {
+
+	gpa += gpaText[0] - 48;
+	gpa += (gpaText[2] - 48) * 0.1;
+	gpa += (gpaText[3] - 48) * 0.01;
+	gpa += (gpaText[4] - 48) * 0.001;
+      } else {
+	cout << "Please enter the gpa in the correct format, for example, 3.92";
+      }
       
+      addStudent(studentList, first, last, id, gpa);
+      cout << "Added " << first << " " << last << " with id " << id << " and gpa " << gpa << endl;
     }
   }
   /***
