@@ -110,11 +110,11 @@ int main() {
       cout << "Added " << first << " " << last << " with id " << id << " and gpa " << gpa << endl;
     }
     
-    if(strcmp(input, "print") == 0) { //user types print command
+    if(strcmp(input, "print") == 0) { //user typed print command
       printStudent(studentList);
     }
 
-    if(strcmp(input, "delete") == 0) { //user types delete command
+    if(strcmp(input, "delete") == 0) { //user typed delete command
       int id = 0;
       
       cout << "Please enter the students id (6 numbers): ";
@@ -150,19 +150,12 @@ int main() {
       }
     }
 
-    if(strcmp(input, "quit") == 0) { //user types quit command
+    if(strcmp(input, "quit") == 0) { //user typed quit command
       running = false;
     }
   }
-  /***
-  addStudent(studentList, "Alex", "King", 351013, 4.218);
-  addStudent(studentList, "Michael", "Kong", 32134823, 1.0);
-  printStudent(studentList);
-  delStudent(studentList, 351013);
-  printStudent(studentList);
-  ***/
 }
-void addStudent(vector<student*>* &studentList, char first[10], char last[10], int id, float gpa) {
+void addStudent(vector<student*>* &studentList, char first[10], char last[10], int id, float gpa) { //adds student to student list
   student* newStudent = new student;
   
   for(int i = 0; i < 10; i++ ) { //sets the first name of the student struct to the passed in value
@@ -176,22 +169,11 @@ void addStudent(vector<student*>* &studentList, char first[10], char last[10], i
   newStudent->id = id;
   newStudent->gpa = gpa;
 
-  //vector<student*>::iterator it = studentList->begin();
-
   studentList->push_back (newStudent); //inserts newStudent after the last element in studentList
-
-  /***
-  cout << studentList << endl;
-  
-  cout << newStudent->first << endl;
-  cout << newStudent->last << endl;
-  cout << newStudent->id << endl;
-  cout << newStudent->gpa << endl;
-  ***/
   
 }
 
-void printStudent(vector<student*>* &studentList) {
+void printStudent(vector<student*>* &studentList) { //prints all students
   for(int i = 0; i < studentList->size(); i++) { //go through each student in student list
     cout << (*studentList)[i]->first << " " << (*studentList)[i]->last << ", ";
     cout << (*studentList)[i]->id << ", ";
@@ -199,7 +181,7 @@ void printStudent(vector<student*>* &studentList) {
   }
 }
 
-bool delStudent(vector<student*>* &studentList, int id) {
+bool delStudent(vector<student*>* &studentList, int id) { //deletes a student
   for(int i = 0; i < studentList->size(); i++) { //go through each student in student list until the id matches
     if((*studentList)[i]->id == id) {
       delete[] (*studentList)[i]; //delete the struct itself
