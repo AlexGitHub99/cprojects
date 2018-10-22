@@ -3,7 +3,7 @@
 
 using namespace std;
 
+Media::Media(int test) {
+  cout << test;
+};
 
-int main() {
-  Media movie = new Media(int 5);
-}
