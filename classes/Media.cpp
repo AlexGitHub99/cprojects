@@ -3,7 +3,10 @@
 
 using namespace std;
 
-Media::Media(int test) {
-  cout << test;
+Media::Media() {
 };
+
+int* getType() {
+  return 0; //
+}
 

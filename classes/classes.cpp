@@ -1,9 +1,11 @@
 #include <iostream>
 #include "Media.h"
+#include "Movie.h"
 
 using namespace std;
 
-
 int main() {
-  Media movie = new Media(int 5);
+  Media* media = new Media();
+  Movie* movie = new Movie();
+  int num = movie->getType();
 }
