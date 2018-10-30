@@ -1,4 +1,4 @@
-#indef MEDIA
+#ifndef MEDIA
 #define MEDIA
 
 #include <iostream>

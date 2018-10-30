@@ -1,3 +1,6 @@
+#ifndef Movie
+#define Movie
+
 #include <iostream>
 #include "Media.h"
 
@@ -8,3 +11,5 @@ class Movie : public Media {
   Movie();
   int getType();
 };
+
+#endif

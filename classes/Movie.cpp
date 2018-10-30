@@ -5,7 +5,7 @@
 using namespace std;
 
 Movie::Movie() {
-
+  cout << "test";
 }
 
 int Movie::getType() {
