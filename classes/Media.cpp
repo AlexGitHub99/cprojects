@@ -6,7 +6,15 @@ using namespace std;
 Media::Media() {
 };
 
-int* getType() {
-  return 0; //
+int Media::getType() {
+  return 0;
+}
+
+char* Media::getTitle() {
+  return "";
+}
+
+int Media::getYear() {
+  return 0;
 }
 
