@@ -5,8 +5,12 @@
 using namespace std;
 
 int main() {
-  Media* media = new Media();
-  Movie* movie = new Movie();
-  int num = movie->getType();
+  Media* media;
+  char newTitle[15];
+  char newPublisher[15];
+  Movie* movie = new Movie(newTitle, 5, newPublisher, 4);
+  int num = movie->getRating();
   cout << num;
+  media = movie;
+  cout << media->getRating();
 }

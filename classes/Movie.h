@@ -8,11 +8,12 @@ using namespace std;
 
 class Movie : public Media {
  public:
-  Movie();
-  int getType();
-  char* getTitle();
-  int getYear();
-  char* getPublisher();
+  Movie(char* newTitle, int newYear, char* newPublisher, int newRating);
+  virtual int getType();
+  virtual char* getTitle();
+  virtual int getYear();
+  virtual char* getPublisher();
+  virtual int getRating();
  private:
   char* title;
   int year;

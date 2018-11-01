@@ -18,3 +18,10 @@ int Media::getYear() {
   return 0;
 }
 
+char* Media::getPublisher() {
+  return "";
+}
+
+int Media::getRating() {
+  return 0;
+}
