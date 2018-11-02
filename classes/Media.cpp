@@ -11,17 +11,29 @@ int Media::getType() {
 }
 
 char* Media::getTitle() {
-  return "";
+  return title;
 }
 
 int Media::getYear() {
-  return 0;
+  return year;
 }
 
 char* Media::getPublisher() {
-  return "";
+  return publisher;
 }
 
 int Media::getRating() {
-  return 0;
+  return rating;
+}
+
+char* Media::getDirector() {
+  return director;
+}
+
+char* Media::getArtist() {
+  return artist;
+}
+
+int Media::getDuration() {
+  return duration;
 }

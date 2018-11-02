@@ -8,11 +8,22 @@ using namespace std;
 class Media {
  public:
   Media();
-  int getType();
-  char* getTitle();
-  int getYear();
-  char* getPublisher();
-  int getRating();
+  virtual int getType();
+  virtual char* getTitle();
+  virtual int getYear();
+  virtual char* getPublisher();
+  virtual int getRating();
+  virtual char* getDirector();
+  virtual char* getArtist();
+  virtual int getDuration(); 
+ private:
+  char* title;
+  int year;
+  char* publisher;
+  int rating;
+  char* director;
+  char* artist;
+  int duration;
 };
 
 #endif

@@ -4,10 +4,10 @@
 
 using namespace std;
 
-Movie::Movie(char* newTitle, int newYear, char* newPublisher, int newRating) {
+Movie::Movie(char* newTitle, int newYear, char* newDirector, int newRating) {
   title = newTitle;
   year = newYear;
-  publisher = newPublisher;
+  director = newDirector;
   rating = newRating;
 }
 
@@ -23,10 +23,6 @@ int Movie::getYear() {
   return year;
 }
 
-char* Movie::getPublisher() {
-  return publisher;
-}
-
-int Movie::getRating() {
-  return rating;
+char* Movie::getDirector() {
+  return director;
 }

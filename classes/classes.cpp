@@ -6,11 +6,10 @@ using namespace std;
 
 int main() {
   Media* media;
-  char newTitle[15];
-  char newPublisher[15];
-  Movie* movie = new Movie(newTitle, 5, newPublisher, 4);
-  int num = movie->getRating();
-  cout << num;
+  char newTitle[15] = "Applebee";
+  char newDirector[15] = "Bob";
+  Movie* movie = new Movie(newTitle, 5, newDirector, 4);
+  cout << movie->getDirector();
   media = movie;
-  cout << media->getRating();
+  cout << media->getDirector();
 }
