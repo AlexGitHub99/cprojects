@@ -10,20 +10,10 @@ class Media {
   Media();
   virtual int getType();
   virtual char* getTitle();
-  virtual int getYear();
-  virtual char* getPublisher();
-  virtual int getRating();
-  virtual char* getDirector();
-  virtual char* getArtist();
-  virtual int getDuration(); 
+  virtual int getYear(); 
  private:
   char* title;
   int year;
-  char* publisher;
-  int rating;
-  char* director;
-  char* artist;
-  int duration;
 };
 
 #endif

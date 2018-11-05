@@ -11,5 +11,6 @@ int main() {
   Movie* movie = new Movie(newTitle, 5, newDirector, 4);
   cout << movie->getDirector();
   media = movie;
-  cout << media->getDirector();
+  Movie* movie2 = dynamic_cast<Movie*>(media);
+  cout << movie2->getDirector();
 }
