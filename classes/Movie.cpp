@@ -13,7 +13,7 @@ Movie::Movie(char* newTitle, char* newDirector, int newYear, int newDuration, in
 }
 
 int Movie::getType() {
-  return 2; //1 for Movie
+  return 1; //1 for Movie
 }
 
 char* Movie::getTitle() {

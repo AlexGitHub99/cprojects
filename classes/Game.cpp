@@ -11,7 +11,7 @@ Game::Game(char* newTitle, int newYear, char* newPublisher, int newRating) {
 }
 
 int Game::getType() {
-  return 1;
+  return 2; //2 for game
 }
 
 char* Game::getTitle() {
