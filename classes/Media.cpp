@@ -17,3 +17,7 @@ char* Media::getTitle() {
 int Media::getYear() {
   return year;
 }
+
+Media::~Media() {
+  delete[] title;
+}

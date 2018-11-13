@@ -15,6 +15,7 @@ class Music : public Media {
   int getYear();
   int getDuration();
   char* getPublisher();
+  ~Music();
  private:
   char* title;
   char* artist;

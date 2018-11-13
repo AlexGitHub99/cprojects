@@ -17,15 +17,22 @@ void print(Media*);
 
 int main() {
   vector<Media*>* files = new vector<Media*>();
-  addMovie(files, "Banana", "Joseph", 1990, 7200, 5);
+  addMovie(files, "Banana", "Joseph", 1990, 7200, 9);
   addMusic(files, "Sicko mode", "Bob", 1990, 120, "kaled");
+  addGame(files, "Mario", 1990, "Nintendo", 9);
   vector<int> results = searchYear(files, 1990);
-  vector<int> results2 =searchTitle(files, "Banana");
+  vector<int> results2 = searchTitle(files, "Banana");
   
   for(int i = 0; i < results.size(); i++) {
     print((*files)[results[i]]);
   }
   
+  delete[] (*files)[2];
+  files->erase(files->begin() + 1);
+  
+  for(int i = 0; i < results.size(); i++) {
+    print((*files)[results[i]]);
+  }
 }
 
 void addMovie(vector<Media*>* files, char* title, char* director, int year, int duration, int rating) {
@@ -70,13 +77,14 @@ void print(Media* file) {
     cout << "Released: " << movie->getYear() << " ";
     cout << "Directed by: " << movie->getDirector() << " ";
     cout << "Duration: " << movie->getDuration() << " ";
+    cout << "Rating: " << movie->getRating() << "/10 ";
     cout << endl;
   } else if (file->getType() == 2) { //Game
     Game* game = dynamic_cast<Game*>(file);
     cout << "Title: " << game->getTitle() << " ";
     cout << "Released: " << game->getYear() << " ";
     cout << "Published by: " << game->getPublisher() << " ";
-    cout << "Rating: " << game->getRating() << "/5 ";
+    cout << "Rating: " << game->getRating() << "/10 ";
     } else if (file->getType() == 3) { //Music
       Music* music = dynamic_cast<Music*>(file);
       cout << "Title: " << music->getTitle() << " ";
@@ -87,4 +95,3 @@ void print(Media* file) {
       cout << endl;
     }
 }
-

@@ -14,6 +14,7 @@ class Movie : public Media {
   virtual int getYear();
   virtual char* getDirector();
   virtual int getDuration();
+  virtual int getRating();
  private:
   char* title;
   int year;

@@ -31,3 +31,7 @@ int Movie::getDuration() {
 char* Movie::getDirector() {
   return director;
 }
+
+int Movie::getRating() {
+  return rating;
+}

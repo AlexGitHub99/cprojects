@@ -35,7 +35,11 @@ char* Music::getPublisher() {
   return publisher;
 }
 
-
+Music::~Music() {
+  delete[] title;
+  delete[] artist;
+  delete[] publisher;
+}
 
 
 
