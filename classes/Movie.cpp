@@ -38,5 +38,5 @@ int Movie::getRating() {
 }
 
 Movie::~Movie() {
-  cout << "Destructor called for movie class";
+  cout << "Destructor called for movie class" << endl;
 }

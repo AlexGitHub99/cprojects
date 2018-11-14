@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include <vector>
+#include <math.h>
 #include "Media.h"
 #include "Movie.h"
 #include "Game.h"
@@ -17,76 +18,155 @@ void print(Media*);
 
 int main() {
   vector<Media*>* files = new vector<Media*>();
-  char test[4] = { 'c', 'a', 't', '\0' };
-  addMovie(files, test, test, 1990, 7200, 9);
-  addMusic(files, test, test, 1990, 120, test);
-  addGame(files, test, 1990, test, 9);
-  vector<int> results = searchYear(files, 1990);
-  vector<int> results2 = searchTitle(files, test);
   
-  for(int i = 0; i < results.size(); i++) {
-    print((*files)[results[i]]);
-  }
-  
-  delete (*files)[1];
-  files->erase(files->begin() + 1);
-  
-  results = searchYear(files, 1990);
-  
-  for(int i = 0; i < results.size(); i++) {
-    print((*files)[results[i]]);
-  }
+  //delete (*files)[1];
+  //files->erase(files->begin() + 1);
 
   cout << "Welcome to media list! Use commands add, search, delete, and quit. You can add movie, game, and music files" << endl;
-  char input[15];
-  cin.getline(input, 15);
-  if(strcmp(input, "add") == 0) {
-    cout << "Which media type are you adding?" << endl;
+  bool running = true;
+  while(running = true) {
+    cin.clear();
+    char input[15] = {};
+    vector<int> results;
     cin.getline(input, 15);
-    cout << "Please enter the information in the following format (keep individual fields to 14 characters or less): " << endl;
-    if(strcmp(input, "movie") == 0) {
-      cout << "title director year duration rating_out_of_ten" << endl;
-      char title[15];
-      cin.get(title, 15, ' ');
-      char director[15];
-      cin.get(director, 15, ' ');
-      char yearText[15];
-      cin.get(yearText, 15, ' ');
-      char durationText[15];
-      cin.get(durationText, 15, ' ');
-      char ratingText[15];
-      cin.get(ratingText, 15, ' ');
-      int year = 0;
-      int duration = 0;
-      int rating = ratingText[0] - 48;
-      for(int i = 0; i < strlen(yearText); i++) {
-	year += yearText[i] - 48;
+    if(strcmp(input, "add") == 0) {
+      cout << "Which media type are you adding? Choose movie, game, or music" << endl;
+      cin.getline(input, 15);
+      cout << "Please enter the information in the following format (keep individual fields to 14 characters or less): " << endl;
+      if(strcmp(input, "movie") == 0) {
+	cout << "title director year duration_in_seconds rating_out_of_ten" << endl;
+	char title[15];
+	cin.get(title, 15, ' ');
+	cin.get();
+	char director[15];
+	cin.get(director, 15, ' ');
+	cin.get();
+	char yearText[15];
+	cin.get(yearText, 15, ' ');
+	cin.get();
+	char durationText[15];
+	cin.get(durationText, 15, ' ');
+	cin.get();
+	char ratingText[15];
+	cin.get(ratingText, 15, '\n');
+	cin.get();
+	int year = 0;
+	int duration = 0;
+	int rating = ratingText[0] - 48;
+	for(int i = 0; i < strlen(yearText); i++) {
+	  year += (yearText[i] - 48) * pow(10, strlen(yearText) - i - 1);
+	}
+	for(int i = 0; i < strlen(durationText); i++) {
+	  duration += (durationText[i] - 48) * pow(10, strlen(durationText) - i - 1);
+	}
+	addMovie(files, title, director, year, duration, rating);
+	cout << "Movie added!" << endl;
+      } else if(strcmp(input, "game") == 0) {
+	cout << "title year publisher rating" << endl;
+	char title[15];
+	cin.get(title, 15, ' ');
+	cin.get();
+	char yearText[15];
+	cin.get(yearText, 15, ' ');
+	cin.get();
+	char publisher[15];
+	cin.get(publisher, 15, ' ');
+	cin.get();
+	char ratingText[15];
+	cin.get(ratingText, 15, '\n');
+	cin.get();
+	int year = 0;
+	int rating = ratingText[0] - 48;
+	for(int i = 0; i < strlen(yearText); i++) {
+	  year += (yearText[i] - 48) * pow(10, strlen(yearText) - i - 1);
+	}
+	addGame(files, title, year, publisher, rating);
+	cout << "Game added!" << endl;
+      } else if(strcmp(input, "music") == 0) {
+	cout << "title artist year duration_in_seconds rating" << endl;
+	char title[15];
+	cin.get(title, 15, ' ');
+	cin.get();
+	char artist[15];
+	cin.get(artist, 15, ' ');
+	cin.get();
+	char yearText[15];
+	cin.get(yearText, 15, ' ');
+	cin.get();
+	char durationText[15];
+	cin.get(durationText, 15, ' ');
+	cin.get();
+	char publisher[15];
+	cin.get(publisher, 15, '\n');
+	cin.get();
+	int year = 0;
+	int duration = 0;
+	for(int i = 0; i < strlen(yearText); i++) {
+	  year += (yearText[i] - 48) * pow(10, strlen(yearText) - i - 1);
+	}
+	for(int i = 0; i < strlen(durationText); i++) {
+	  duration += durationText[i] - 48;
+	}
+	addMusic(files, title, artist, year, duration, publisher);
+	cout << "Music added!" << endl;
       }
-      for(int i = 0; i < strlen(durationText); i++) {
-	duration += durationText[i] - 48;
+    } else if(strcmp(input, "search")  == 0) {
+      cout << "Would you like to search by title or year?" << endl;
+      cin.getline(input, 15);
+      cout << "Please enter your search value" << endl;
+      if(strcmp(input, "title") == 0) {
+	cin.getline(input, 15);
+	results = searchTitle(files, input);
+      } else if(strcmp(input, "year") == 0) {
+	cin.getline(input, 15);
+	int year = 0;
+	for(int i = 0; i < strlen(input); i++) {
+	  year += (input[i] - 48) * pow(10, strlen(input) - i - 1);
+	}
+	results = searchYear(files, year);
       }
-      addMovie(files, title, director, year, duration, rating);
-    } else if(strcmp(input, "game") == 0) {
-      cout << "title year publisher rating" << endl;
-      char title[15];
-      cin.get(title, 15, ' ');
-      char yearText[15];
-      cin.get(yearText, 15, ' ');
-      
-      char ratingText[15];
-      cin.get(ratingText, 15, ' ');
-      int year = 0;
-      int duration = 0;
-      int rating = ratingText[0] - 48;
-      for(int i = 0; i < strlen(yearText); i++) {
-	year += yearText[i] - 48;
+      if(results.empty() == true) {
+	cout << "No results found" << endl;
+      } else {
+	for(int i = 0; i < results.size(); i++) {
+	  print((*files)[results[i]]);
+	}
       }
-      for(int i = 0; i < strlen(durationText); i++) {
-	duration += durationText[i] - 48;
+    } else if(strcmp(input, "delete") == 0) {
+      cout << "Would you like to delete by title or year?" << endl;
+      cin.getline(input, 15);
+      cout << "Please enter the title/year of the file you want to delete" << endl;
+      if(strcmp(input, "title") == 0) {
+	cin.getline(input, 15);
+	results = searchTitle(files, input);
+      } else if(strcmp(input, "year") == 0) {
+	cin.getline(input, 15);
+	int year = 0;
+	for(int i = 0; i < strlen(input); i++) {
+	  year += (input[i] - 48) * pow(10, strlen(input) - i - 1);
+	}
+	results = searchYear(files, year);
       }
-      addGame(files, title, year, publisher, rating);
-    } else if(strcmp(input, "music") == 0) {
-      cout << "title artist year duration rating" << endl;
+      if(results.empty() == true) {
+	cout << "No results found" << endl;
+      } else {
+	for(int i = 0; i < results.size(); i++) {
+	  print((*files)[results[i]]);
+	}
+	cout << "Are you sure you want to delete these files? y/n" << endl;
+	cin.getline(input, 15);
+	if(input[0] = 'y') {
+	  for(int i = 0; i < results.size(); i++) {
+	    delete (*files)[results[i] - i];
+	    files->erase(files->begin() + results[i] - i);
+	  }
+	}
+      }
+    } else if(strcmp(input, "quit") == 0) {
+      running = false;
+      for(int i = 0; i < files->size(); i++) {
+	delete (*files)[i];
+      }
     }
   }
 
