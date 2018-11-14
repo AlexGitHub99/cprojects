@@ -13,7 +13,7 @@ Music::Music(char* newTitle, char* newArtist, int newYear, int newDuration, char
 }
 
 int Music::getType() {
-  return 3;
+  return 3; //3 for music
 }
 
 char* Music::getTitle() {

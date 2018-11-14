@@ -1,3 +1,8 @@
+//Author: Alex King
+//Last modified: 11/13/18
+//This project contains the parent class media and 3 child classes, movie, game, and music. It stores a vector of media classes which can contain any of the child classes.
+//users can add, search for (and print out), and delete media files in the vector. 
+
 #include <iostream>
 #include <cstring>
 #include <vector>
@@ -18,9 +23,6 @@ void print(Media*);
 
 int main() {
   vector<Media*>* files = new vector<Media*>();
-  
-  //delete (*files)[1];
-  //files->erase(files->begin() + 1);
 
   cout << "Welcome to media list! Use commands add, search, delete, and quit. You can add movie, game, and music files" << endl;
   bool running = true;
@@ -164,9 +166,6 @@ int main() {
       }
     } else if(strcmp(input, "quit") == 0) {
       running = false;
-      for(int i = 0; i < files->size(); i++) {
-	delete (*files)[i];
-      }
     }
   }
 
