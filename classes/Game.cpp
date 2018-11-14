@@ -1,12 +1,13 @@
 #include <iostream>
+#include <cstring>
 #include "Game.h"
 
 using namespace std;
 
 Game::Game(char* newTitle, int newYear, char* newPublisher, int newRating) {
-  title = newTitle;
+  strncpy(title, newTitle, 15);
   year = newYear;
-  publisher = newPublisher;
+  strncpy(publisher, newPublisher, 15);
   rating = newRating;
 }
 
@@ -28,4 +29,8 @@ char* Game::getPublisher() {
 
 int Game::getRating() {
   return rating;
+}
+
+Game::~Game() {
+  cout << "Destructor for game class called" << endl;
 }

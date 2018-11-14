@@ -12,13 +12,13 @@ class Game : public Media {
   virtual int getType();
   virtual char* getTitle();
   virtual int getYear();
-  virtual char* getPublisher();
-  virtual int getRating();
-  
+  char* getPublisher();
+  int getRating();
+  virtual ~Game();
  private:
-  char* title;
+  char title[15];
   int year;
-  char* publisher;
+  char publisher[15];
   int rating;
 };
 

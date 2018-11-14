@@ -19,5 +19,5 @@ int Media::getYear() {
 }
 
 Media::~Media() {
-  delete[] title;
+  cout << "Destructor called for media class" << endl;
 }

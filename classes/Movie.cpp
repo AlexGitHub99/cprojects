@@ -1,13 +1,14 @@
 #include <iostream>
+#include <cstring>
 #include "Media.h"
 #include "Movie.h"
 
 using namespace std;
 
 Movie::Movie(char* newTitle, char* newDirector, int newYear, int newDuration, int newRating) {
-  title = newTitle;
+  strncpy(title, newTitle, 15);
   year = newYear;
-  director = newDirector;
+  strncpy(director, newDirector, 15);
   duration = newDuration;
   rating = newRating;
 }
@@ -34,4 +35,8 @@ char* Movie::getDirector() {
 
 int Movie::getRating() {
   return rating;
+}
+
+Movie::~Movie() {
+  cout << "Destructor called for movie class";
 }

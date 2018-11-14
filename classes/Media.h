@@ -11,9 +11,9 @@ class Media {
   virtual int getType();
   virtual char* getTitle();
   virtual int getYear();
-  ~Media();
+  virtual ~Media();
  private:
-  char* title;
+  char title[15];
   int year;
 };
 

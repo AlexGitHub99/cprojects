@@ -1,14 +1,15 @@
 #include <iostream>
+#include <cstring>
 #include "Music.h"
 
 using namespace std;
 
 Music::Music(char* newTitle, char* newArtist, int newYear, int newDuration, char* newPublisher) {
-  title = newTitle;
-  artist = newArtist;
+  strncpy(title, newTitle, 15);
+  strncpy(artist, newArtist, 15);
   year = newYear;
   duration = newDuration;
-  publisher = newPublisher;
+  strncpy(publisher, newPublisher, 15);
 }
 
 int Music::getType() {
@@ -36,9 +37,7 @@ char* Music::getPublisher() {
 }
 
 Music::~Music() {
-  delete[] title;
-  delete[] artist;
-  delete[] publisher;
+  cout << "Destructor called for music class" << endl;
 }
 
 

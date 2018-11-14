@@ -17,22 +17,55 @@ void print(Media*);
 
 int main() {
   vector<Media*>* files = new vector<Media*>();
-  addMovie(files, "Banana", "Joseph", 1990, 7200, 9);
-  addMusic(files, "Sicko mode", "Bob", 1990, 120, "kaled");
-  addGame(files, "Mario", 1990, "Nintendo", 9);
+  char test[4] = { 'c', 'a', 't', '\0' };
+  addMovie(files, test, test, 1990, 7200, 9);
+  addMusic(files, test, test, 1990, 120, test);
+  addGame(files, test, 1990, test, 9);
   vector<int> results = searchYear(files, 1990);
-  vector<int> results2 = searchTitle(files, "Banana");
+  vector<int> results2 = searchTitle(files, test);
   
   for(int i = 0; i < results.size(); i++) {
     print((*files)[results[i]]);
   }
   
-  delete[] (*files)[2];
+  delete (*files)[1];
   files->erase(files->begin() + 1);
   
+  results = searchYear(files, 1990);
+  
   for(int i = 0; i < results.size(); i++) {
     print((*files)[results[i]]);
   }
+
+  cin << "Welcome to media list! Use commands add, search, delete, and quit. You can add movie, game, and music files" << endl;
+  char input[15];
+  cin.get(input, 15, ' ');
+  if(strcmp(input, "add") == 0) {
+    cout << "Which media type are you adding?" << endl;
+    cin.get(input, 15, ' ');
+    cout << "Please enter the information in the following format (keep individual fields to 14 characters or less): " << endl;
+    if(strcmp(input, "movie") == 0) {
+      cout << "title director year duration rating" << endl;
+      char title[15] = cin.get(input, 15, ' ');
+      char direction[15] = cin.get(input, 15, ' ');
+      char yearText[15] = cin.get(input, 15, ' ');
+      char durationText[15] = cin.get(input, 15, ' ');
+      char ratingText[15] = cin.get(input, 15, ' ');
+      char year = 0;
+      char duration = 0;
+      char rating = 0;
+      for(int i = 0; i < yearText.size(); i ++) {
+	
+      }
+      
+    } else if(strcmp(input, "game") == 0) {
+      cout << "title year publisher rating" << endl;
+    } else if(strcmp(input, "music") == 0) {
+      cout << "title artist year duration rating" << endl;
+    }
+  }
+
+  
 }
 
 void addMovie(vector<Media*>* files, char* title, char* director, int year, int duration, int rating) {
@@ -85,13 +118,14 @@ void print(Media* file) {
     cout << "Released: " << game->getYear() << " ";
     cout << "Published by: " << game->getPublisher() << " ";
     cout << "Rating: " << game->getRating() << "/10 ";
-    } else if (file->getType() == 3) { //Music
-      Music* music = dynamic_cast<Music*>(file);
-      cout << "Title: " << music->getTitle() << " ";
-      cout << "Artist: " << music->getArtist() << " ";
-      cout << "Released: " << music->getYear() << " ";
-      cout << "Duration: " << music->getDuration() << " ";
-      cout << "Published by: " << music->getPublisher() << " ";
-      cout << endl;
-    }
+    cout << endl;
+  } else if (file->getType() == 3) { //Music
+    Music* music = dynamic_cast<Music*>(file);
+    cout << "Title: " << music->getTitle() << " ";
+    cout << "Artist: " << music->getArtist() << " ";
+    cout << "Released: " << music->getYear() << " ";
+    cout << "Duration: " << music->getDuration() << " ";
+    cout << "Published by: " << music->getPublisher() << " ";
+    cout << endl;
+  }
 }
