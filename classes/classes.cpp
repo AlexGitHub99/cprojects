@@ -37,29 +37,54 @@ int main() {
     print((*files)[results[i]]);
   }
 
-  cin << "Welcome to media list! Use commands add, search, delete, and quit. You can add movie, game, and music files" << endl;
+  cout << "Welcome to media list! Use commands add, search, delete, and quit. You can add movie, game, and music files" << endl;
   char input[15];
-  cin.get(input, 15, ' ');
+  cin.getline(input, 15);
   if(strcmp(input, "add") == 0) {
     cout << "Which media type are you adding?" << endl;
-    cin.get(input, 15, ' ');
+    cin.getline(input, 15);
     cout << "Please enter the information in the following format (keep individual fields to 14 characters or less): " << endl;
     if(strcmp(input, "movie") == 0) {
-      cout << "title director year duration rating" << endl;
-      char title[15] = cin.get(input, 15, ' ');
-      char direction[15] = cin.get(input, 15, ' ');
-      char yearText[15] = cin.get(input, 15, ' ');
-      char durationText[15] = cin.get(input, 15, ' ');
-      char ratingText[15] = cin.get(input, 15, ' ');
-      char year = 0;
-      char duration = 0;
-      char rating = 0;
-      for(int i = 0; i < yearText.size(); i ++) {
-	
+      cout << "title director year duration rating_out_of_ten" << endl;
+      char title[15];
+      cin.get(title, 15, ' ');
+      char director[15];
+      cin.get(director, 15, ' ');
+      char yearText[15];
+      cin.get(yearText, 15, ' ');
+      char durationText[15];
+      cin.get(durationText, 15, ' ');
+      char ratingText[15];
+      cin.get(ratingText, 15, ' ');
+      int year = 0;
+      int duration = 0;
+      int rating = ratingText[0] - 48;
+      for(int i = 0; i < strlen(yearText); i++) {
+	year += yearText[i] - 48;
       }
-      
+      for(int i = 0; i < strlen(durationText); i++) {
+	duration += durationText[i] - 48;
+      }
+      addMovie(files, title, director, year, duration, rating);
     } else if(strcmp(input, "game") == 0) {
       cout << "title year publisher rating" << endl;
+      char title[15];
+      cin.get(title, 15, ' ');
+      char yearText[15];
+      cin.get(yearText, 15, ' ');
+      
+      char ratingText[15];
+      cin.get(ratingText, 15, ' ');
+      int year = 0;
+      int duration = 0;
+      int rating = ratingText[0] - 48;
+      for(int i = 0; i < strlen(yearText); i++) {
+	year += yearText[i] - 48;
+      }
+      for(int i = 0; i < strlen(durationText); i++) {
+	duration += durationText[i] - 48;
+      }
+      addGame(files, title, year, publisher, rating);
     } else if(strcmp(input, "music") == 0) {
       cout << "title artist year duration rating" << endl;
     }
