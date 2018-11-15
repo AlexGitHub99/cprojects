@@ -1,0 +1,14 @@
+#include <iostream>
+
+class Room {
+ public:
+  Room(char* newDescription, int newId);
+  char* getDescription();
+  vector<Item*> getItems();
+  void addItems(Items
+  int getId();
+ private:
+  vector<Item*> items;
+  char* description;
+  int id;
+		};
