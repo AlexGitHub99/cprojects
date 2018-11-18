@@ -9,18 +9,18 @@ Room::Room(char* newDescription, int newId) {
   id = newId;
 }
 
-char* getDescription() {
+char* Room::getDescription() {
   return description;
 }
 
-vector<item*> getItems() {
+vector<Item*>* Room::getItems() {
   return items;
 }
 
-void addItem(Item* item) {
-  items.push_back(item);
+void Room::addItem(Item* item) {
+  items->push_back(item);
 }
 
-int getID() {
+int Room::getId() {
   return id;
 }
