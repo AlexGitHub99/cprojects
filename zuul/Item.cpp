@@ -3,15 +3,10 @@
 
 using namespace std;
 
-Item::Item(char* newName, int newId) {
+Item::Item(char* newName) {
   name = newName;
-  id = newId;
 }
 
 char* Item::getName() {
   return name;
-}
-
-int Item::getId() {
-  return id;
 }

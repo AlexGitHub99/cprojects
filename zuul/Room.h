@@ -10,20 +10,22 @@ using namespace std;
 
 class Room {
  public:
-  Room(char* newDescription, char* newName, int newId);
+  Room(char* newDescription, char* newName);
   char* getDescription();
   char* getName();
   vector<Item*>* getItems();
-  int getExit(int direction);
-  void addItem(Item*);
-  void addExit(int direction, int id); 
-  int getId();
+  char* getExit(int direction);
+  char* getKey(int direction);
+  Item* getItem(char* name);
+  void addItem(Item* item);
+  void setExit(int direction, char* name, char* key);
+  void printItems();
  private:
   vector<Item*>* items = new vector<Item*>();
-  map<int, int> exits;
+  map<int, char*> exits;
+  map<int, char*> exitKeys;
   char* description;
   char* name;
-  int id;
 };
 
 #endif

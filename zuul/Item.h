@@ -7,12 +7,10 @@ using namespace std;
 
 class Item {
  public:
-  Item(char* newName, int newId);
+  Item(char* newName);
   char* getName();
-  int getId();
  private:
   char* name;
-  int id;
 };
 
 #endif

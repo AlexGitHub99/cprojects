@@ -1,13 +1,13 @@
 #include <iostream>
 #include <vector>
 #include "Room.h"
+#include <cstring>
 
 using namespace std;
 
-Room::Room(char* newDescription, char* newName, int newId) {
+Room::Room(char* newDescription, char* newName) {
   description = newDescription;
   name = newName;
-  id = newId;
 }
 
 char* Room::getDescription() {
@@ -22,18 +22,33 @@ vector<Item*>* Room::getItems() {
   return items;
 }
 
-int Room::getExit(int direction) {
-  return exits[direction];
+char* Room::getExit(int direction) {
+  return exits[direction];  
+}
+
+char* Room::getKey(int direction) {
+  return exitKeys[direction];
+}
+
+Item* Room::getItem(char* itemName) {
+  for(int i = 0; i < items->size(); i++) {
+    if(strcmp((*items)[i]->getName(), itemName) == 0) {
+      return (*items)[i];
+    }
   }
+}
 
 void Room::addItem(Item* item) {
   items->push_back(item);
 }
 
-void Room::addExit(int direction, int id) {
-  exits[direction] = id;
+void Room::setExit(int direction, char* name, char* key) {
+  exits[direction] = name;
+  exitKeys[direction] = key;
 }
 
-int Room::getId() {
-  return id;
+void Room::printItems() {
+  for(int i = 0; i < items->size(); i++) {
+    cout << (*items)[i]->getName() << ", ";
+  }
 }
