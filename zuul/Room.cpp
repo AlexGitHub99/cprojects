@@ -5,8 +5,7 @@
 
 using namespace std;
 
-Room::Room(char* newDescription, char* newName) {
-  description = newDescription;
+Room::Room(char* newName) {
   name = newName;
 }
 
@@ -47,6 +46,9 @@ void Room::setExit(int direction, char* name, char* key) {
   exitKeys[direction] = key;
 }
 
+void Room::setDescription(char* newDescription) {
+  description = newDescription;
+}
 void Room::printItems() {
   for(int i = 0; i < items->size(); i++) {
     cout << (*items)[i]->getName() << ", ";

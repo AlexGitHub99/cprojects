@@ -10,7 +10,7 @@ using namespace std;
 
 class Room {
  public:
-  Room(char* newDescription, char* newName);
+  Room(char* newName);
   char* getDescription();
   char* getName();
   vector<Item*>* getItems();
@@ -19,6 +19,7 @@ class Room {
   Item* getItem(char* name);
   void addItem(Item* item);
   void setExit(int direction, char* name, char* key);
+  void setDescription(char* newDescription);
   void printItems();
  private:
   vector<Item*>* items = new vector<Item*>();
