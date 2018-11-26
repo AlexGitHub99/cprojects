@@ -25,24 +25,100 @@ int main() {
   cout << (room->getKey(NORTH)) << endl;
   
   vector<Room*>* rooms = new vector<Room*>();
+  char cellName[] = "Cell";
+  Room* cell = new Room(cellName);
+  char hallwayName[] = "Hallway";
+  Room* hallway = new Room(hallwayName);
+  char libraryName[] = "Library";
+  Room* library = new Room(libraryName);
+  char alchemyRoomName[] = "Alechemy Room";
+  Room* alchemyRoom = new Room(alchemyRoomName);
+  char diningHallName[] = "Dining Hall";
+  Room* diningHall = new Room(diningHallName);
+  char kitchenName[] = "Kitchen";
+  Room* kitchen = new Room(kitchenName);
+  char pantryName[] = "Pantry";
+  Room* pantry = new Room(pantryName);
+  char cooridorName[] = "Cooridor";
+  Room* cooridor = new Room(cooridorName);
+  char throneRoomName[] = "Throne Room";
+  Room* throneRoom = new Room(throneRoomName);
+  char servantsQuartersName[] = "Servants Quarters";
+  Room* servantsQuarters = new Room(servantsQuartersName);
+  char guardRoomName[] = "Guard Room";
+  Room* guardRoom = new Room(guardRoomName);
+  char secretTunnelName[] = "Secret Tunnel";
+  Room* secretTunnel = new Room(secretTunnelName);
+  char dragonDungeonName[] = "Dragon Dungeon";
+  Room* dragonDungeon = new Room(dragonDungeonName);
+  char passagewayName[] = "Passageway";
+  Room* passageway = new Room(passagewayName);
+  char outsideName[] = "Outside";
+  Room* outside = new Room(outsideName);
 
-  Room* cell = new Room("Cell");
-  Room* hallway = new Room("Hallway");
-  Room* library = new Room("Libary");
-  Room* alchemyRoom = new Room("Alchemy room");
-  Room* diningHall = new Room("Dining Hall");
-  Room* kitchen = new Room("Kitchen");
-  Room* pantry = new Room("Pantry");
-  Room* cooridor = new Room("Cooridor");
-  Room* throneRoom = new Room("Throne Room");
-  Room* servantsQuarters = new Room("Servants Quarters");
-  Room* guardRoom = new Room("Guard Room");
-  Room* secretTunnel = new Room("Secret tunnel");
-  Room* dragonDungeon = new Room("Dragon Dungeon");
-  Room* passageway = new Room("Passageway");
-  Room* outside = new Room("Outside");
+  char metalKeyName[] = "Metal Key";
+  char goldenKeyName[] = "Golden Key";
+  char woodenKeyName[] = "Wooden Key";
+  char crownName[] = "crown";
+  char swordName[] = "sword";
+  char bookName[] = "book";
+  char appleName[] = "apple";
   
-  hallway->setDescription("You step into a long hallway lit by torches. Numerous doors line the walls.");
-  cell->setDescription("You're surrounded by stone brick walls, except for a panel of metal bars and a door with a keyhole.");
-			      
+  cell->addItem(new Item(metalKeyName));
+  cell->setExit(SOUTH, hallwayName, metalKeyName);
+  char cellDescription[] = "You're surrounded by stone brick walls, except for a panel of metal bars and a door with a keyhole.";
+  cell->setDescription(cellDescription);
+
+  hallway->setExit(EAST, alchemyRoomName, NULL);
+  hallway->setExit(SOUTH, diningHallName, NULL);
+  hallway->setExit(WEST, libraryName, NULL);
+  char hallwayDescription[] = "You step into a long hallway lit by torches. Numerous doors line the walls.";
+  hallway->setDescription(hallwayDescription);
+
+  alchemyRoom->addItem(new Item(goldenKeyName));
+  alchemyRoom->setExit(WEST, hallwayName, "");
+  char alchemyRoomDescription[] = "You enter a room with strange items and vials constaining unknown liquid scattered everywhere. An old wooden workbench is covered with papers displaying obscure diagrams and writings.";
+  alchemyRoom->setDescription(alchemyRoomDescription);
+		   
+  diningHall->setExit(NORTH, hallwayName, "");
+  diningHall->setExit(SOUTH, kitchenName, "");
+  char diningHallDescription[] = "You walk into an extravagant dining hall, with a large wooden table running down the center. Servants rush around carrying plates full of food.";
+  diningHall->setDescription(diningHallDescription);
+
+  kitchen->addItem(new Item(appleName));
+  kitchen->setExit(NORTH, diningHallName, "");
+  kitchen->setExit(EAST, cooridorName, "");
+  kitchen->setExit(WEST, pantryName, "");
+  char kitchenDescription[] = "You enter a large, busy kitchen. Food is everywhere, and servants can be seen preparing a variety of meals";
+  kitchen->setDescription(kitchenDescription);
+
+  pantry->addItem(new Item(woodenKeyName));
+  pantry->setExit(EAST, kitchenName, "");
+  char pantryDescription[] = "You step into a wooded food storage room, with shelves stacking up the ceiling carrying fruits, bread, flour, and any number of jars and bottles.";
+  pantry->setDescription(pantryDescription);
+
+  cooridor->setExit(NORTH, servantsQuartersName, "");
+  cooridor->setExit(EAST, guardRoomName, "");
+  cooridor->setExit(SOUTH, throneRoomName, goldenKeyName);
+  cooridor->setExit(WEST, kitchenName, "");
+  char cooridorDescription[] = "A tall, narrow corridor stretches out before you, there are stained glass windows on the sides and ceiling, lighting up the area. Doors lead away in all directions. The largest door is decorated in ornate gold designs, and has a large golden key hole in the center.";
+  cooridor->setDescription(cooridorDescription);
+
+  servantsQuarters->setExit(SOUTH, cooridor, "");
+  char servantsQuartersDescription[] = "You step into a drab, dimly lit room, with many beds seperated by wooden barriers. It smells unnapealing. A few servants give you suspicous glances, but leave you alone.";
+  servantsQuarters->setDescription(servantsQuartersDescription);
+  
+  guardRoom->addItem(new Item(swordName));
+  guardRoom->setExit(WEST, cooridor, "");
+  char guardRoomDescription[] = "You warily enter the guard room to find it empty. Armour and weapons are hung on the solid stone walls.";
+  guardRoom->setDescription(guardRoomDescription);
+
+  throneRoom->addItem(new Item(crownName));
+  throneRoom->setExit(NORTH, cooridorName, goldenKeyName);
+  char throneRoomDescription[] = "You walk into a large room with a high cieling, heavily decorated with gold. An expensive looking throne sits at the center of the back wall. No one can be seen.";
+  throneRoom->setDescription(throneRoomDescription);
+  
+  library->addItem(new Item(bookName));
+  library->setExit(EAST, hallwayName, "");
+  library->setExit(WEST, secretTunnelName, woodenKeyName);
 }
