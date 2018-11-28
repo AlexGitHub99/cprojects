@@ -133,8 +133,17 @@ int main() {
   
   dragonDungeon->addItem(new Item(boneName));
   dragonDungeon->addItem(new Item(scaleName));
-  dragonDungeon->addExit(EAST, libraryName, NULL);
-  dragonDungeon->addExit(NORTH, passagewayName, NULL);
+  dragonDungeon->setExit(EAST, libraryName, NULL);
+  dragonDungeon->setExit(NORTH, passagewayName, NULL);
   char dragonDungeonDescription[] = "After stabbing the dragon with your sword, it fell to the ground, dead. You walk past the slayed dragon into a huge cavern with moss climbing up its walls. There's a light somewhere in the distance.";
+  char dragonDungeonDescription2[] = "You walk past the slayed dragon into a huge cavern with moss climbing up its walls. The'res a light somewhere in the distance.";
   dragonDungeon->setDescription(dragonDungeonDescription);
+
+  passageway->setExit(SOUTH, dragonDungeonName, NULL);
+  passageway->setExit(NORTH, outsideName, crownName);
+  char passagewayDescription[] = "After traveling toward the light, you enter a long passageway carved into the stone. At the end you can see an exit leading outside, but there are four guards visisble on either side.";
+  passageway->setDescription(passagewayDescription);
+
+  outside->setExit(SOUTH, passagewayName, outsideName);
+  
 }
