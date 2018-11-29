@@ -145,8 +145,4 @@ int main() {
   passageway->setDescription(passagewayDescription);
 
   outside->setExit(SOUTH, passagewayName, outsideName);
-  char outsideDescription[] = "When the guards see your crown, they let you pass immediately, bowing respectly. You look out onto an open mountainous landscape and a clear blue sky.";
-  outside->setDescription(outsideDescription);
-
-  
 }
