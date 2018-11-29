@@ -106,12 +106,12 @@ int main() {
   char cooridorDescription[] = "A tall, narrow corridor stretches out before you, there are stained glass windows on the sides and ceiling, lighting up the area. Doors lead away in all directions. The largest door is decorated in ornate gold designs, and has a large golden key hole in the center.";
   cooridor->setDescription(cooridorDescription);
 
-  servantsQuarters->setExit(SOUTH, cooridor, NULL);
+  servantsQuarters->setExit(SOUTH, cooridorName, NULL);
   char servantsQuartersDescription[] = "You step into a drab, dimly lit room, with many beds seperated by wooden barriers. It smells unnapealing. A few servants give you suspicous glances, but leave you alone.";
   servantsQuarters->setDescription(servantsQuartersDescription);
   
   guardRoom->addItem(new Item(swordName));
-  guardRoom->setExit(WEST, cooridor, NULL);
+  guardRoom->setExit(WEST, cooridorName, NULL);
   char guardRoomDescription[] = "You warily enter the guard room to find it empty. Armour and weapons are hung on the solid stone walls.";
   guardRoom->setDescription(guardRoomDescription);
 
@@ -128,7 +128,7 @@ int main() {
   
   secretTunnel->setExit(EAST, libraryName, woodenKeyName);
   secretTunnel->setExit(WEST, dragonDungeonName, swordName);
-  char secretTunnelDescription = "As you slide the key into the bookshelf, it swings open, revealing a dark, stone tunnel behind it. It smells musty, and you can hear water dripping down the tunnel.";
+  char secretTunnelDescription[] = "As you slide the key into the bookshelf, it swings open, revealing a dark, stone tunnel behind it. It smells musty, and you can hear water dripping down the tunnel.";
   secretTunnel->setDescription(secretTunnelDescription);
   
   dragonDungeon->addItem(new Item(boneName));
@@ -145,5 +145,4 @@ int main() {
   passageway->setDescription(passagewayDescription);
 
   outside->setExit(SOUTH, passagewayName, outsideName);
-  
 }
