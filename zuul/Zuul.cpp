@@ -27,35 +27,51 @@ int main() {
   vector<Room*>* rooms = new vector<Room*>();
   char cellName[] = "Cell";
   Room* cell = new Room(cellName);
+  rooms->push_back(cell);
   char hallwayName[] = "Hallway";
   Room* hallway = new Room(hallwayName);
+  rooms->push_back(hallway);
   char libraryName[] = "Library";
   Room* library = new Room(libraryName);
+  rooms->push_back(library);
   char alchemyRoomName[] = "Alechemy Room";
   Room* alchemyRoom = new Room(alchemyRoomName);
+  rooms->push_back(alchemyRoom);
   char diningHallName[] = "Dining Hall";
   Room* diningHall = new Room(diningHallName);
+  rooms->push_back(diningHall);
   char kitchenName[] = "Kitchen";
   Room* kitchen = new Room(kitchenName);
+  rooms->push_back(kitchen);
   char pantryName[] = "Pantry";
   Room* pantry = new Room(pantryName);
+  rooms->push_back(pantry);
   char cooridorName[] = "Cooridor";
   Room* cooridor = new Room(cooridorName);
+  rooms->push_back(cooridor);
   char throneRoomName[] = "Throne Room";
   Room* throneRoom = new Room(throneRoomName);
+  rooms->push_back(throneRoom);
   char servantsQuartersName[] = "Servants Quarters";
   Room* servantsQuarters = new Room(servantsQuartersName);
+  rooms->push_back(servantsQuarters);
   char guardRoomName[] = "Guard Room";
   Room* guardRoom = new Room(guardRoomName);
+  rooms->push_back(guardRoom);
   char secretTunnelName[] = "Secret Tunnel";
   Room* secretTunnel = new Room(secretTunnelName);
+  rooms->push_back(secretTunnel);
   char dragonDungeonName[] = "Dragon Dungeon";
   Room* dragonDungeon = new Room(dragonDungeonName);
+  rooms->push_back(dragonDungeon);
   char passagewayName[] = "Passageway";
   Room* passageway = new Room(passagewayName);
+  rooms->push_back(passageway);
   char outsideName[] = "Outside";
   Room* outside = new Room(outsideName);
+  rooms->push_back(outside);
 
+  vector<Item*>* inventory = new vector<Item*>();
   char metalKeyName[] = "Metal Key";
   char goldenKeyName[] = "Golden Key";
   char woodenKeyName[] = "Wooden Key";
@@ -148,5 +164,5 @@ int main() {
   char outsideDescription[] = "When the guards see your crown, they let you pass immediately, bowing respectly. You look out onto an open mountainous landscape and a clear blue sky.";
   outside->setDescription(outsideDescription);
 
-  
+  cout << "Welcome to Zuul: escape the castle!";
 }
