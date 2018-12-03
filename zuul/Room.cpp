@@ -5,12 +5,12 @@
 
 using namespace std;
 
-Room::Room(char newName[]) {
-  strcpy(newName, name);
+Room::Room(char* newName) {
+  name = newName;
 }
 
-char* Room::getDescription() {
-  return description;
+void Room::printDescription() {
+  cout << description;
 }
 
 char* Room::getName() {
@@ -29,7 +29,7 @@ char* Room::getKey(int direction) {
   return exitKeys[direction];
 }
 
-Item* Room::getItem(char itemName[]) {
+Item* Room::getItem(char* itemName) {
   for(int i = 0; i < items->size(); i++) {
     if(strcmp((*items)[i]->getName(), itemName) == 0) {
       return (*items)[i];
@@ -41,16 +41,11 @@ void Room::addItem(Item* item) {
   items->push_back(item);
 }
 
-void Room::setExit(int direction, char name[], char key[]) {
-  strcpy(name, exits[direction]);
-  strcpy(key, exitKeys[direction]);
+void Room::setExit(int direction, char* name, char* key) {
+  strcpy(exits[direction], name);
+  strcpy(exitKeys[direction], key);
 }
 
-void Room::setDescription(char newDescription[]) {
-  strcpy(newDescription, description);
-}
-void Room::printItems() {
-  for(int i = 0; i < items->size(); i++) {
-    cout << (*items)[i]->getName() << ", ";
-  }
+void Room::setDescription(char* newDescription) {
+  strcpy(description, newDescription);
 }

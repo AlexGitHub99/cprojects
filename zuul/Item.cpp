@@ -4,8 +4,8 @@
 
 using namespace std;
 
-Item::Item(char newName[]) {
-  strcpy(newName, name);
+Item::Item(char* newName) {
+  strcpy(name, newName);
 }
 
 char* Item::getName() {

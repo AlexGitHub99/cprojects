@@ -1,3 +1,5 @@
+
+#include <cstring>
 #include <iostream>
 #include <vector>
 #include "Room.h"
@@ -11,64 +13,39 @@ const int SOUTH = 2;
 const int WEST = 3;
 
 int main() {
-  Room* room = new Room("Room");
-  room->addItem(new Item("Apple"));
-  vector<Item*>* items = room->getItems();
-  for(int i = 0; i < items->size(); i++) {
-    cout << (*items)[i]->getName() << endl;
-  }
-
-  Room* room2 = new Room("Second room");
-    
-  room->setExit(NORTH, "Room", "");
-  cout << (room->getExit(NORTH)) << endl;
-  cout << (room->getKey(NORTH)) << endl;
   
   vector<Room*>* rooms = new vector<Room*>();
-  char cellName[] = "Cell";
-  Room* cell = new Room(cellName);
+  char* cellName2 = new char[20];
+  
+  Room* cell = new Room(strcpy(new char[20], "Cell"));
   rooms->push_back(cell);
-  char hallwayName[] = "Hallway";
-  Room* hallway = new Room(hallwayName);
+  Room* hallway = new Room(strcpy(new char[20], "Hallway"));
   rooms->push_back(hallway);
-  char libraryName[] = "Library";
-  Room* library = new Room(libraryName);
+  Room* library = new Room(strcpy(new char[20], "Library"));
   rooms->push_back(library);
-  char alchemyRoomName[] = "Alechemy Room";
-  Room* alchemyRoom = new Room(alchemyRoomName);
+  Room* alchemyRoom = new Room(strcpy(new char[20], "Alchemy Room"));
   rooms->push_back(alchemyRoom);
-  char diningHallName[] = "Dining Hall";
-  Room* diningHall = new Room(diningHallName);
+  Room* diningHall = new Room(strcpy(new char[20], "Dining Hall"));
   rooms->push_back(diningHall);
-  char kitchenName[] = "Kitchen";
-  Room* kitchen = new Room(kitchenName);
+  Room* kitchen = new Room(strcpy(new char[20], "Kitchen"));
   rooms->push_back(kitchen);
-  char pantryName[] = "Pantry";
-  Room* pantry = new Room(pantryName);
+  Room* pantry = new Room(strcpy(new char[20], "Pantry"));
   rooms->push_back(pantry);
-  char cooridorName[] = "Cooridor";
-  Room* cooridor = new Room(cooridorName);
+  Room* cooridor = new Room(strcpy(new char[20], "Cooridor"));
   rooms->push_back(cooridor);
-  char throneRoomName[] = "Throne Room";
-  Room* throneRoom = new Room(throneRoomName);
+  Room* throneRoom = new Room(strcpy(new char[20], "Throne Room"));
   rooms->push_back(throneRoom);
-  char servantsQuartersName[] = "Servants Quarters";
-  Room* servantsQuarters = new Room(servantsQuartersName);
+  Room* servantsQuarters = new Room(strcpy(new char[20], "Servantd Quarters"));
   rooms->push_back(servantsQuarters);
-  char guardRoomName[] = "Guard Room";
-  Room* guardRoom = new Room(guardRoomName);
+  Room* guardRoom = new Room(strcpy(new char[20], "Guard Room"));
   rooms->push_back(guardRoom);
-  char secretTunnelName[] = "Secret Tunnel";
-  Room* secretTunnel = new Room(secretTunnelName);
+  Room* secretTunnel = new Room(strcpy(new char[20], "Secret Tunnel"));
   rooms->push_back(secretTunnel);
-  char dragonDungeonName[] = "Dragon Dungeon";
-  Room* dragonDungeon = new Room(dragonDungeonName);
+  Room* dragonDungeon = new Room(strcpy(new char[20], "Dragon Dungeon"));
   rooms->push_back(dragonDungeon);
-  char passagewayName[] = "Passageway";
-  Room* passageway = new Room(passagewayName);
+  Room* passageway = new Room(strcpy(new char[20], "Passageway"));
   rooms->push_back(passageway);
-  char outsideName[] = "Outside";
-  Room* outside = new Room(outsideName);
+  Room* outside = new Room(strcpy(new char[20], "Outside"));
   rooms->push_back(outside);
 
   vector<Item*>* inventory = new vector<Item*>();
@@ -161,8 +138,25 @@ int main() {
   passageway->setDescription(passagewayDescription);
 
   outside->setExit(SOUTH, passagewayName, outsideName);
-  char outsideDescription[] = "When the guards see your crown, they let you pass immediately, bowing respectly. You look out onto an open mountainous landscape and a clear blue sky.";
+  char outsideDescription[] = "When the guards see your crown, they let you pass immediately, bowing respectfully. You look out onto an open mountainous landscape and a clear blue sky.";
   outside->setDescription(outsideDescription);
 
-  cout << "Welcome to Zuul: escape the castle!";
+  cout << "Welcome to Zuul: escape the castle!" << endl;
+  cout << "Commands:" << endl;
+  cout << "observe -- view items in the room" << endl;
+  cout << "go <n/e/s/w> -- go a direction" << endl;
+  cout << "pickup <itemname> -- pickup an item" << endl;
+  cout << "drop <itemname> -- drop an item into the room your in" << endl;
+  cout << "inv -- view your inventory" << endl;
+  
+  Room* currentRoom;
+  currentRoom = cell;
+
+  cout << "Room 1: " << endl;
+  currentRoom->printDescription();
+
+  char input[10];
+  cin >> input;
+  
 }
+    
