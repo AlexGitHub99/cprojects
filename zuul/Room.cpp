@@ -42,10 +42,10 @@ void Room::addItem(Item* item) {
 }
 
 void Room::setExit(int direction, char* name, char* key) {
-  strcpy(exits[direction], name);
-  strcpy(exitKeys[direction], key);
+  exits[direction] = name;
+  exitKeys[direction] = key;
 }
 
 void Room::setDescription(char* newDescription) {
-  strcpy(description, newDescription);
+  description = newDescription;
 }

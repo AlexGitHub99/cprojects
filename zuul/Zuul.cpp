@@ -1,4 +1,3 @@
-
 #include <cstring>
 #include <iostream>
 #include <vector>
@@ -15,7 +14,6 @@ const int WEST = 3;
 int main() {
   
   vector<Room*>* rooms = new vector<Room*>();
-  char* cellName2 = new char[20];
   
   Room* cell = new Room(strcpy(new char[20], "Cell"));
   rooms->push_back(cell);
@@ -49,97 +47,81 @@ int main() {
   rooms->push_back(outside);
 
   vector<Item*>* inventory = new vector<Item*>();
-  Item* metalKey = new Item("Metal Key");
-  Item* goldenKey = new Item("Golden Key");
-  Item* woodenKey = new Item("Wooden Key");
-  Item* crown = new Item("Crown");
-  Item* sword = new Item("Sword");
-  Item* book = new Item("Book");
-  Item* apple = new Item("Apple");
-  Item* bone = new Item("Bone");
-  Item* scale = new Item("Dragon Scale");
+  Item* metalKey = new Item(strcpy(new char[15], "Metal Key"));
+  Item* goldenKey = new Item(strcpy(new char[15], "Golden Key"));
+  Item* woodenKey = new Item(strcpy(new char[15], "Wooden Key"));
+  Item* crown = new Item(strcpy(new char[15], "Crown"));
+  Item* sword = new Item(strcpy(new char[15], "Sword"));
+  Item* book = new Item(strcpy(new char[15], "Book"));
+  Item* apple = new Item(strcpy(new char[15], "Apple"));
+  Item* bone = new Item(strcpy(new char[15], "Bone"));
+  Item* scale = new Item(strcpy(new char[15], "Dragon Scale"));
   
   cell->addItem(metalKey);
-  cell->setExit(SOUTH, hallwayName, metalKeyName);
-  char cellDescription[] = "You're surrounded by stone brick walls, except for a panel of metal bars and a door with a keyhole.";
-  cell->setDescription(cellDescription);
+  cell->setExit(SOUTH, hallway->getName(), metalKey->getName());
+  cell->setDescription(strcpy(new char[200], "You're surrounded by stone brick walls, except for a panel of metal bars and a door with a keyhole."));
 
   hallway->setExit(EAST, alchemyRoom->getName(), NULL);
   hallway->setExit(SOUTH, diningHall->getName(), NULL);
   hallway->setExit(WEST, library->getName(), NULL);
-  char hallwayDescription[] = "You step into a long hallway lit by torches. Numerous doors line the walls.";
-  hallway->setDescription(hallwayDescription);
+  hallway->setDescription(strcpy(new char[200], "You step into a long hallway lit by torches. Numerous doors line the walls."));
 
   alchemyRoom->addItem(goldenKey);
-  alchemyRoom->setExit(WEST, hallwayName(), NULL);
-  char alchemyRoomDescription[] = "You enter a room with strange items and vials constaining unknown liquid scattered everywhere. An old wooden workbench is covered with papers displaying obscure diagrams and writings.";
-  alchemyRoom->setDescription(alchemyRoomDescription);
+  alchemyRoom->setExit(WEST, hallway->getName(), NULL);
+  alchemyRoom->setDescription(strcpy(new char[200], "You enter a room with strange items and vials constaining unknown liquid scattered everywhere. An old wooden workbench is covered with papers displaying obscure diagrams and writings."));
 		   
   diningHall->setExit(NORTH, hallway->getName(), NULL);
   diningHall->setExit(SOUTH, kitchen->getName(), NULL);
-  char diningHallDescription[] = "You walk into an extravagant dining hall, with a large wooden table running down the center. Servants rush around carrying plates full of food.";
-  diningHall->setDescription(diningHallDescription);
+  diningHall->setDescription(strcpy(new char[200], "You walk into an extravagant dining hall, with a large wooden table running down the center. Servants rush around carrying plates full of food."));
 
   kitchen->addItem(apple);
   kitchen->setExit(NORTH, diningHall->getName(), NULL);
   kitchen->setExit(EAST, cooridor->getName(), NULL);
   kitchen->setExit(WEST, pantry->getName(), NULL);
-  char kitchenDescription[] = "You enter a large, busy kitchen. Food is everywhere, and servants can be seen preparing a variety of meals";
-  kitchen->setDescription(kitchenDescription);
+  kitchen->setDescription(strcpy(new char[200], "You enter a large, busy kitchen. Food is everywhere, and servants can be seen preparing a variety of meals"));
 
   pantry->addItem(woodenKey);
-  pantry->setExit(EAST, kitchenName, NULL);
-  char pantryDescription[] = "You step into a wooded food storage room, with shelves stacking up the ceiling carrying fruits, bread, flour, and any number of jars and bottles.";
-  pantry->setDescription(pantryDescription);
+  pantry->setExit(EAST, kitchen->getName(), NULL);
+  pantry->setDescription(strcpy(new char[200], "You step into a wooded food storage room, with shelves stacking up the ceiling carrying fruits, bread, flour, and any number of jars and bottles."));
 
-  cooridor->setExit(NORTH, servantsQuartersName, NULL);
-  cooridor->setExit(EAST, guardRoomName, NULL);
-  cooridor->setExit(SOUTH, throneRoomName, goldenKeyName);
-  cooridor->setExit(WEST, kitchenName, NULL);
-  char cooridorDescription[] = "A tall, narrow corridor stretches out before you, there are stained glass windows on the sides and ceiling, lighting up the area. Doors lead away in all directions. The largest door is decorated in ornate gold designs, and has a large golden key hole in the center.";
-  cooridor->setDescription(cooridorDescription);
+  cooridor->setExit(NORTH, servantsQuarters->getName(), NULL);
+  cooridor->setExit(EAST, guardRoom->getName(), NULL);
+  cooridor->setExit(SOUTH, throneRoom->getName(), goldenKey->getName());
+  cooridor->setExit(WEST, kitchen->getName(), NULL);
+  cooridor->setDescription(strcpy(new char[200], "A tall, narrow corridor stretches out before you, there are stained glass windows on the sides and ceiling, lighting up the area. Doors lead away in all directions. The largest door is decorated in ornate gold designs, and has a large golden key hole in the center."));
 
-  servantsQuarters->setExit(SOUTH, cooridorName, NULL);
-  char servantsQuartersDescription[] = "You step into a drab, dimly lit room, with many beds seperated by wooden barriers. It smells unnapealing. A few servants give you suspicous glances, but leave you alone.";
-  servantsQuarters->setDescription(servantsQuartersDescription);
+  servantsQuarters->setExit(SOUTH, cooridor->getName(), NULL);
+  servantsQuarters->setDescription(strcpy(new char[200], "You step into a drab, dimly lit room, with many beds seperated by wooden barriers. It smells unnapealing. A few servants give you suspicous glances, but leave you alone."));
   
   guardRoom->addItem(sword);
-  guardRoom->setExit(WEST, cooridorName, NULL);
-  char guardRoomDescription[] = "You warily enter the guard room to find it empty. Armour and weapons are hung on the solid stone walls.";
-  guardRoom->setDescription(guardRoomDescription);
+  guardRoom->setExit(WEST, cooridor->getName(), NULL);
+  guardRoom->setDescription(strcpy(new char[200], "You warily enter the guard room to find it empty. Armour and weapons are hung on the solid stone walls."));
 
   throneRoom->addItem(crown);
-  throneRoom->setExit(NORTH, cooridorName, goldenKeyName);
-  char throneRoomDescription[] = "You walk into a large room with a high cieling, heavily decorated with gold. An expensive looking throne sits at the center of the back wall. No one can be seen.";
-  throneRoom->setDescription(throneRoomDescription);
+  throneRoom->setExit(NORTH, cooridor->getName(), goldenKey->getName());
+  throneRoom->setDescription(strcpy(new char[200], "You walk into a large room with a high cieling, heavily decorated with gold. An expensive looking throne sits at the center of the back wall. No one can be seen."));
   
-  library->addItem(bookName);
-  library->setExit(EAST, hallwayName, NULL);
-  library->setExit(WEST, secretTunnelName, woodenKeyName);
-  char libraryDescription[] = "You enter a room filled with shelves and shelves of books, stacking up to the ceiling. At the back of the room, you notice a bookshelf that is pushed in slightly from the others. As you walk up for a closer look, you notice a small wooden keyhole on the right side.";
-  library->setDescription(libraryDescription);
+  library->addItem(book);
+  library->setExit(EAST, hallway->getName(), NULL);
+  library->setExit(WEST, secretTunnel->getName(), woodenKey->getName());
+  library->setDescription(strcpy(new char[200], "You enter a room filled with shelves and shelves of books, stacking up to the ceiling. At the back of the room, you notice a bookshelf that is pushed in slightly from the others. As you walk up for a closer look, you notice a small wooden keyhole on the right side."));
   
-  secretTunnel->setExit(EAST, libraryName, woodenKeyName);
-  secretTunnel->setExit(WEST, dragonDungeonName, swordName);
-  char secretTunnelDescription[] = "As you slide the key into the bookshelf, it swings open, revealing a dark, stone tunnel behind it. It smells musty, and you can hear water dripping down the tunnel.";
-  secretTunnel->setDescription(secretTunnelDescription);
+  secretTunnel->setExit(EAST, library->getName(), woodenKey->getName());
+  secretTunnel->setExit(WEST, dragonDungeon->getName(), sword->getName());
+  secretTunnel->setDescription(strcpy(new char[200], "As you slide the key into the bookshelf, it swings open, revealing a dark, stone tunnel behind it. It smells musty, and you can hear water dripping down the tunnel."));
   
-  dragonDungeon->addItem(new Item(boneName));
-  dragonDungeon->addItem(new Item(scaleName));
-  dragonDungeon->setExit(EAST, libraryName, NULL);
-  dragonDungeon->setExit(NORTH, passagewayName, NULL);
-  char dragonDungeonDescription[] = "After stabbing the dragon with your sword, it fell to the ground, dead. You walk past the slayed dragon into a huge cavern with moss climbing up its walls. There's a light somewhere in the distance.";
+  dragonDungeon->addItem(bone);
+  dragonDungeon->addItem(scale);
+  dragonDungeon->setExit(EAST, library->getName(), NULL);
+  dragonDungeon->setExit(NORTH, passageway->getName(), NULL);
   char dragonDungeonDescription2[] = "You walk past the slayed dragon into a huge cavern with moss climbing up its walls. The'res a light somewhere in the distance.";
-  dragonDungeon->setDescription(dragonDungeonDescription);
+  dragonDungeon->setDescription(strcpy(new char[200], "After stabbing the dragon with your sword, it fell to the ground, dead. You walk past the slayed dragon into a huge cavern with moss climbing up its walls. There's a light somewhere in the distance."));
 
-  passageway->setExit(SOUTH, dragonDungeonName, NULL);
-  passageway->setExit(NORTH, outsideName, crownName);
-  char passagewayDescription[] = "After traveling toward the light, you enter a long passageway carved into the stone. At the end you can see an exit leading outside, but there are four guards visisble on either side.";
-  passageway->setDescription(passagewayDescription);
+  passageway->setExit(SOUTH, dragonDungeon->getName(), NULL);
+  passageway->setExit(NORTH, outside->getName(), crown->getName());
+  passageway->setDescription(strcpy(new char[200], "After traveling toward the light, you enter a long passageway carved into the stone. At the end you can see an exit leading outside, but there are four guards visisble on either side."));
 
-  outside->setExit(SOUTH, passagewayName, outsideName);
-  char outsideDescription[] = "When the guards see your crown, they let you pass immediately, bowing respectfully. You look out onto an open mountainous landscape and a clear blue sky.";
-  outside->setDescription(outsideDescription);
+  outside->setDescription(strcpy(new char[200], "When the guards see your crown, they let you pass immediately, bowing respectfully. You look out onto an open mountainous landscape and a clear blue sky."));
 
   cout << "Welcome to Zuul: escape the castle!" << endl;
   cout << "Commands:" << endl;
@@ -152,12 +134,69 @@ int main() {
   Room* currentRoom;
   currentRoom = cell;
 
-  cout << "Room 1: " << endl;
+  cout << "Room: " << cell->getName() << endl;
   currentRoom->printDescription();
+  
+  char input[21];
+  cin.getline(input, 21);
 
-  char input[10];
-  cin >> input;
-  
-  
-}
+  bool valid = false;
+  if(strcmp(input, "observe") == 0) {
+    vector<Item*>* items = currentRoom->getItems();
+    for(int i = 0; i < items->size(); i++) {
+      cout << (*items)[i]->getName() << " ";
+    }
+    cout << endl;
+    valid = true;
+  } else if(strcmp(input, "inv") == 0) {
+    for(int i = 0; i < inventory->size(); i ++) {
+      cout << (*inventory)[i]->getName();
+    }
+    cout << endl;
+    valid = true;
+  } else {
+
+    char first[10];
+    bool space;
+    int i = 0;
+    while(space == false) {
+      if(input[i] == ' ') {
+	space = true;
+      }
+      first[i] = input[i];
+      i++;
+    }
+
+    char second[10];
+    int j = 0;
+    for(i+1; i < strlen(input)-i; i++) {
+      second[j] = input[i];
+      j++;
+    }
+    
+    if(strcmp(first, "go") == 0) {
+      if(strcmp(second, "n") == 0) {
+	for(int i = 0; i < rooms->size(); i++) {
+	  if(strcmp(currentRoom->getExit(NORTH), (*rooms)[i]->getName()) == 0) {
+	    if(currentRoom->getKey(NORTH) == NULL) {   
+	      currentRoom = (*rooms)[i];
+	    } else {
+	      bool unlocked = false;
+	      for(int j = 0; j < inventory->size(); j++) {
+		if(strcmp((*inventory)[j]->getName(), currentRoom->getKey(NORTH)) == 0) {
+		  currentRoom = (*rooms)[i];
+		  unlocked = true;
+		}
+	      }
+	      if(unlocked = false) {
+		
+	      }
+	    }   
+	  }
+	} else if(strcmp(second, "e") == 0) {
+
+	}
+      }
+    }
+  }
     
