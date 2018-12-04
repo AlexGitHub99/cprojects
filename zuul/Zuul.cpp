@@ -134,12 +134,28 @@ int main() {
   Room* currentRoom;
   currentRoom = cell;
 
+  
+  bool playing = true;
+
   cout << "Room: " << cell->getName() << endl;
   currentRoom->printDescription();
-  
-  char input[21];
+  cout << endl;
+  cout << "Exits: ";
+  cout << "North: ";
+  cout << currentRoom->getExit(NORTH);
+  cout << " East: ";
+  cout << currentRoom->getExit(EAST);
+  cout << " South: ";
+  cout << currentRoom->getExit(SOUTH);
+  cout << " West: ";
+  cout << currentRoom->getExit(WEST);
+	      
+  while(playing = true) {
+
+    char input[21] = " ";
   cin.getline(input, 21);
 
+  
   bool valid = false;
   if(strcmp(input, "observe") == 0) {
     vector<Item*>* items = currentRoom->getItems();
@@ -180,23 +196,107 @@ int main() {
 	  if(strcmp(currentRoom->getExit(NORTH), (*rooms)[i]->getName()) == 0) {
 	    if(currentRoom->getKey(NORTH) == NULL) {   
 	      currentRoom = (*rooms)[i];
+	      cout << "Room: " << cell->getName() << endl;
+	      currentRoom->printDescription();
+	      cout << endl;
 	    } else {
 	      bool unlocked = false;
 	      for(int j = 0; j < inventory->size(); j++) {
 		if(strcmp((*inventory)[j]->getName(), currentRoom->getKey(NORTH)) == 0) {
 		  currentRoom = (*rooms)[i];
 		  unlocked = true;
+		  cout << "Room: " << cell->getName() << endl;
+		  currentRoom->printDescription();
+		  cout << endl;
 		}
 	      }
 	      if(unlocked = false) {
-		
+		cout << "That exit is blocked!";
 	      }
 	    }   
 	  }
-	} else if(strcmp(second, "e") == 0) {
-
+	}
+      } else if(strcmp(second, "e") == 0) {
+	for(int i = 0; i < rooms->size(); i++) {
+	  if(strcmp(currentRoom->getExit(EAST), (*rooms)[i]->getName()) == 0) {
+	    if(currentRoom->getKey(EAST) == NULL) {   
+	      currentRoom = (*rooms)[i];
+	      cout << "Room: " << cell->getName() << endl;
+	      currentRoom->printDescription();
+	      cout << endl;
+	    } else {
+	      bool unlocked = false;
+	      for(int j = 0; j < inventory->size(); j++) {
+		if(strcmp((*inventory)[j]->getName(), currentRoom->getKey(EAST)) == 0) {
+		  currentRoom = (*rooms)[i];
+		  unlocked = true;
+		  cout << "Room: " << cell->getName() << endl;
+		  currentRoom->printDescription();
+		  cout << endl;
+		}
+	      }
+	      if(unlocked = false) {
+		cout << "That exit is blocked!";
+	      }
+	    }   
+	  }
 	}
       }
+      else if(strcmp(second, "s") == 0) {
+	for(int i = 0; i < rooms->size(); i++) {
+	  if(strcmp(currentRoom->getExit(SOUTH), (*rooms)[i]->getName()) == 0) {
+	    if(currentRoom->getKey(SOUTH) == NULL) {   
+	      currentRoom = (*rooms)[i];
+	      cout << "Room: " << cell->getName() << endl;
+	      currentRoom->printDescription();
+	      cout << endl;
+	    } else {
+	      bool unlocked = false;
+	      for(int j = 0; j < inventory->size(); j++) {
+		if(strcmp((*inventory)[j]->getName(), currentRoom->getKey(SOUTH)) == 0) {
+		  currentRoom = (*rooms)[i];
+		  unlocked = true;
+		  cout << "Room: " << cell->getName() << endl;
+		  currentRoom->printDescription();
+		  cout << endl;
+		}
+	      }
+	      if(unlocked = false) {
+		cout << "That exit is blocked!";
+	      }
+	    }   
+	  }
+	}
+      }
+      else if(strcmp(second, "w") == 0) {
+	for(int i = 0; i < rooms->size(); i++) {
+	  if(strcmp(currentRoom->getExit(WEST), (*rooms)[i]->getName()) == 0) {
+	    if(currentRoom->getKey(WEST) == NULL) {   
+	      currentRoom = (*rooms)[i];
+	      cout << "Room: " << cell->getName() << endl;
+	      currentRoom->printDescription();
+	      cout << endl;
+	    } else {
+	      bool unlocked = false;
+	      for(int j = 0; j < inventory->size(); j++) {
+		if(strcmp((*inventory)[j]->getName(), currentRoom->getKey(WEST)) == 0) {
+		  currentRoom = (*rooms)[i];
+		  unlocked = true;
+		  cout << "Room: " << cell->getName() << endl;
+		  currentRoom->printDescription();
+		  cout << endl;
+		}
+	      }
+	      if(unlocked = false) {
+		cout << "That exit is blocked!";
+	      }
+	    }   
+	  }
+	}
+      }
+
     }
   }
+  }
+}
     
