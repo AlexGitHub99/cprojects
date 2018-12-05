@@ -137,21 +137,20 @@ int main() {
   
   Room* currentRoom;
   currentRoom = cell;
-  
-  
-  bool playing = true;
 
+  
   cout << "Room: " << currentRoom->getName() << endl;
   currentRoom->printDescription();
   cout << endl;
   printExits(currentRoom);
   cout << endl << endl;
   
+  bool playing = true;
+  
   while(playing = true) {
-
+    
     char input[21] = " ";
     cin.getline(input, 21);
-    
     
     bool valid = false;
     if(strcmp(input, "observe") == 0) {
@@ -183,7 +182,7 @@ int main() {
 	i++;
       }
       
-      char second[10] = " ";
+      char second[20] = " ";
       int j = 0;
       i++;
       for(i; i < strlen(input); i++) {
@@ -215,12 +214,14 @@ int main() {
 		}   
 	      }
 	    }
-	    currentRoom = nextRoom;
-	    cout << "Room: " << currentRoom->getName() << endl;
-	    currentRoom->printDescription();
-	    cout << endl;
-	    printExits(currentRoom);
-	    cout << endl;
+	    if(currentRoom != nextRoom) {
+	      currentRoom = nextRoom;
+	      cout << "Room: " << currentRoom->getName() << endl;
+	      currentRoom->printDescription();
+	      cout << endl;
+	      printExits(currentRoom);
+	      cout << endl;
+	    }
 	  }
 	} else if(strcmp(second, "e") == 0) {
 	  if(currentRoom->getExit(EAST) == NULL) {
@@ -245,12 +246,14 @@ int main() {
 		}   
 	      }
 	    }
-	    currentRoom = nextRoom;
-	    cout << "Room: " << currentRoom->getName() << endl;
-	    currentRoom->printDescription();
-	    cout << endl;
-	    printExits(currentRoom);
-	    cout << endl;
+	    if(currentRoom != nextRoom) {
+	      currentRoom = nextRoom;
+	      cout << "Room: " << currentRoom->getName() << endl;
+	      currentRoom->printDescription();
+	      cout << endl;
+	      printExits(currentRoom);
+	      cout << endl;
+	    }
 	  }
 	}
 	else if(strcmp(second, "s") == 0) {
@@ -276,12 +279,14 @@ int main() {
 		}   
 	      }
 	    }
-	    currentRoom = nextRoom;
-	    cout << "Room: " << currentRoom->getName() << endl;
-	    currentRoom->printDescription();
-	    cout << endl;
-	    printExits(currentRoom);
-	    cout << endl;
+	    if(currentRoom != nextRoom) {
+	      currentRoom = nextRoom;
+	      cout << "Room: " << currentRoom->getName() << endl;
+	      currentRoom->printDescription();
+	      cout << endl;
+	      printExits(currentRoom);
+	      cout << endl;
+	    }
 	  }
 	}
 	else if(strcmp(second, "w") == 0) {
@@ -307,12 +312,14 @@ int main() {
 		}   
 	      }
 	    }
-	    currentRoom = nextRoom;
-	    cout << "Room: " << currentRoom->getName() << endl;
-	    currentRoom->printDescription();
-	    cout << endl;
-	    printExits(currentRoom);
-	    cout << endl;
+	    if(currentRoom != nextRoom) {
+	      currentRoom = nextRoom;
+	      cout << "Room: " << currentRoom->getName() << endl;
+	      currentRoom->printDescription();
+	      cout << endl;
+	      printExits(currentRoom);
+	      cout << endl;
+	    }
 	  }
 	} else {
 	  cout << "That is not a valid direction!" << endl;
@@ -332,13 +339,14 @@ int main() {
 	}
       }
     }
+    cout << endl;
   }
 }
 
 void printExits(Room* currentRoom) {
-  cout << "Exits: ";
+  cout << "Exits:";
   if(currentRoom->getExit(NORTH) != NULL) {
-    cout << "NORTH: " << currentRoom->getExit(NORTH);
+    cout << " NORTH: " << currentRoom->getExit(NORTH);
   }
   if(currentRoom->getExit(EAST) != NULL) {
     cout << " EAST: " << currentRoom->getExit(EAST);
