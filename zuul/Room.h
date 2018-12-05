@@ -16,7 +16,8 @@ class Room {
   vector<Item*>* getItems();
   char* getExit(int direction);
   char* getKey(int direction);
-  Item* getItem(char* name);
+  Item* getItem(char* itemName);
+  void removeItem(char* itemName);
   void addItem(Item* item);
   void setExit(int direction, char* name, char* key);
   void setDescription(char* newDescription);

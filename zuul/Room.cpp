@@ -37,6 +37,14 @@ Item* Room::getItem(char* itemName) {
   }
 }
 
+void Room::removeItem(char* itemName) {
+  for(int i = 0; i < items->size(); i++) {
+    if(strcmp((*items)[i]->getName(), itemName) == 0) {
+      items->erase(items->begin() + i);
+    }
+  }
+}
+
 void Room::addItem(Item* item) {
   items->push_back(item);
 }
