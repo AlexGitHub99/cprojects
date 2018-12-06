@@ -35,7 +35,7 @@ int main() {
   rooms->push_back(cooridor);
   Room* throneRoom = new Room(strcpy(new char[20], "Throne Room\0"));
   rooms->push_back(throneRoom);
-  Room* servantsQuarters = new Room(strcpy(new char[20], "Servantd Quarters\0"));
+  Room* servantsQuarters = new Room(strcpy(new char[20], "Servants Quarters\0"));
   rooms->push_back(servantsQuarters);
   Room* guardRoom = new Room(strcpy(new char[20], "Guard Room\0"));
   rooms->push_back(guardRoom);
@@ -91,7 +91,7 @@ int main() {
   cooridor->setExit(EAST, guardRoom->getName(), NULL);
   cooridor->setExit(SOUTH, throneRoom->getName(), goldenKey->getName());
   cooridor->setExit(WEST, kitchen->getName(), NULL);
-  cooridor->setDescription(strcpy(new char[200], "A tall, narrow corridor stretches out before you, there are stained glass windows on the sides and ceiling, lighting up the area. Doors lead away in all directions. The largest door is decorated in ornate gold designs, and has a large golden key hole in the center."));
+  cooridor->setDescription(strcpy(new char[300], "A tall, narrow corridor stretches out before you, there are stained glass windows on the sides and ceiling, lighting up the area. Doors lead away in all directions. The largest door is decorated in ornate gold designs, and has a large golden key hole in the center."));
 
   servantsQuarters->setExit(SOUTH, cooridor->getName(), NULL);
   servantsQuarters->setDescription(strcpy(new char[200], "You step into a drab, dimly lit room, with many beds seperated by wooden barriers. It smells unnapealing. A few servants give you suspicous glances, but leave you alone."));
@@ -107,7 +107,7 @@ int main() {
   library->addItem(book);
   library->setExit(EAST, hallway->getName(), NULL);
   library->setExit(WEST, secretTunnel->getName(), woodenKey->getName());
-  library->setDescription(strcpy(new char[200], "You enter a room filled with shelves and shelves of books, stacking up to the ceiling. At the back of the room, you notice a bookshelf that is pushed in slightly from the others. As you walk up for a closer look, you notice a small wooden keyhole on the right side."));
+  library->setDescription(strcpy(new char[300], "You enter a room filled with shelves and shelves of books, stacking up to the ceiling. At the back of the room, you notice a bookshelf that is pushed in slightly from the others. As you walk up for a closer look, you notice a small wooden keyhole on the right side."));
   
   secretTunnel->setExit(EAST, library->getName(), woodenKey->getName());
   secretTunnel->setExit(WEST, dragonDungeon->getName(), sword->getName());
@@ -115,7 +115,7 @@ int main() {
   
   dragonDungeon->addItem(bone);
   dragonDungeon->addItem(scale);
-  dragonDungeon->setExit(EAST, library->getName(), NULL);
+  dragonDungeon->setExit(EAST, secretTunnel->getName(), NULL);
   dragonDungeon->setExit(NORTH, passageway->getName(), NULL);
   char dragonDungeonDescription2[] = "You walk past the slayed dragon into a huge cavern with moss climbing up its walls. The'res a light somewhere in the distance.";
   dragonDungeon->setDescription(strcpy(new char[200], "After stabbing the dragon with your sword, it fell to the ground, dead. You walk past the slayed dragon into a huge cavern with moss climbing up its walls. There's a light somewhere in the distance."));
@@ -133,6 +133,7 @@ int main() {
   cout << "pickup <itemname> -- pickup an item" << endl;
   cout << "drop <itemname> -- drop an item into the room your in" << endl;
   cout << "inv -- view your inventory" << endl;
+  cout << "quit -- quit the game" << endl;
   cout << endl;
   
   Room* currentRoom;
@@ -147,7 +148,7 @@ int main() {
   
   bool playing = true;
   
-  while(playing = true) {
+  while(playing == true) {
     
     char input[21] = " ";
     cin.getline(input, 21);
@@ -157,14 +158,14 @@ int main() {
       cout << "Items in room: ";
       vector<Item*>* items = currentRoom->getItems();
       for(int i = 0; i < items->size(); i++) {
-	cout << (*items)[i]->getName() << " ";
+	cout << (*items)[i]->getName() << ", ";
       }
       cout << endl;
       valid = true;
     } else if(strcmp(input, "inv") == 0) {
       cout << "Inventory: ";
       for(int i = 0; i < inventory->size(); i ++) {
-	cout << (*inventory)[i]->getName() << " ";
+	cout << (*inventory)[i]->getName() << ", ";
       }
       cout << endl;
       valid = true;
@@ -190,7 +191,10 @@ int main() {
 	j++;
       }
       
-       if(strcmp(first, "go") == 0) {
+      if(strcmp(first, "go") == 0) {
+	if(strcmp(currentRoom->getName(), "Dragon Dungeon\0") == 0) {
+	  currentRoom->setDescription(strcpy(new char[200],dragonDungeonDescription2));
+	}
 	if(strcmp(second, "n") == 0) {
 	  if(currentRoom->getExit(NORTH) == NULL) {
 	    cout << "There is no exit in that direction!" << endl;
@@ -255,8 +259,7 @@ int main() {
 	      cout << endl;
 	    }
 	  }
-	}
-	else if(strcmp(second, "s") == 0) {
+	} else if(strcmp(second, "s") == 0) {
 	  if(currentRoom->getExit(SOUTH) == NULL) {
 	    cout << "There is no exit in that direction!" << endl;
 	  } else {
@@ -288,8 +291,7 @@ int main() {
 	      cout << endl;
 	    }
 	  }
-	}
-	else if(strcmp(second, "w") == 0) {
+	} else if(strcmp(second, "w") == 0) {
 	  if(currentRoom->getExit(WEST) == NULL) {
 	    cout << "There is no exit in that direction!" << endl;
 	  } else {
@@ -335,9 +337,29 @@ int main() {
 	  }
 	}
 	if(successful == false) {
-	  cout << "That item is not in the room!" << endl;
+	  cout << "Item is not in the room!" << endl;
+	} else {
+	  cout << "Picked up " << second << endl;
 	}
-      }
+       }else if(strcmp(first, "drop") == 0) {
+	 bool successful = false;
+	 for(int i = 0; i < inventory->size(); i++) {
+	   if(strcmp((*inventory)[i]->getName(), second) == 0) {
+	     inventory->erase(inventory->begin()+i);
+	     currentRoom->addItem((*inventory)[i]);
+	     successful = true;
+	   }
+	 }
+	 if(successful == false) {
+	   cout << "Item not in your inventory!" << endl;
+	 } else {
+	   cout << "Dropped " << second << endl;
+	 }
+       } else if(strcmp(input, "quit") == 0) {
+	 playing = false;
+       } else {
+	 cout << "Invalid command" << endl;
+       }
     }
     cout << endl;
   }
@@ -346,15 +368,15 @@ int main() {
 void printExits(Room* currentRoom) {
   cout << "Exits:";
   if(currentRoom->getExit(NORTH) != NULL) {
-    cout << " NORTH: " << currentRoom->getExit(NORTH);
+    cout << " North: " << currentRoom->getExit(NORTH) << ",";
   }
   if(currentRoom->getExit(EAST) != NULL) {
-    cout << " EAST: " << currentRoom->getExit(EAST);
+    cout << " East: " << currentRoom->getExit(EAST) << ",";
   }
   if(currentRoom->getExit(SOUTH) != NULL) {
-    cout << " SOUTH: " << currentRoom->getExit(SOUTH);
+    cout << " South: " << currentRoom->getExit(SOUTH) << ",";
   }
   if(currentRoom->getExit(WEST) != NULL) {
-    cout << " WEST: " << currentRoom->getExit(WEST);
+    cout << " West: " << currentRoom->getExit(WEST);
   }
 }
