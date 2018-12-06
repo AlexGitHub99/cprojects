@@ -192,9 +192,6 @@ int main() {
       }
       
       if(strcmp(first, "go") == 0) {
-	if(strcmp(currentRoom->getName(), "Dragon Dungeon\0") == 0) {
-	  currentRoom->setDescription(strcpy(new char[200],dragonDungeonDescription2));
-	}
 	if(strcmp(second, "n") == 0) {
 	  if(currentRoom->getExit(NORTH) == NULL) {
 	    cout << "There is no exit in that direction!" << endl;
@@ -362,6 +359,13 @@ int main() {
        }
     }
     cout << endl;
+    if(strcmp(currentRoom->getName(), "Dragon Dungeon\0") == 0) {
+      currentRoom->setDescription(strcpy(new char[200],dragonDungeonDescription2));
+    }
+    if(strcmp(currentRoom->getName(), "Outside\0") == 0) {
+      cout << "YOU ESCAPED AND WON THE GAME!";
+      playing = false;
+    }
   }
 }
 
