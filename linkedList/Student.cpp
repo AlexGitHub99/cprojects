@@ -1,13 +1,12 @@
 #include "student.h"
 #include <iostream>
-
-use namespace std;
+#include <cstring>
 
 Student::Student() {
 }
 
 void Student::setName(char* newName) {
-  strcpy(name, newname);
+  strcpy(name, newName);
 }
 
 void Student::setId(int newId) {
@@ -22,10 +21,10 @@ char* Student::getName() {
   return name;
 }
 
-int Student:getId() {
+int Student::getId() {
   return id;
 }
 
-float Student:getGpa() {
+float Student::getGpa() {
   return gpa;
 }
