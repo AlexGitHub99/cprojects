@@ -10,6 +10,7 @@ Users can type in command add, print, delete, and quit.
 #include <cmath>
 #include <ios>
 #include "Student.cpp"
+#include "Node.h"
 
 using namespace std;
 
@@ -157,7 +158,7 @@ int main() {
     }
   }
 }
-void addStudent(vector<student*>* &studentList, char first[10], char last[10], int id, float gpa) { //adds student to student list
+void addStudent(Node* head, char first[10], char last[10], int id, float gpa) { //adds student to student list
   student* newStudent = new student;
   
   for(int i = 0; i < 10; i++ ) { //sets the first name of the student struct to the passed in value
@@ -175,7 +176,7 @@ void addStudent(vector<student*>* &studentList, char first[10], char last[10], i
   
 }
 
-void printStudent(vector<student*>* &studentList) { //prints all students
+void printStudent(Node* head) { //prints all students
   for(int i = 0; i < studentList->size(); i++) { //go through each student in student list
     cout << (*studentList)[i]->first << " " << (*studentList)[i]->last << ", ";
     cout << (*studentList)[i]->id << ", ";
@@ -183,7 +184,7 @@ void printStudent(vector<student*>* &studentList) { //prints all students
   }
 }
 
-bool delStudent(vector<student*>* &studentList, int id) { //deletes a student
+bool delStudent(Node* head, int id) { //deletes a student
   for(int i = 0; i < studentList->size(); i++) { //go through each student in student list until the id matches
     if((*studentList)[i]->id == id) {
       delete[] (*studentList)[i]; //delete the struct itself
