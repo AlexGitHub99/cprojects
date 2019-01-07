@@ -172,16 +172,25 @@ void addStudent(Node* head, char first[10], char last[10], int id, float gpa) { 
   newStudent->id = id;
   newStudent->gpa = gpa;
 
-  studentList->push_back (newStudent); //inserts newStudent after the last element in studentList
+  //studentList->push_back (newStudent); //inserts newStudent after the last element in studentList
   
 }
 
-void printStudent(Node* head) { //prints all students
+void printStudent(Node* &head, Node* next) { //prints all students
+  if(next == head) {
+    cout << "Students:" << endl;
+  }
+  if(next != null) {
+    
+  }
+  /***
   for(int i = 0; i < studentList->size(); i++) { //go through each student in student list
     cout << (*studentList)[i]->first << " " << (*studentList)[i]->last << ", ";
     cout << (*studentList)[i]->id << ", ";
     cout << (*studentList)[i]->gpa << endl;
   }
+  ***/
+  
 }
 
 bool delStudent(Node* head, int id) { //deletes a student
