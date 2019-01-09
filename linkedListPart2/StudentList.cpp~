@@ -181,10 +181,10 @@ void printStudent(Node* &head, Node* next) { //prints all students
     cout << "Students:" << endl;
   }
   if(next != null) {
-    cout << "First Name: " << next->getValue()->getFirst() << endl;
-    cout << "Last Name: " << next->getValue()->getLast() << endl;
-    cout << "Student ID: " << next->getValue()->getId() << endl;
-    cout << "GPA: " << next->getValue()->getGpa() << endl;
+    cout << "First Name: " << next->getFirst() << endl;
+    cout << "Last Name: " << next->getLast() << endl;
+    cout << "Student ID: " << next->getId() << endl;
+    cout << "GPA: " << next->getGpa() << endl;
     cout << "----------------------------------";
     printStudent(head, next->getNext());
     
