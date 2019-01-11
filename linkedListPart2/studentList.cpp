@@ -9,7 +9,6 @@ Users can type in command add, print, delete, and quit.
 #include <vector>
 #include <cmath>
 #include <ios>
-#include "Student.cpp"
 #include "Node.h"
 
 using namespace std;
@@ -33,7 +32,8 @@ int main() {
   //End of used code
   
   vector<student*>* studentList = new vector<student*>(); //creates a new vector pointer of struct pointers on the heap
-
+  Node* head = new Node();
+  
   cout << "Welcome to Student List! Commands:" << endl << "add - add a student" << endl << "print - prints all students" << endl << "delete - delete a student" << endl << "quit - quit the program" << endl;
   
   bool running = true;
@@ -109,7 +109,7 @@ int main() {
       }
 
       
-      addStudent(studentList, first, last, id, gpa);
+      addStudent(head, first, last, id, gpa);
       cout << "Added " << first << " " << last << " with id " << id << " and gpa " << gpa << endl;
     }
     

@@ -1,10 +1,10 @@
 #include "Student.h"
-
+#include <cstring>
 using namespace std;
 
 Student::Student(char* newFirst, char* newLast, int newId, float newGpa) {
-  strcpy(first, newFirst)
-  strcp(last, newLast);
+  strcpy(first, newFirst);
+  strcpy(last, newLast);
   id = newId;
   gpa = newGpa;
 }
