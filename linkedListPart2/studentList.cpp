@@ -13,16 +13,9 @@ Users can type in command add, print, delete, and quit.
 
 using namespace std;
 
-struct student {
-  char first[10];
-  char last[10];
-  int id;
-  float gpa;
-};
-
 void addStudent(Node* head, char first[11], char last[11], int id, float gpa);
 void printStudent(Node* &head, Node* next);
-bool delStudent(Node* head, int id);
+bool delStudent(Node* next, int id);
 
 int main() {
   //I got this code from stack overflow user:Melebius
@@ -31,8 +24,7 @@ int main() {
   cout.precision(2); //sets the significant digits for floats to 2
   //End of used code
   
-  vector<student*>* studentList = new vector<student*>(); //creates a new vector pointer of struct pointers on the heap
-  Node* head = new Node();
+  Node* head = new Node(NULL); //creates head node of linked list
   
   cout << "Welcome to Student List! Commands:" << endl << "add - add a student" << endl << "print - prints all students" << endl << "delete - delete a student" << endl << "quit - quit the program" << endl;
   
@@ -114,7 +106,7 @@ int main() {
     }
     
     if(strcmp(input, "print") == 0) { //user typed print command
-      printStudent(studentList);
+      printStudent(head, head);
     }
 
     if(strcmp(input, "delete") == 0) { //user typed delete command
@@ -146,7 +138,7 @@ int main() {
 	//end of code where idea was used
       }
 
-      if(delStudent(studentList, id) == true) {
+      if(delStudent(head, id) == true) {
 	cout << "Deleted student with id " << id << endl;
       } else {
 	cout << "Student not found" << endl; 
@@ -158,20 +150,16 @@ int main() {
     }
   }
 }
-void addStudent(Node* head, char first[10], char last[10], int id, float gpa) { //adds student to student list
-  student* newStudent = new student;
-  
-  for(int i = 0; i < 10; i++ ) { //sets the first name of the student struct to the passed in value
-    newStudent->first[i] = first[i];
-  }
-  
-  for(int i = 0; i < 10; i ++) { //sets the last name of the student struct to the passed in value
-    newStudent->last[i] = last[i];
-  }
- 
-  newStudent->id = id;
-  newStudent->gpa = gpa;
+void addStudent(Node* next, char first[10], char last[10], int id, float gpa) { //adds student to student list
+  if(next->getNext() == NULL) {
 
+    Student* newStudent = new Student(first, last, id, gpa);
+    
+    Node* newNode = new Node(newStudent);
+    next->setNext(newNode);
+  } else {
+    addStudent(next->getNext(), first, last, id, gpa);
+  }
   //studentList->push_back (newStudent); //inserts newStudent after the last element in studentList
   
 }
@@ -180,11 +168,11 @@ void printStudent(Node* &head, Node* next) { //prints all students
   if(next == head) {
     cout << "Students:" << endl;
   }
-  if(next != null) {
-    cout << "First Name: " << next->getValue()->getFirst() << endl;
-    cout << "Last Name: " << next->getValue()->getLast() << endl;
-    cout << "Student ID: " << next->getValue()->getId() << endl;
-    cout << "GPA: " << next->getValue()->getGpa() << endl;
+  if(next != NULL) {
+    cout << "First Name: " << next->getStudent()->getFirst() << endl;
+    cout << "Last Name: " << next->getStudent()->getLast() << endl;
+    cout << "Student ID: " << next->getStudent()->getId() << endl;
+    cout << "GPA: " << next->getStudent()->getGpa() << endl;
     cout << "----------------------------------";
     printStudent(head, next->getNext());
     
@@ -200,7 +188,7 @@ void printStudent(Node* &head, Node* next) { //prints all students
   
 }
 
-bool delStudent(Node* head, int id) { //deletes a student
+bool delStudent(Node* next, int id) { //deletes a student
   /***
   for(int i = 0; i < studentList->size(); i++) { //go through each student in student list until the id matches
     if((*studentList)[i]->id == id) {
@@ -211,4 +199,16 @@ bool delStudent(Node* head, int id) { //deletes a student
   }
   return false; //student not found
   ***/
+  if(next->getNext()->getStudent()->getId() == id) {
+    Node* tempNext = next->getNext();
+    next->setNext(next->getNext()->getNext());
+    delete tempNext;
+    return true;
+  } else {
+    return false;
+  }
+  
+  if(delStudent(next, id) == true) {
+    return true;
+  }
 }

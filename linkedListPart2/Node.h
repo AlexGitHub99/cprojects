@@ -1,32 +1,21 @@
-/*
-Nathan Taylor
-Header File for Node Class
-HAVE FUN!
-*/
-
-#include <cstring>
-#include <cstdlib>
+#ifndef NODE_H
+#define NODE_H
 #include <iostream>
-#include "student.h"
+#include "Student.h"
+#include <cstdlib>
 
 using namespace std;
 
-class Node
-{
+class Node{
  public:
-  //class init
-  Node();//sets data and next to null
-  
-  //destructor
-  ~Node();//deletes student
-  
-  //function init
-  setStudent(Student* nstudent);
-  Student* getStudent();
-  setNext(Node* nnode);
+  Node(Student* newvalue);
+  ~Node();
   Node* getNext();
-  
-  //variable init
+  Student* getStudent();
+  void setNext(Node* newnext);
+private:
+  Student* value;
   Node* next;
-  Student* data;
 };
+
+#endif

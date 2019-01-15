@@ -1,4 +1,4 @@
-#include "Student.h"
+#include "student.h"
 #include <cstring>
 using namespace std;
 
