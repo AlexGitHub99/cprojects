@@ -2,7 +2,7 @@
 #include <cstring>
 using namespace std;
 
-Student::Student(char* newFirst, char* newLast, int newId, float newGpa) {
+Student::Student(char newFirst[10], char newLast[10], int newId, float newGpa) {
   strcpy(first, newFirst);
   strcpy(last, newLast);
   id = newId;

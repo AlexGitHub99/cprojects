@@ -1,8 +1,8 @@
 /***
 Author: Alex King
-Last modified: 10/10/18
-This program stores a list of students using a vector pointer of struct pointers. Each struct contains a first name, last name, id, and gpa.
-Users can type in command add, print, delete, and quit.
+Last modified: 1/15/19
+This program stores a list of students using a linked list of student classes. Each class contains a first name, last name, id, and gpa.
+Users can type in command add, print, delete, avggpa, and quit.
  ***/
 #include <iostream>
 #include <cstring>
@@ -13,10 +13,10 @@ Users can type in command add, print, delete, and quit.
 
 using namespace std;
 
-void addStudent(Node* head, char first[11], char last[11], int id, float gpa);
+void addStudent(Node* next, char first[11], char last[11], int id, float gpa);
 void printStudent(Node* &head, Node* next);
 bool delStudent(Node* next, int id);
-
+void avg(Node* &head, Node* next, float sum, int num);
 int main() {
   //I got this code from stack overflow user:Melebius
   //http://stackoverflow.com/questions/14369673/round-double-to-3-points-decimal
@@ -26,7 +26,7 @@ int main() {
   
   Node* head = new Node(NULL); //creates head node of linked list
   
-  cout << "Welcome to Student List! Commands:" << endl << "add - add a student" << endl << "print - prints all students" << endl << "delete - delete a student" << endl << "quit - quit the program" << endl;
+  cout << "Welcome to Student List! Commands:" << endl << "add - add a student" << endl << "print - prints all students" << endl << "delete - delete a student" << endl << "avggpa - prints out an avg of all students gpa" << endl << "quit - quit the program" << endl;
   
   bool running = true;
   
@@ -108,7 +108,9 @@ int main() {
     if(strcmp(input, "print") == 0) { //user typed print command
       printStudent(head, head);
     }
-
+    if(strcmp(input, "avggpa") == 0) { //user types avg command
+      avg(head, head, 0, 0);
+    }
     if(strcmp(input, "delete") == 0) { //user typed delete command
       int id = 0;
       
@@ -168,15 +170,15 @@ void printStudent(Node* &head, Node* next) { //prints all students
   if(next == head) {
     cout << "Students:" << endl;
   }
-  if(next != NULL) {
-    cout << "First Name: " << next->getStudent()->getFirst() << endl;
-    cout << "Last Name: " << next->getStudent()->getLast() << endl;
-    cout << "Student ID: " << next->getStudent()->getId() << endl;
-    cout << "GPA: " << next->getStudent()->getGpa() << endl;
-    cout << "----------------------------------";
+  if(next->getNext() != NULL) {
+    cout << "First Name: " << next->getNext()->getStudent()->getFirst() << endl;
+    cout << "Last Name: " << next->getNext()->getStudent()->getLast() << endl;
+    cout << "Student ID: " << next->getNext()->getStudent()->getId() << endl;
+    cout << "GPA: " << next->getNext()->getStudent()->getGpa() << endl;
+    cout << "----------------------------------" << endl;
     printStudent(head, next->getNext());
-    
   }
+  
   
   /***
   for(int i = 0; i < studentList->size(); i++) { //go through each student in student list
@@ -199,16 +201,38 @@ bool delStudent(Node* next, int id) { //deletes a student
   }
   return false; //student not found
   ***/
-  if(next->getNext()->getStudent()->getId() == id) {
-    Node* tempNext = next->getNext();
-    next->setNext(next->getNext()->getNext());
-    delete tempNext;
-    return true;
-  } else {
-    return false;
+  if(next != NULL) {
+    if(next->getNext() != NULL) {
+      bool success = false;
+      if(next->getNext()->getStudent()->getId() == id) {//test the next node's student for a matching id
+	Node* tempNext = next->getNext();//create a temporary pointer to the next node so it can be deleted later 
+	next->setNext(next->getNext()->getNext()); //set the current node's next node to the next node's next node (two nodes down)
+	delete tempNext; //delete the former next node
+	success = true;
+      }
+      if(delStudent(next->getNext(), id) == true or success == true) { //runs the function again. If it returns true (one of the successive recursions
+	//found the student and deleted it successfully) or success is true (the current recursion found the student and deleted it sucessfuly) then return true.
+	return true;
+      }
+    }
   }
-  
-  if(delStudent(next, id) == true) {
-    return true;
+  //either the current node is NULL or the next node is NULL, end of the list has been reached, so return false (no student found and deleted this recursion);
+  return false;
+}
+
+void avg(Node* &head, Node* next, float sum, int num) {
+  if(next == head) {
+    cout << "Average gpa of all students:" << endl;
+  }
+  if(next->getNext() != NULL) {
+    sum += next->getNext()->getStudent()->getGpa(); //add next students gpa to total
+    num += 1; //add 1 to the student count
+    avg(head, next->getNext(), sum, num);
+  } else {
+    if(num == 0) {
+      cout << "No students in list";
+	} else {
+    cout << sum / num << endl; // print out sum of gpas divided by the number of students to find the average
+    }
   }
 }
