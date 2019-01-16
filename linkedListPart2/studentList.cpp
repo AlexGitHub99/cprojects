@@ -30,7 +30,7 @@ int main() {
   
   bool running = true;
   
-  while(running == true) { // main loop
+  while(running == true) { //main loop
     char input[10]; 
     cin.get(input, 7);
     while(cin.get() != '\n');
@@ -162,7 +162,6 @@ void addStudent(Node* next, char first[10], char last[10], int id, float gpa) { 
   } else {
     addStudent(next->getNext(), first, last, id, gpa);
   }
-  //studentList->push_back (newStudent); //inserts newStudent after the last element in studentList
   
 }
 
@@ -178,34 +177,14 @@ void printStudent(Node* &head, Node* next) { //prints all students
     cout << "----------------------------------" << endl;
     printStudent(head, next->getNext());
   }
-  
-  
-  /***
-  for(int i = 0; i < studentList->size(); i++) { //go through each student in student list
-    cout << (*studentList)[i]->first << " " << (*studentList)[i]->last << ", ";
-    cout << (*studentList)[i]->id << ", ";
-    cout << (*studentList)[i]->gpa << endl;
-  }
-  ***/
-  
 }
 
 bool delStudent(Node* next, int id) { //deletes a student
-  /***
-  for(int i = 0; i < studentList->size(); i++) { //go through each student in student list until the id matches
-    if((*studentList)[i]->id == id) {
-      delete[] (*studentList)[i]; //delete the struct itself
-      studentList->erase (studentList->begin() + i); //delete the struct pointer from the studentList vector
-      return true; //deleted successfully
-    } 
-  }
-  return false; //student not found
-  ***/
   if(next != NULL) {
     if(next->getNext() != NULL) {
       bool success = false;
-      if(next->getNext()->getStudent()->getId() == id) {//test the next node's student for a matching id
-	Node* tempNext = next->getNext();//create a temporary pointer to the next node so it can be deleted later 
+      if(next->getNext()->getStudent()->getId() == id) { //test the next node's student for a matching id
+	Node* tempNext = next->getNext(); //create a temporary pointer to the next node so it can be deleted later 
 	next->setNext(next->getNext()->getNext()); //set the current node's next node to the next node's next node (two nodes down)
 	delete tempNext; //delete the former next node
 	success = true;
@@ -229,7 +208,7 @@ void avg(Node* &head, Node* next, float sum, int num) {
     num += 1; //add 1 to the student count
     avg(head, next->getNext(), sum, num);
   } else {
-    if(num == 0) {
+    if(num == 0) { //no students in list
       cout << "No students in list";
 	} else {
     cout << sum / num << endl; // print out sum of gpas divided by the number of students to find the average
