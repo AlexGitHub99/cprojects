@@ -8,7 +8,7 @@ Node::Node() {
 }
 
 Node:: setRight(Node* newRight) {
-	right = newRight
+	right = newRight;
 } 
 
 Node::setLeft(Node* newLeft) {
@@ -27,6 +27,6 @@ Node* Node::getLeft() {
 	return left;
 }
 
-Node* Node::getData() {
+char* Node::getData() {
 	return data;
 }

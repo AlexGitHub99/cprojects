@@ -1,16 +1,32 @@
 #include <iostream>
 #include "Node.h"
 #include <stack>
-
-using namesapce std;
+#include <cstring>
+using namespace std;
 
 main () {
-	stack down;
-	stack right;
+	stack<char> down;
+	stack<char> left;
 	cout << "Please enter a series of operations." << endl;
-	cin.get(char* cChar, 10, ' ');
-	if(cChar > 48 && cChar < 57 || cChar == '(') { // char is a number
-		right.push(cChar);
+	char cChar[101];
+	while(cin.get(cChar, 10, ' ') > 0) {
+		if(strlen(cChar) > 1) { //cChar isa  number
+			for(int i = 0; i < strlen(cChar); i++) {
+				if(cChar[0] > 48 && cChar[0] < 57) { 
+					left.push(cChar[0]);
+					}
+				}
+			}
+		else if(cChar[0] == '(') { // char is a number or left parenthasy
+			left.push(cChar[0]);
+		} else if (cChar[0] == ')') {//char is a right parenthasy
+			left.push(down.top());
+			down.pop();
+		} else {
+			down.push(cChar[0]);
+		}
+} for(int i = 0;i < left.size(); i ++ ) {
+	cout << left.top();
+	left.pop();
 	}
 }
-
