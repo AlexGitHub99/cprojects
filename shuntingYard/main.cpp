@@ -9,7 +9,8 @@ main () {
 	stack<char> left;
 	cout << "Please enter a series of operations." << endl;
 	char cChar[101];
-	while(cin.get(cChar, 10, ' ') > 0) {
+	cin.get(cChar, 10, ' ');
+	while(strlen(cChar) > 0) {
 		if(strlen(cChar) > 1) { //cChar isa  number
 			for(int i = 0; i < strlen(cChar); i++) {
 				if(cChar[0] > 48 && cChar[0] < 57) { 
@@ -25,6 +26,8 @@ main () {
 		} else {
 			down.push(cChar[0]);
 		}
+		cin.get(cChar, 10, ' ');
+
 } for(int i = 0;i < left.size(); i ++ ) {
 	cout << left.top();
 	left.pop();
