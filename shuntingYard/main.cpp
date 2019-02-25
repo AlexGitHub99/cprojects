@@ -13,12 +13,12 @@ main () {
 	while(strlen(cChar) > 0) {
 		if(strlen(cChar) > 1) { //cChar isa  number
 			for(int i = 0; i < strlen(cChar); i++) {
-				if(cChar[0] > 48 && cChar[0] < 57) { 
+				if(cChar[i] > 48 && cChar[i] < 57) { 
 					left.push(cChar[0]);
 					}
 				}
 			}
-		else if(cChar[0] == '(') { // char is a number or left parenthasy
+		else if(cChar[0] == '(') { // char is a left parenthasy
 			left.push(cChar[0]);
 		} else if (cChar[0] == ')') {//char is a right parenthasy
 			left.push(down.top());
