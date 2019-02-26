@@ -7,15 +7,15 @@ Node::Node() {
 	data = NULL;
 }
 
-Node:: setRight(Node* newRight) {
+void Node::setRight(Node* newRight) {
 	right = newRight;
 } 
 
-Node::setLeft(Node* newLeft) {
+void Node::setLeft(Node* newLeft) {
 	left = newLeft;
 }
 
-Node::setData(char* newData) {
+void Node::setData(char* newData) {
 	data = newData;
 }
 
