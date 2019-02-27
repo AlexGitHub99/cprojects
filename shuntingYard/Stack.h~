@@ -1,0 +1,11 @@
+#include "LNode.h"
+
+class Stack {
+ public:
+  Stack();
+  void push(LNode* node);
+  void pop();
+  LNode* top();
+ private:
+  LNode* head;
+};

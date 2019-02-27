@@ -1,10 +1,11 @@
 class LNode {
-	public: 
-	LNode* getNext();
-	void setNext();
-	char* getData();
-	void setData();
-	private:
-	LNode* next;
-	char data;
-}
+ public:
+  LNode();
+  LNode* getNext();
+  void setNext(LNode* newNext);
+  char* getData();
+  void setData(char* newData);
+ private:
+  LNode* next;
+  char* data;
+};
