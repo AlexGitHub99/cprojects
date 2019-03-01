@@ -3,11 +3,11 @@
 class Node {
 	public:
 		Node();
-		setRight(Node* newRight);
+		void setRight(Node* newRight);
 		Node* getRight();
-		setLeft(Node* newLeft);
+		void setLeft(Node* newLeft);
 		Node* getLeft();
-		setData(char* newData);
+		void setData(char* newData);
 		char* getData();
 	private:
 		Node* right;

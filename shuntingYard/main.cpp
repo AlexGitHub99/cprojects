@@ -1,35 +1,36 @@
 #include <iostream>
 #include "Node.h"
-#include <stack>
+#include "Stack.h"
 #include <cstring>
 using namespace std;
 
 main () {
-	stack<char> down;
-	stack<char> left;
+	Stack down;
+	Stack left;
 	cout << "Please enter a series of operations." << endl;
 	char cChar[101];
 	cin.get(cChar, 10, ' ');
 	while(strlen(cChar) > 0) {
-		if(strlen(cChar) > 1) { //cChar isa  number
-			for(int i = 0; i < strlen(cChar); i++) {
-				if(cChar[0] > 48 && cChar[0] < 57) { 
-					left.push(cChar[0]);
-					}
-				}
-			}
-		else if(cChar[0] == '(') { // char is a number or left parenthasy
-			left.push(cChar[0]);
+		if(strlen(cChar) > 1) { //cChar isa  number 
+		  left.push(cChar);
+		} else if(cChar[0] == '(') { // char is a left parenthasy
+			left.push(cChar);
 		} else if (cChar[0] == ')') {//char is a right parenthasy
 			left.push(down.top());
 			down.pop();
 		} else {
-			down.push(cChar[0]);
+			down.push(cChar);
 		}
 		cin.get(cChar, 10, ' ');
 
-} for(int i = 0;i < left.size(); i ++ ) {
+	}
+	bool cont = true;
+	while(cont == true) {
+	  if(left.top() != NULL) {
 	cout << left.top();
 	left.pop();
+	  } else {
+	    cont = false;
+	  }
 	}
 }
