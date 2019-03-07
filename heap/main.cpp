@@ -15,19 +15,29 @@ int main () {
 	while (cin.get() != '\n');
 	if (strcmp(input, "input") == 0) {
 		cout << "Enter up to 100 numbers one at a time";
-		cin.get(input, 10, '\n');
-		while (cin.get() != '\n');
-		int number = 0;
-		for (int i = 0; i < strlen(input);  i++) {
-			number+= (input[i] - 48) * pow(10, strlen(input) - i - 1);
-		}
-		for (int i = 0; i sizeOf(tree); i++) {
-			if (number > tree[i] || tree[i] == 0) {
-				int temp = tree[i];
-				tree[i] = number;
-				number = temp;
+		while (true) {
+			cin.get(input, 10, '\n');
+			while (cin.get() != '\n');
+			int number = 0;
+			for (int i = 0; i < strlen(input); i++) {
+				number += (input[i] - 48) * pow(10, strlen(input) - i - 1);
 			}
+			for (int i = 0; i < 1000; i++) {
+				if (number > tree[i] || tree[i] == 0) {
+					int temp = tree[i];
+					tree[i] = number;
+					number = temp;
+				}
+			}
+			for (int i = 0; i < 10; i++) {
+				cout << tree[i] << endl;
+			}
+		}
 	}
+}
+
+void print(int tree[1000]) {
+
 
 }
 
