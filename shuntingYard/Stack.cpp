@@ -25,3 +25,16 @@ char* Stack::top() {
     return NULL;
   }
 }
+
+int Stack::size() {
+  return sizeR(head, 0);
+}
+
+int sizeR(LNode* next, int count) {
+  count++;
+  if(next->getNext() != NULL) {
+    return sizeR(next->getNext(), count);
+  } else {
+    return count;
+  }
+}

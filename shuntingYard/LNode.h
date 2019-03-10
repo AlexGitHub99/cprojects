@@ -1,3 +1,6 @@
+#ifndef LNODE_H
+#define LNODE_H
+
 class LNode {
  public:
   LNode();
@@ -9,3 +12,5 @@ class LNode {
   LNode* next;
   char* data;
 };
+
+#endif
