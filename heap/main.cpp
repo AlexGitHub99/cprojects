@@ -35,9 +35,6 @@ int main () {
 					number = temp;
 				}
 			}
-			for (int i = 0; i < 10; i++) {
-				cout << tree[i] << endl;
-			}
 			print(tree);
 		}
 	}
@@ -48,26 +45,36 @@ void print(int tree[100]) {
   int width = 0;
   int i = 0;
   while(tree[i] != -1) {
-    if(tree[i + 1] == -1) {
-      width = 5 * pow (2, ceil (log2 (i + 2)) - 1); 
+    if(tree[i + 1] == -1 or i == 99) {
+      width = 6 * pow (2, ceil (log2 (i + 2)) - 1); 
     }
     i++;
-   }
-  for( int i = 0; i < 100; i++) {
-    for( int j = 0; j < (width - ((level + 1) * 4)) / (pow (2, level) + 1); j++) {
-      cout << "+";
+  }
+  i = 0;
+  while(tree[i] != -1) {
+    for( int j = 0; j < floor ( floor ((width - ((pow (2, level)) * 4)) / ((pow (2, level))*2)) / 2); j++) {
+      cout << " ";
+    }
+    for( int j = 0; j < ceil ( floor ((width - ((pow (2, level)) * 4)) / ((pow (2, level))*2)) / 2); j++) {
+      cout << "-";
     }
     cout << tree[i];
     for(int j = 0; j < (3 - log10 (tree[i])); j++) {
+      cout << "-";
+    }
+    for( int j = 0; j < floor ( ceil (((double)width - ((pow (2, level)) * 4)) / ((pow (2, level))*2)) / 2); j++) {
+      cout << "-";
+    }
+    for( int j = 0; j < ceil (ceil (((double)width - ((pow (2, level)) * 4)) / ((pow (2, level))*2)) / 2); j++) {
       cout << " ";
     }
     
-    
-    if(pow (2, level) - 1 == i) {
+    if(pow (2, level + 1) - 2 == i) {
       cout << endl;
       level++;
     }
+    i++;
   }
-
+  cout << endl;
 }
 
