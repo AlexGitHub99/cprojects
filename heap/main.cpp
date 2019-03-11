@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstring>
 #include <cmath>
+#include <fstream>
 
 //student: Zareef
 //Idea for storing binary tree as array
@@ -37,6 +38,13 @@ int main () {
 			}
 			print(tree);
 		}
+	} else if (strcmp(input, "file") == 0) {
+	  cout << "Enter the file name";
+	  cin.get(input, 10,'\n');
+	  while(cin.get() != '\n');
+	  ofstream newFile;
+	  newFile.open(input);
+	  
 	}
 }
 
