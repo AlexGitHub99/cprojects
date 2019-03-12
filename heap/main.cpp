@@ -2,6 +2,8 @@
 #include <cstring>
 #include <cmath>
 #include <fstream>
+//Created by: Alex King
+//Last modified: 3/11/19
 
 //student: Zareef
 //Idea for storing binary tree as array
