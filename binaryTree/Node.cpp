@@ -1,4 +1,4 @@
-#include "Node.h"
+5A#include "Node.h"
 
 Node::Node() {
   right = NULL;
@@ -22,3 +22,6 @@ Node::setRight(Node* newRight) {
   right = newRight;
 }
 
+Node::setLeft(Node* newLeft) {
+  left = newLeft;
+}
