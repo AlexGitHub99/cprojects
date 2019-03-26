@@ -1,27 +1,34 @@
-5A#include "Node.h"
+#include <iostream>
+#include "Node.h"
+
+using namespace std;
 
 Node::Node() {
   right = NULL;
   left = NULL;
-  data = NULL;
+  data = 0;
 }
 
-Node::getRight() {
+Node* Node::getRight() {
   return right;
 }
 
-Node::getLeft() {
+Node* Node::getLeft() {
   return left;
 }
 
-Node::getData() {
+int Node::getData() {
   return data;
 }
 
-Node::setRight(Node* newRight) {
+void Node::setRight(Node* newRight) {
   right = newRight;
 }
 
-Node::setLeft(Node* newLeft) {
+void Node::setLeft(Node* newLeft) {
   left = newLeft;
+}
+
+void Node::setData(int newData) {
+  data = newData;
 }

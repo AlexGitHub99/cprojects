@@ -1,6 +1,6 @@
 class Node {
  public:
-  node();
+  Node();
   Node* getRight();
   Node* getLeft();
   int getData();
