@@ -54,10 +54,12 @@ void del(Node* current, int number) {
             if(current->getLeft() != NULL) {
                 if(current->getLeft()->getLeft() == NULL && current->getLeft()->getRight() == NULL) {
                     delete current->getLeft();
-                } else if (current->getLeft()->getRight == NULL) {
+                } else if (current->getLeft()->getRight() == NULL) {
                     Node* temp = current->getLeft()->getLeft();
                     delete current->getLeft();
                     current->setLeft(temp);
+                } else if (current->getLeft()->getLeft() == NULL) {
+                    Node* temp = current->getLeft()->getRight();
                 }
             }
         } else if(number < current->getData()) {
