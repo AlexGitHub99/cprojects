@@ -1,4 +1,7 @@
+#include <iostream>
 #include "Node.h"
+
+using namespace std;
 
 bool isCase1(Node* node);
 bool isCase2(Node* node);
@@ -11,7 +14,7 @@ void case3(Node* node);
 void case4(Node* node);
 void case5(Node* node);
 
-int main {
+int main() {
   cout << "Welcome to red black tree!" << endl;
   cout << "Commands:" << endl;
   return 0;

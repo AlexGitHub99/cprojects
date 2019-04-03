@@ -14,4 +14,4 @@ class Node {
   Node* left;
   Node* parent;
   int data;
-}
+};
