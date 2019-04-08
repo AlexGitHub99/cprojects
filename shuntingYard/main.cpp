@@ -10,8 +10,9 @@ main () {
   cout << "Please enter a series of operations." << endl;
   char cChar[20];
   cin.get(cChar, 10, ' ');
+  cin.get();
   while(strlen(cChar) > 0) {
-    if(strlen(cChar) > 1) { //cChar isa  number 
+    if(strlen(cChar) > 1) { //cChar is a  number 
       left->push(strcpy(new char[20], cChar));
     } else if(cChar[0] == '(') { // char is a left parenthasy
       left->push(strcpy(new char[20], cChar));
@@ -21,16 +22,15 @@ main () {
     } else {
       down->push(strcpy(new char[20], cChar));
     }
-    cin.get(cChar, 10, ' ');    
+    cin.get(cChar, 10, ' ');
+    cin.get();
   }
-  bool cont = true;
-  while(cont == true) {
-    if(left->top() != NULL) {
-      cout << left->top();
-      left->pop();
-    } else {
-      cont = false;
-    }
+  cout << down->size();
+  cout << left->size();
+  while(left->top() != NULL) {
+    cout << "Test";
+    cout << left->top();
+    left->pop();
   }
 }
 

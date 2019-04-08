@@ -30,9 +30,9 @@ int Stack::size() {
   return sizeR(head, 0);
 }
 
-int sizeR(LNode* next, int count) {
-  count++;
-  if(next->getNext() != NULL) {
+int Stack::sizeR(LNode* next, int count) {
+  if(next != NULL) {
+    count++;
     return sizeR(next->getNext(), count);
   } else {
     return count;
