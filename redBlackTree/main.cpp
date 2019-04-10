@@ -3,11 +3,14 @@
 
 using namespace std;
 
-void case1(Node* node);
-void case2(Node* node);
-void case3(Node* node);
-void case4(Node* node);
-void case5(Node* node);
+bool case1(Node* node);
+bool case2(Node* node);
+bool case3(Node* node);
+bool case4(Node* node);
+bool case5(Node* node);
+
+const bool RED = true;
+const bool BLACK = false;
 
 int main() {
   cout << "Welcome to red black tree!" << endl;
@@ -15,10 +18,19 @@ int main() {
   return 0;
 }
 
-void testAll(
+void testAll(Node* node) {
+  if(case1(node)) {}
+  else if(case2(node)) {}
+  else if(case3(node)) {}
+  else if(case4(node)) {};
+}
 	     
-void case1(Node* head, Node* node) {
-  if(node == head) {
+bool case1(Node* node) {
+  if(node->getParent() == NULL) {
+    node->setColor(BLACK);
     return true;
   }
+}
+
+bool case2(Node* node) {
 }
