@@ -5,6 +5,8 @@ class Node {
   Node* getLeft();
   Node* getParent();
   bool getColor();
+  bool isRed();
+  bool isBlack();
   int getData();
   void setRight(Node* newRight);
   void setLeft(Node* newLeft);
