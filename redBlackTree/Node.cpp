@@ -7,6 +7,7 @@ Node::Node() {
   right = NULL;
   left = NULL;
   parent = NULL;
+  color = NULL;
   data = 0;
 }
 
@@ -20,6 +21,10 @@ Node* Node::getLeft() {
 
 Node* Node::getParent() {
   return parent;
+}
+
+bool Node::getColor() {
+  return color;
 }
 
 int Node::getData() {
@@ -36,6 +41,10 @@ void Node::setLeft(Node* newLeft) {
 
 void Node::setParent(Node* newParent) {
   parent = newParent;
+}
+
+void Node::setColor(bool newColor) {
+  color = newColor;
 }
 
 void Node::setData(int newData) {
