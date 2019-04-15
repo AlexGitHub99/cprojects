@@ -35,7 +35,7 @@ bool case1(Node* node) {
 bool case2(Node* node) {
   if(node->getParent() != NULL) { //has parent
     if(node->getParent()->getParent() !=  NULL) { //has grandparent
-      Node* grandFather = node->GetParent()->getParent();
+      Node* grandFather = node->getParent()->getParent();
       if(grandFather->getRight != NULL and grandFather->getLeft() != NULL) { //has uncle
 	if(grandFather->getRight()->getColor() == RED && grandFather->getLeft()->getColor() == RED) { //parent and uncle are red
 	  grandFather->setColor(RED);

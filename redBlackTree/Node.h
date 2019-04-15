@@ -5,8 +5,8 @@ class Node {
   Node* getLeft();
   Node* getParent();
   bool getColor();
-  bool isRed();
-  bool isBlack();
+  bool isRight();
+  bool isLeft();
   int getData();
   void setRight(Node* newRight);
   void setLeft(Node* newLeft);
@@ -18,5 +18,6 @@ class Node {
   Node* left;
   Node* parent;
   bool color;
+  bool isR;
   int data;
 };

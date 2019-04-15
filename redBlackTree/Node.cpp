@@ -27,6 +27,14 @@ bool Node::getColor() {
   return color;
 }
 
+bool Node::isRight() {
+  return isRight;
+}
+
+bool Node::isLeft() {
+  return !isRight;
+}
+
 int Node::getData() {
   return data;
 }
