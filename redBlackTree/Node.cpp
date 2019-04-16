@@ -41,10 +41,14 @@ int Node::getData() {
 
 void Node::setRight(Node* newRight) {
   right = newRight;
+  right->setIsR(true);
+  right->setParent(&this);
 }
 
 void Node::setLeft(Node* newLeft) {
   left = newLeft;
+  left->setIsR(false);
+  left->setParent(&this);
 }
 
 void Node::setParent(Node* newParent) {
@@ -53,6 +57,10 @@ void Node::setParent(Node* newParent) {
 
 void Node::setColor(bool newColor) {
   color = newColor;
+}
+
+void Node::setIsR(bool newIsR) {
+  isR = newIsR;
 }
 
 void Node::setData(int newData) {

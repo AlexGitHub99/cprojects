@@ -51,9 +51,28 @@ bool case2(Node* node) {
 }
 
 bool case3(Node* node) {
-  
+  if(node->getParent() != NULL) {
+    if(node->getParent()->getParent() != NULL {
+	Node* grandFather = node->getParent() != NULL;
+	if(node->getParent()->isLeft()) {
+	   if(grandfather->getRight() != NULL) {
+	     if(grandfather->getRight()->getColor() == RED) {
+	       return false;
+	     }
+	     Node* tempLeft = node->getLeft();
+	     Node* tempParent = node->getParent();
+	     grandFather->setLeft(node);
+	     node->setLeft(tempParent);
+	     node->getLeft()->setRight(tempLeft);
+	     return true;
+	} else if(node->getParent()->isRight() and grandFather->getLeft()->getColor() == BLACK) {
+	  if(node->isLeft()) {
+
+	}
+      }
+  }
 }
 
 bool case4(Node* node) {
-
+  
 }
