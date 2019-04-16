@@ -28,11 +28,11 @@ bool Node::getColor() {
 }
 
 bool Node::isRight() {
-  return isRight;
+  return isR;
 }
 
 bool Node::isLeft() {
-  return !isRight;
+  return !isR;
 }
 
 int Node::getData() {
