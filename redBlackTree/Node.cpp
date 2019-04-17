@@ -42,13 +42,13 @@ int Node::getData() {
 void Node::setRight(Node* newRight) {
   right = newRight;
   right->setIsR(true);
-  right->setParent(&this);
+  right->setParent(this);
 }
 
 void Node::setLeft(Node* newLeft) {
   left = newLeft;
   left->setIsR(false);
-  left->setParent(&this);
+  left->setParent(this);
 }
 
 void Node::setParent(Node* newParent) {

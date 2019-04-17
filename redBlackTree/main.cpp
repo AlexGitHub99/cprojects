@@ -3,6 +3,8 @@
 
 using namespace std;
 
+void insert(Node* node);
+void testAll(Node* node);
 bool case1(Node* node);
 bool case2(Node* node);
 bool case3(Node* node);
@@ -18,6 +20,24 @@ int main() {
   return 0;
 }
 
+void insert(Node* current, Node* node) {
+  if(node->getData() < current->getData()) {
+    if(current->getLeft() != NULL) {
+      insert(current->getLeft(), node);
+    } else {
+      current->setLeft(node);
+      testAll(node);
+    }
+  }
+  if(node->getData() >= current->getData()) {
+    if(current->getRight() != NULL) {
+      insert(current->getRight(), node);
+    } else {
+      current->setRight(node);
+      testAll(node);
+    }
+  }
+}
 void testAll(Node* node) {
   if(case1(node)) {}
   else if(case2(node)) {}
@@ -30,6 +50,7 @@ bool case1(Node* node) {
     node->setColor(BLACK);
     return true;
   }
+  return false;
 }
 
 bool case2(Node* node) {
@@ -39,40 +60,55 @@ bool case2(Node* node) {
       if(grandFather->getRight() != NULL and grandFather->getLeft() != NULL) { //has uncle
         if(grandFather->getRight()->getColor() == RED && grandFather->getLeft()->getColor() == RED) { //parent and uncle are red
           grandFather->setColor(RED);
-          //set parent and uncle to red
+          //set parent and uncle to black
           grandFather->getRight()->setColor(BLACK);
           grandFather->getLeft()->setColor(BLACK);
           //test all cases again on grandfather
           testAll(grandFather);
+          return true;
         } 
       }
     }
   }
+  return false;
 }
 
 bool case3(Node* node) {
   if(node->getParent() != NULL) {
-    if(node->getParent()->getParent() != NULL {
-	Node* grandFather = node->getParent() != NULL;
-	if(node->getParent()->isLeft()) {
-	   if(grandfather->getRight() != NULL) {
-	     if(grandfather->getRight()->getColor() == RED) {
-	       return false;
-	     }
-	     Node* tempLeft = node->getLeft();
-	     Node* tempParent = node->getParent();
-	     grandFather->setLeft(node);
-	     node->setLeft(tempParent);
-	     node->getLeft()->setRight(tempLeft);
-	     return true;
-	} else if(node->getParent()->isRight() and grandFather->getLeft()->getColor() == BLACK) {
-	  if(node->isLeft()) {
-
-	}
+    if(node->getParent()->getParent() != NULL) {
+      Node* grandfather = node->getParent()->getParent();
+      if(node->getParent()->isLeft() and node->isRight())  {
+        if(grandfather->getRight() != NULL) {
+          if(grandfather->getRight()->getColor() == RED) {
+            return false;
+          }
+          Node* tempLeft = node->getLeft();
+          Node* tempParent = node->getParent();
+          grandfather->setLeft(node);
+          node->setLeft(tempParent);
+          node->getLeft()->setRight(tempLeft);
+          case4(node->getLeft());
+          return true;
+        }
+      } else if(node->getParent()->isRight() and node->isLeft()) {
+        if(grandfather->getLeft() != NULL) {
+          if(grandfather->getLeft()->getColor() == RED) {
+            return false;
+          }
+          Node* tempRight = node->getRight();
+          Node* tempParent = node->getParent();
+          grandfather->setRight(node);
+          node->setRight(tempParent);
+          node->getRight()->setLeft(tempRight);
+          case4(node->getRight());
+          return true;
+        }
       }
+    }
   }
+  return false;
 }
 
 bool case4(Node* node) {
-  
+  return false;
 }

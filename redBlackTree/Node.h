@@ -12,6 +12,7 @@ class Node {
   void setLeft(Node* newLeft);
   void setParent(Node* newParent);
   void setColor(bool newColor);
+  void setIsR(bool newIsR);
   void setData(int newData);
  private:
   Node* right;
