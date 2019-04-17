@@ -1,9 +1,10 @@
 #include <iostream>
 #include "Node.h"
+#include "cstring"
 
 using namespace std;
 
-void insert(Node* node);
+void insert(Node* current, Node* node);
 void testAll(Node* node);
 bool case1(Node* node);
 bool case2(Node* node);
@@ -17,7 +18,17 @@ const bool BLACK = false;
 int main() {
   cout << "Welcome to red black tree!" << endl;
   cout << "Commands:" << endl;
+  cout << "add <number>" << endl;
+  cout << "print" << endl;
+  char input[21];
+  cin.get(input, 20, ' ');
+  if(strcmp(input , "add") == 0) {
+    cin.get(input, 20, '\n');
+    int number = atoi(input);
+  }
   Node* head = new Node();
+  insert(head, new Node());
+
   return 0;
 }
 
