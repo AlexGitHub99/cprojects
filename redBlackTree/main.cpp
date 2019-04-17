@@ -17,6 +17,7 @@ const bool BLACK = false;
 int main() {
   cout << "Welcome to red black tree!" << endl;
   cout << "Commands:" << endl;
+  Node* head = new Node();
   return 0;
 }
 
