@@ -4,14 +4,14 @@
 
 using namespace std;
 
-void insert(Node* current, Node* node);
+void insert(Node* current, int number);
 void testAll(Node* node);
 bool case1(Node* node);
 bool case2(Node* node);
 bool case3(Node* node);
 bool case4(Node* node);
 bool case5(Node* node);
-
+void print(Node* current, int depth);
 const bool RED = true;
 const bool BLACK = false;
 
@@ -20,36 +20,66 @@ int main() {
   cout << "Commands:" << endl;
   cout << "add <number>" << endl;
   cout << "print" << endl;
+  cout << "quit" << endl;
   char input[21];
-  Node* head = new Node(); 
-  cin.get(input, 20, ' ');
-  if(strcmp(input , "add") == 0) {
-    cin.get(input, 20, '\n');
-    int number = atoi(input);
-    Node* node = new Node();
-    node->setData(number);
-    insert(head, node);
-  }
-  insert(head, new Node());
+  Node* head = new Node(0);
+  // bool cont = true;
+  // while(cont) {
+  //   //input = " ";
+  //   cin.get(input, 20, ' ');
+  //   cin.get();
+  //   if(strcmp(input , "add") == 0) {
+  //     cin.get(input, 20, '\n');
+  //     cin.get();
+  //     int number = atoi(input);
+  //     Node* node = new Node();
+  //     node->setData(number);
+  //     insert(head, node);
+  //   } else if(strcmp(input, "print") == 0) {
+  //     print(head, 0);
+  //   } else if(strcmp(input, "quit") == 0) {
+  //     cont = false;
+  //   } else {
+  //     cout << "I dont know what this is " << input << endl;
+  //   }
+  // }
+
+  //Most of print function copied from previous project
+  bool cont = true;
+  while(cont == true) {
+      cin.getline (input, 20);
+
+      if(strncmp(input, "add", 3) == 0) {
+          int number = 0;
+          number = atoi(&input[4]); //convert input characters to int
+          insert(head, number);
+      } else if(strncmp(input, "print", 5) == 0) {
+          cout << "Printing graph" << endl;
+          print(head, 0);  
+      } else if(strncmp(input, "quit", 4) == 0) {
+          cont = false;
+      }
+    }
 
   return 0;
 }
 
-void insert(Node* current, Node* node) {
-  if(node->getData() < current->getData()) {
+void insert(Node* current, int number) {
+  if(current->getData() == 0) {
+      current->setData(number);
+  } else if(number < current->getData()) {
     if(current->getLeft() != NULL) {
-      insert(current->getLeft(), node);
+      insert(current->getLeft(), number);
     } else {
-      current->setLeft(node);
-      testAll(node);
+      current->setLeft(new Node(number));
+      //testAll(node);
     }
-  }
-  if(node->getData() >= current->getData()) {
+  } else if(number >= current->getData()) {
     if(current->getRight() != NULL) {
-      insert(current->getRight(), node);
+      insert(current->getRight(), number);
     } else {
-      current->setRight(node);
-      testAll(node);
+      current->setRight(new Node(number));
+      //testAll(node);
     }
   }
 }
@@ -126,4 +156,26 @@ bool case3(Node* node) {
 
 bool case4(Node* node) {
   return false;
+}
+
+//Copied from previous project binary tree
+//prints out tree recursively
+void print(Node* current, int depth) {
+    cout << "(" << current->getData() << ")\n";
+    if(current->getLeft() != NULL) {
+        for(int i = 0; i < depth; i++) {
+            cout << "    ";
+        }
+        cout << "(" << current->getData() << ")";
+        cout << " L> ";
+        print(current->getLeft(), depth + 1);
+    }
+    if(current->getRight() != NULL) {
+        for(int i = 0; i < depth; i++) {
+            cout << "    ";
+        }
+        cout << "(" << current->getData() << ")";
+        cout << " R> ";
+        print(current->getRight(), depth + 1);
+    }
 }

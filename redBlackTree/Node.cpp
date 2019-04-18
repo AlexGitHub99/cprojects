@@ -3,12 +3,12 @@
 
 using namespace std;
 
-Node::Node() {
+Node::Node(int newData) {
   right = NULL;
   left = NULL;
   parent = NULL;
   color = NULL;
-  data = 0;
+  data = newData;
 }
 
 Node* Node::getRight() {
