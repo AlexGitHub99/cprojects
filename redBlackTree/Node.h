@@ -1,10 +1,14 @@
+const bool RED = true;
+const bool BLACK = false;
+
 class Node {
  public:
-  Node(int newData);
+  Node(int newData, bool newColor);
   Node* getRight();
   Node* getLeft();
   Node* getParent();
   bool getColor();
+  char getColorChar();
   bool isRight();
   bool isLeft();
   int getData();

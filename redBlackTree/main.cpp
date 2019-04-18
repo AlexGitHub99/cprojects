@@ -12,8 +12,6 @@ bool case3(Node* node);
 bool case4(Node* node);
 bool case5(Node* node);
 void print(Node* current, int depth);
-const bool RED = true;
-const bool BLACK = false;
 
 int main() {
   cout << "Welcome to red black tree!" << endl;
@@ -22,7 +20,7 @@ int main() {
   cout << "print" << endl;
   cout << "quit" << endl;
   char input[21];
-  Node* head = new Node(0);
+  Node* head = new Node(0, BLACK);
   // bool cont = true;
   // while(cont) {
   //   //input = " ";
@@ -71,15 +69,17 @@ void insert(Node* current, int number) {
     if(current->getLeft() != NULL) {
       insert(current->getLeft(), number);
     } else {
-      current->setLeft(new Node(number));
-      //testAll(node);
+      Node* newNode = new Node(number, RED);
+      current->setLeft(newNode);
+      testAll(newNode);
     }
   } else if(number >= current->getData()) {
     if(current->getRight() != NULL) {
       insert(current->getRight(), number);
     } else {
-      current->setRight(new Node(number));
-      //testAll(node);
+      Node* newNode = new Node(number, RED);
+      current->setRight(newNode);
+      testAll(newNode);
     }
   }
 }
@@ -161,21 +161,22 @@ bool case4(Node* node) {
 //Copied from previous project binary tree
 //prints out tree recursively
 void print(Node* current, int depth) {
-    cout << "(" << current->getData() << ")\n";
+    cout << "(" << current->getData() << current->getColorChar() << ")\n";
     if(current->getLeft() != NULL) {
         for(int i = 0; i < depth; i++) {
             cout << "    ";
         }
-        cout << "(" << current->getData() << ")";
-        cout << " L> ";
+
+        cout << "(" << current->getData() << current->getColorChar() << ")";
+        cout << " LEFT> ";
         print(current->getLeft(), depth + 1);
     }
     if(current->getRight() != NULL) {
         for(int i = 0; i < depth; i++) {
             cout << "    ";
         }
-        cout << "(" << current->getData() << ")";
-        cout << " R> ";
+        cout << "(" << current->getData() << current->getColorChar() << ")";
+        cout << " RIGHT> ";
         print(current->getRight(), depth + 1);
     }
 }

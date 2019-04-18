@@ -3,11 +3,11 @@
 
 using namespace std;
 
-Node::Node(int newData) {
+Node::Node(int newData, bool newColor) {
   right = NULL;
   left = NULL;
   parent = NULL;
-  color = NULL;
+  color = newColor;
   data = newData;
 }
 
@@ -25,6 +25,14 @@ Node* Node::getParent() {
 
 bool Node::getColor() {
   return color;
+}
+
+char Node::getColorChar() {
+  if(color == RED) {
+    return 'r';
+  } else {
+    return 'b';
+  }
 }
 
 bool Node::isRight() {
