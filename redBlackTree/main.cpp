@@ -1,6 +1,11 @@
+//Author: Alex King
+//Last modified: 4/17/19
+//This program creates a self balancing red black tree from console input
+//and prints it out.
 #include <iostream>
+#include <fstream>
+#include <cstring>
 #include "Node.h"
-#include "cstring"
 
 using namespace std;
 
@@ -12,45 +17,41 @@ bool case3(Node* node);
 bool case4(Node* node);
 bool case5(Node* node);
 void print(Node* current, int depth);
+Node* resetHead(Node* head);
 
 int main() {
   cout << "Welcome to red black tree!" << endl;
   cout << "Commands:" << endl;
   cout << "add <number>" << endl;
+  cout << "read <filename>" << endl;
   cout << "print" << endl;
   cout << "quit" << endl;
   char input[21];
   Node* head = new Node(0, BLACK);
-  // bool cont = true;
-  // while(cont) {
-  //   //input = " ";
-  //   cin.get(input, 20, ' ');
-  //   cin.get();
-  //   if(strcmp(input , "add") == 0) {
-  //     cin.get(input, 20, '\n');
-  //     cin.get();
-  //     int number = atoi(input);
-  //     Node* node = new Node();
-  //     node->setData(number);
-  //     insert(head, node);
-  //   } else if(strcmp(input, "print") == 0) {
-  //     print(head, 0);
-  //   } else if(strcmp(input, "quit") == 0) {
-  //     cont = false;
-  //   } else {
-  //     cout << "I dont know what this is " << input << endl;
-  //   }
-  // }
 
-  //Most of print function copied from previous project
+  //Most of print function copied from previous project, binary search tree
   bool cont = true;
   while(cont == true) {
       cin.getline (input, 20);
 
       if(strncmp(input, "add", 3) == 0) {
-          int number = 0;
-          number = atoi(&input[4]); //convert input characters to int
+          int number = atoi(input + 4); //convert input characters to int
           insert(head, number);
+          head = resetHead(head);
+      } else if(strncmp(input, "read", 4) == 0) {
+          ifstream file;
+          file.open(input + 5);
+          while(true) {
+            file.get(input, 3, ',');
+            file.get();
+            if(strlen(input) == 0) {
+              break;
+            } else {
+              int number = atoi(input);
+              insert(head, number);
+              head = resetHead(head);
+            }
+          }
       } else if(strncmp(input, "print", 5) == 0) {
           cout << "Printing graph" << endl;
           print(head, 0);  
@@ -65,6 +66,7 @@ int main() {
 void insert(Node* current, int number) {
   if(current->getData() == 0) {
       current->setData(number);
+
   } else if(number < current->getData()) {
     if(current->getLeft() != NULL) {
       insert(current->getLeft(), number);
@@ -127,27 +129,27 @@ bool case3(Node* node) {
           if(grandfather->getRight()->getColor() == RED) {
             return false;
           }
-          Node* tempLeft = node->getLeft();
-          Node* tempParent = node->getParent();
-          grandfather->setLeft(node);
-          node->setLeft(tempParent);
-          node->getLeft()->setRight(tempLeft);
-          case4(node->getLeft());
-          return true;
         }
+        Node* tempLeft = node->getLeft();
+        Node* tempParent = node->getParent();
+        grandfather->setLeft(node);
+        node->setLeft(tempParent);
+        node->getLeft()->setRight(tempLeft);
+        case4(node->getLeft());
+        return true;
       } else if(node->getParent()->isRight() and node->isLeft()) {
         if(grandfather->getLeft() != NULL) {
           if(grandfather->getLeft()->getColor() == RED) {
             return false;
           }
-          Node* tempRight = node->getRight();
-          Node* tempParent = node->getParent();
-          grandfather->setRight(node);
-          node->setRight(tempParent);
-          node->getRight()->setLeft(tempRight);
-          case4(node->getRight());
-          return true;
         }
+        Node* tempRight = node->getRight();
+        Node* tempParent = node->getParent();
+        grandfather->setRight(node);
+        node->setRight(tempParent);
+        node->getRight()->setLeft(tempRight);
+        case4(node->getRight());
+        return true;
       }
     }
   }
@@ -179,4 +181,11 @@ void print(Node* current, int depth) {
         cout << " RIGHT> ";
         print(current->getRight(), depth + 1);
     }
+}
+
+Node* resetHead(Node* head) {
+  while(head->getParent() != NULL) {
+    head = head->getParent();
+  }
+  return head;
 }
