@@ -49,14 +49,18 @@ int Node::getData() {
 
 void Node::setRight(Node* newRight) {
   right = newRight;
-  right->setIsR(true);
-  right->setParent(this);
+  if(right != NULL) {
+    right->setIsR(true);
+    right->setParent(this);
+  }
 }
 
 void Node::setLeft(Node* newLeft) {
   left = newLeft;
-  left->setIsR(false);
-  left->setParent(this);
+  if(left != NULL) {
+    left->setIsR(false);
+    left->setParent(this);
+  }
 }
 
 void Node::setParent(Node* newParent) {

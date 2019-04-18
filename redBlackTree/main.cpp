@@ -3,6 +3,7 @@
 //This program creates a self balancing red black tree from console input
 //and prints it out.
 #include <iostream>
+#include <cstdlib>
 #include <fstream>
 #include <cstring>
 #include "Node.h"
@@ -157,6 +158,38 @@ bool case3(Node* node) {
 }
 
 bool case4(Node* node) {
+  if(node->getParent() != NULL) {
+    if(node->getParent()->getParent() != NULL) {
+      Node* grandfather = node->getParent()->getParent();
+      if(node->getParent()->isLeft() and node->isLeft())  {
+        if(grandfather->getRight() != NULL) {
+          if(grandfather->getRight()->getColor() == RED) {
+            return false;
+          }
+        }
+        Node* tempParentRight = node->getParent()->getRight();
+        node->getParent()->setParent(grandfather->getParent());
+	node->getParent()->setRight(grandfather);
+	grandfather->setLeft(tempParentRight);
+	node->getParent()->setColor(!node->getParent()->getColor());
+	grandfather->setColor(!grandfather->getColor());
+        return true;
+      } else if(node->getParent()->isRight() and node->isRight()) {
+        if(grandfather->getLeft() != NULL) {
+          if(grandfather->getLeft()->getColor() == RED) {
+            return false;
+          }
+        }
+        Node* tempParentLeft = node->getParent()->getLeft();
+	node->getParent()->setParent(grandfather->getParent());
+	node->getParent()->setLeft(grandfather);
+	grandfather->setRight(tempParentLeft);
+	node->getParent()->setColor(!node->getParent()->getColor());
+	grandfather->setColor(!grandfather->getColor());
+        return true;
+      }
+    }
+  }
   return false;
 }
 
