@@ -21,12 +21,15 @@ int main() {
   cout << "add <number>" << endl;
   cout << "print" << endl;
   char input[21];
+  Node* head = new Node(); 
   cin.get(input, 20, ' ');
   if(strcmp(input , "add") == 0) {
     cin.get(input, 20, '\n');
     int number = atoi(input);
+    Node* node = new Node();
+    node->setData(number);
+    insert(head, node);
   }
-  Node* head = new Node();
   insert(head, new Node());
 
   return 0;
