@@ -90,9 +90,10 @@ void testAll(Node* node) {
   if(case1(node)) {}
   else if(case2(node)) {}
   else if(case3(node)) {}
-  else if(case4(node)) {};
+  else if(case4(node)) {}
+  else if(case5(node)) {};
 }
-	     
+
 bool case1(Node* node) {
   if(node->getParent() == NULL) {
     node->setColor(BLACK);
@@ -102,6 +103,14 @@ bool case1(Node* node) {
 }
 
 bool case2(Node* node) {
+  if(node->getParent() != NULL) {
+    if(node->getParent()->getColor() == BLACK) {
+      return true;
+    }
+  }
+}
+
+bool case3(Node* node) {
   if(node->getParent() != NULL) { //has parent
     if(node->getParent()->getParent() !=  NULL) { //has grandparent
       Node* grandFather = node->getParent()->getParent();
@@ -121,7 +130,7 @@ bool case2(Node* node) {
   return false;
 }
 
-bool case3(Node* node) {
+bool case4(Node* node) {
   if(node->getParent() != NULL) {
     if(node->getParent()->getParent() != NULL) {
       Node* grandfather = node->getParent()->getParent();
@@ -136,7 +145,7 @@ bool case3(Node* node) {
         grandfather->setLeft(node);
         node->setLeft(tempParent);
         node->getLeft()->setRight(tempLeft);
-        case4(node->getLeft());
+        case5(node->getLeft());
         return true;
       } else if(node->getParent()->isRight() and node->isLeft()) {
         if(grandfather->getLeft() != NULL) {
@@ -149,7 +158,7 @@ bool case3(Node* node) {
         grandfather->setRight(node);
         node->setRight(tempParent);
         node->getRight()->setLeft(tempRight);
-        case4(node->getRight());
+        case5(node->getRight());
         return true;
       }
     }
@@ -157,7 +166,7 @@ bool case3(Node* node) {
   return false;
 }
 
-bool case4(Node* node) {
+bool case5(Node* node) {
   if(node->getParent() != NULL) {
     if(node->getParent()->getParent() != NULL) {
       Node* grandfather = node->getParent()->getParent();
