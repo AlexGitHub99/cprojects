@@ -177,7 +177,13 @@ bool case5(Node* node) {
           }
         }
         Node* tempParentRight = node->getParent()->getRight();
-        node->getParent()->setParent(grandfather->getParent());
+	if(grandfather->getParent() != NULL) {
+	  if(grandfather->isRight()) {
+	    grandfather->getParent()->setRight(node->getParent());
+	  } else {
+	    grandfather->getParent()->setLeft(node->getParent());
+	  }
+	}
 	node->getParent()->setRight(grandfather);
 	grandfather->setLeft(tempParentRight);
 	node->getParent()->setColor(!node->getParent()->getColor());
@@ -190,7 +196,13 @@ bool case5(Node* node) {
           }
         }
         Node* tempParentLeft = node->getParent()->getLeft();
-	node->getParent()->setParent(grandfather->getParent());
+	if(grandfather->getParent() != NULL) {
+	  if(grandfather->isRight()) {
+	    grandfather->getParent()->setRight(node->getParent());
+	  } else {
+	    grandfather->getParent()->setLeft(node->getParent());
+	  }
+	}
 	node->getParent()->setLeft(grandfather);
 	grandfather->setRight(tempParentLeft);
 	node->getParent()->setColor(!node->getParent()->getColor());
