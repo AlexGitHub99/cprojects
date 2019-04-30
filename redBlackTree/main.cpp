@@ -183,6 +183,8 @@ bool case5(Node* node) {
 	  } else {
 	    grandfather->getParent()->setLeft(node->getParent());
 	  }
+	} else {
+	  node->getParent()->setParent(NULL);
 	}
 	node->getParent()->setRight(grandfather);
 	grandfather->setLeft(tempParentRight);
@@ -202,6 +204,8 @@ bool case5(Node* node) {
 	  } else {
 	    grandfather->getParent()->setLeft(node->getParent());
 	  }
+	} else {
+	  node->getParent()->setParent(NULL);
 	}
 	node->getParent()->setLeft(grandfather);
 	grandfather->setRight(tempParentLeft);
