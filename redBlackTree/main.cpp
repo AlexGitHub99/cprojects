@@ -35,11 +35,11 @@ int main() {
   while(cont == true) {
       cin.getline (input, 20);
 
-      if(strncmp(input, "add", 3) == 0) {
+      if(strncmp(input, "add", 3) == 0) { //user typed "add" 
           int number = atoi(input + 4); //convert input characters to int
           insert(head, number);
           head = resetHead(head);
-      } else if(strncmp(input, "read", 4) == 0) {
+      } else if(strncmp(input, "read", 4) == 0) { //user typed "read"
           ifstream file;
           file.open(input + 5);
           while(true) {
@@ -53,10 +53,10 @@ int main() {
               head = resetHead(head);
             }
           }
-      } else if(strncmp(input, "print", 5) == 0) {
+      } else if(strncmp(input, "print", 5) == 0) { //user typed "print"
           cout << "Printing graph" << endl;
           print(head, 0);  
-      } else if(strncmp(input, "quit", 4) == 0) {
+      } else if(strncmp(input, "quit", 4) == 0) { //user typed "quit"
           cont = false;
       }
     }
