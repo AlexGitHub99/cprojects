@@ -17,6 +17,7 @@ bool case2(Node* node);
 bool case3(Node* node);
 bool case4(Node* node);
 bool case5(Node* node);
+bool delCase1(Node* node);
 void print(Node* current, int depth);
 Node* resetHead(Node* head);
 
@@ -218,16 +219,37 @@ bool case5(Node* node) {
   return false;
 }
 
+bool delCase1(Node* node) {
+  if(node->getColor() == RED) {
+    Node* child;
+    if(node->getRight() != NULL && node->getLeft() == NULL) {
+      child = node->getRight();
+    } else if(node->getRight() == NULL && node->getLeft() != NULL) {
+      child = node->getLeft();
+    } else {
+      return false;
+    }
+    if(node->getParent() != NULL) {
+      if(node->isRight()) {
+        node->getParent()->setRight(child);
+      } else {
+        node->getParent()->setLeft(child);
+      }
+    } else {
+      child->setParent(NULL);
+    }
+    delete node;
+    return true;
+  }
+}
 //Copied from previous project binary tree
 //prints out tree recursively
 void print(Node* current, int depth) {
     cout << "(" << current->getData() << current->getColorChar() << ")\n";
     if(current->getLeft() != NULL) {
         for(int i = 0; i < depth; i++) {
-            cout << "    ";
+            cout << "        ";
         }
-
-        cout << "(" << current->getData() << current->getColorChar() << ")";
         cout << " LEFT> ";
         print(current->getLeft(), depth + 1);
     }
@@ -235,7 +257,6 @@ void print(Node* current, int depth) {
         for(int i = 0; i < depth; i++) {
             cout << "    ";
         }
-        cout << "(" << current->getData() << current->getColorChar() << ")";
         cout << " RIGHT> ";
         print(current->getRight(), depth + 1);
     }
