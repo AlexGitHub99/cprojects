@@ -241,9 +241,9 @@ Node* goRight(Node* current) {
 bool delCase1(Node* node) {
   if(node->getColor() == RED) {
     Node* child;
-    if(node->getRight() != NULL && node->getLeft() == NULL) {
+    if(node->getRight() != NULL) {
       child = node->getRight();
-    } else if(node->getRight() == NULL && node->getLeft() != NULL) {
+    } else if(node->getLeft() != NULL) {
       child = node->getLeft();
     } else {
       return false;
@@ -260,6 +260,29 @@ bool delCase1(Node* node) {
     delete node;
     return true;
   }
+}
+
+bool delCase2(Node* node) {
+  Node* child;
+  if(node->getRight() != NULL) {
+    child = node->getRight();
+  } else if(node->getLeft() != NULL) {
+    child = node->getLeft();
+  } else {
+    return false;
+  }
+  if(child->isRed()) {
+    if(node->getParent() != NULL) {
+      if(node->isRight()) {
+	node->getParent()->setRight(child);
+      } else {
+	node->getParent()->setLeft(child);
+      }
+    } else {
+      child->setParent(NULL);
+    }
+    delete node;
+    return true;
 }
 
 //Copied from previous project binary tree
