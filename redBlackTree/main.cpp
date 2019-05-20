@@ -59,7 +59,7 @@ int main() {
             }
           }
       } else if(strncmp(input, "search", 6) == 0) {
-
+        Node* node = search(head, atoi(input + 8));
       } else if(strncmp(input, "del", 3) == 0) {
         
       } else if(strncmp(input, "print", 5) == 0) { //user typed "print"
@@ -288,9 +288,13 @@ bool delCase1(Node* node) {
   delete node;
   return true;
 }
-
+//Case 2: Return true if node is root node, dont change tree
 bool delCase2(Node* node) {
-  
+  if(node->getParent() == NULL) { //node is root node
+      return true;
+  } else { //node is not root node
+      return false;
+  }
 }
 
 //Copied from previous project binary tree
