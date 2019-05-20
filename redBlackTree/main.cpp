@@ -30,6 +30,7 @@ int main() {
   cout << "Commands:" << endl;
   cout << "add <number>" << endl;
   cout << "read <filename>" << endl;
+  cout << "search <number>" << endl;
   cout << "print" << endl;
   cout << "quit" << endl;
   char input[21];
@@ -60,6 +61,11 @@ int main() {
           }
       } else if(strncmp(input, "search", 6) == 0) {
         Node* node = search(head, atoi(input + 8));
+	if(node != NULL) {
+	  cout << "Number is in tree";
+	} else {
+	  cout << "Number is not in tree";
+	}
       } else if(strncmp(input, "del", 3) == 0) {
         
       } else if(strncmp(input, "print", 5) == 0) { //user typed "print"
@@ -310,7 +316,7 @@ void print(Node* current, int depth) {
     }
     if(current->getRight() != NULL) {
         for(int i = 0; i < depth; i++) {
-            cout << "    ";
+            cout << "        ";
         }
         cout << " RIGHT> ";
         print(current->getRight(), depth + 1);
