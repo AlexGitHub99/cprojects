@@ -17,9 +17,11 @@ bool case2(Node* node);
 bool case3(Node* node);
 bool case4(Node* node);
 bool case5(Node* node);
-Node* search(Node* head, int number);
+Node* search(Node* current, int number);
 bool del(Node* head, int number);
+Node* goRight(Node* current);
 bool delCase1(Node* node);
+bool delCase2(Node* node);
 void print(Node* current, int depth);
 Node* resetHead(Node* head);
 
@@ -246,7 +248,9 @@ Node* search(Node* current, int number) {
 bool del(Node* head, int number) {
   Node* node = search(head, number);
   if(node != NULL) {
-
+    if(node->getLeft() != NULL) {
+      Node* successor = goRight(node->getLeft());
+    }
   }
 }
 
@@ -259,27 +263,34 @@ Node* goRight(Node* current) {
 }
 
 bool delCase1(Node* node) {
-  if(node->getColor() == RED) {
-    Node* child;
-    if(node->getRight() != NULL && node->getLeft() == NULL) {
-      child = node->getRight();
-    } else if(node->getRight() == NULL && node->getLeft() != NULL) {
-      child = node->getLeft();
-    } else {
-      return false;
-    }
-    if(node->getParent() != NULL) {
-      if(node->isRight()) {
-        node->getParent()->setRight(child);
-      } else {
-        node->getParent()->setLeft(child);
-      }
-    } else {
-      child->setParent(NULL);
-    }
-    delete node;
-    return true;
+  Node* child;
+  if(node->getRight() != NULL) {
+    child = node->getRight();
+  } else if(node->getLeft() != NULL) {
+    child = node->getLeft();
+  } else {
+    return false;
   }
+  if(node->getParent() != NULL) {
+    if(node->isRight()) {
+      node->getParent()->setRight(child);
+    } else {
+      node->getParent()->setLeft(child);
+    }
+  } else {
+    child->setParent(NULL);
+  }
+  if(node->getColor() == BLACK and child->getColor() == RED) {
+    child->setColor(BLACK);
+  } else if(node->getColor() == BLACK and child->getColor() == BLACK) {
+    delCase2(child);
+  }
+  delete node;
+  return true;
+}
+
+bool delCase2(Node* node) {
+  
 }
 
 //Copied from previous project binary tree
