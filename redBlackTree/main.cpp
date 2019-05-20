@@ -17,6 +17,8 @@ bool case2(Node* node);
 bool case3(Node* node);
 bool case4(Node* node);
 bool case5(Node* node);
+Node* search(Node* head, int number);
+bool del(Node* head, int number);
 bool delCase1(Node* node);
 void print(Node* current, int depth);
 Node* resetHead(Node* head);
@@ -54,6 +56,10 @@ int main() {
               head = resetHead(head);
             }
           }
+      } else if(strncmp(input, "search", 6) == 0) {
+
+      } else if(strncmp(input, "del", 3) == 0) {
+        
       } else if(strncmp(input, "print", 5) == 0) { //user typed "print"
           cout << "Printing graph" << endl;
           print(head, 0);  
@@ -219,6 +225,39 @@ bool case5(Node* node) {
   return false;
 }
 
+Node* search(Node* current, int number) {
+  if(number < current->getData()) {
+    if(current->getLeft() != NULL) {
+      return search(current->getLeft(), number);
+    } else {
+      return NULL;
+    }
+  } else if(number > current->getData()) {
+    if(current->getRight() != NULL) {
+      return search(current->getRight(), number);
+    } else {
+      return NULL;
+    }
+  } else {
+    return current;
+  }
+}
+
+bool del(Node* head, int number) {
+  Node* node = search(head, number);
+  if(node != NULL) {
+
+  }
+}
+
+Node* goRight(Node* current) {
+  if(current->getRight() != NULL) {
+    return goRight(current->getRight());
+  } else {
+    return current;
+  }
+}
+
 bool delCase1(Node* node) {
   if(node->getColor() == RED) {
     Node* child;
@@ -242,6 +281,7 @@ bool delCase1(Node* node) {
     return true;
   }
 }
+
 //Copied from previous project binary tree
 //prints out tree recursively
 void print(Node* current, int depth) {
