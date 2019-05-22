@@ -60,11 +60,11 @@ int main() {
             }
           }
       } else if(strncmp(input, "search", 6) == 0) {
-        Node* node = search(head, atoi(input + 8));
+        Node* node = search(head, atoi(input + 7));
 	if(node != NULL) {
-	  cout << "Number is in tree";
+	  cout << "Number is in tree" << endl;
 	} else {
-	  cout << "Number is not in tree";
+	  cout << "Number is not in tree" << endl;
 	}
       } else if(strncmp(input, "del", 3) == 0) {
         
@@ -254,9 +254,16 @@ Node* search(Node* current, int number) {
 bool del(Node* head, int number) {
   Node* node = search(head, number);
   if(node != NULL) {
-    if(node->getLeft() != NULL) {
-      Node* successor = goRight(node->getLeft());
+    Node* remNode;
+    if(node->getLeft() != NULL && node->getRight() != NULL) {
+      remNode = goRight(node->getLeft());
+      node->setData(remNode->getData());
+    } else if(node->getLeft() != NULL or node->getRight() != NULL) {
+      remNode = node;
+    } else {
+      delete node;
     }
+    delCase1(node);
   }
 }
 
