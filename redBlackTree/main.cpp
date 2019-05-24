@@ -258,12 +258,10 @@ bool del(Node* head, int number) {
     if(node->getLeft() != NULL && node->getRight() != NULL) {
       remNode = goRight(node->getLeft());
       node->setData(remNode->getData());
-    } else if(node->getLeft() != NULL or node->getRight() != NULL) {
-      remNode = node;
     } else {
-      delete node;
+      remNode = node;
     }
-    delCase1(node);
+    delCase1(remNode);
   }
 }
 
@@ -281,8 +279,6 @@ bool delCase1(Node* node) {
     child = node->getRight();
   } else if(node->getLeft() != NULL) {
     child = node->getLeft();
-  } else {
-    return false;
   }
   if(node->getParent() != NULL) {
     if(node->isRight()) {
