@@ -21,6 +21,7 @@ Node* search(Node* current, int number);
 bool del(Node* head, int number);
 Node* goRight(Node* current);
 bool delCase1(Node* node);
+bool testAllDel(Node* node);
 bool delCase2(Node* node);
 void print(Node* current, int depth);
 Node* resetHead(Node* head);
@@ -261,7 +262,11 @@ bool del(Node* head, int number) {
     } else {
       remNode = node;
     }
-    delCase1(remNode);
+    if(delCase1(remNode) == true) {
+      cout << "Deleted Node successfully";
+    } else {
+      cout << "Problem Deleting node";
+    }
   }
 }
 
@@ -279,6 +284,13 @@ bool delCase1(Node* node) {
     child = node->getRight();
   } else if(node->getLeft() != NULL) {
     child = node->getLeft();
+  } else {
+    if(node->getColor() == RED) {
+      delete node;
+      return true;
+    } else {
+      return testAllDel(node);
+    }
   }
   if(node->getParent() != NULL) {
     if(node->isRight()) {
@@ -292,7 +304,7 @@ bool delCase1(Node* node) {
   if(node->getColor() == BLACK and child->getColor() == RED) {
     child->setColor(BLACK);
   } else if(node->getColor() == BLACK and child->getColor() == BLACK) {
-    delCase2(child);
+    return testAllDel(child);
   }
   delete node;
   return true;
