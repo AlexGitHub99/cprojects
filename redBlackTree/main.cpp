@@ -68,7 +68,11 @@ int main() {
 	  cout << "Number is not in tree" << endl;
 	}
       } else if(strncmp(input, "del", 3) == 0) {
-        
+	if(del(head, atoi(input + 4)) == true) {
+	  cout << "Deleted node successfully";
+	} else {
+	  cout << "Problem deleting node";
+	}
       } else if(strncmp(input, "print", 5) == 0) { //user typed "print"
           cout << "Printing graph" << endl;
           print(head, 0);  
@@ -262,11 +266,7 @@ bool del(Node* head, int number) {
     } else {
       remNode = node;
     }
-    if(delCase1(remNode) == true) {
-      cout << "Deleted Node successfully";
-    } else {
-      cout << "Problem Deleting node";
-    }
+    return delCase1(remNode);
   }
 }
 
@@ -279,6 +279,7 @@ Node* goRight(Node* current) {
 }
 
 bool delCase1(Node* node) {
+  bool output;
   Node* child;
   if(node->getRight() != NULL) {
     child = node->getRight();
@@ -289,7 +290,7 @@ bool delCase1(Node* node) {
       delete node;
       return true;
     } else {
-      return testAllDel(node);
+      output = testAllDel(node);
     }
   }
   if(node->getParent() != NULL) {
@@ -304,11 +305,19 @@ bool delCase1(Node* node) {
   if(node->getColor() == BLACK and child->getColor() == RED) {
     child->setColor(BLACK);
   } else if(node->getColor() == BLACK and child->getColor() == BLACK) {
-    return testAllDel(child);
+    output = testAllDel(child);
   }
   delete node;
-  return true;
+  return output;
 }
+
+bool testAllDel(Node* node) {
+  if(delCase2) {
+    return true;
+  }
+  return false;
+}
+
 //Case 2: Return true if node is root node, dont change tree
 bool delCase2(Node* node) {
   if(node->getParent() == NULL) { //node is root node
