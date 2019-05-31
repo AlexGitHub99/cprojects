@@ -32,6 +32,7 @@ int main() {
   cout << "add <number>" << endl;
   cout << "read <filename>" << endl;
   cout << "search <number>" << endl;
+  cout << "del <number>" << endl;
   cout << "print" << endl;
   cout << "quit" << endl;
   char input[21];
@@ -41,7 +42,7 @@ int main() {
   bool cont = true;
   while(cont == true) {
       cin.getline (input, 20);
-
+      
       if(strncmp(input, "add", 3) == 0) { //user typed "add" 
           int number = atoi(input + 4); //convert input characters to int
           insert(head, number);
@@ -68,10 +69,27 @@ int main() {
 	  cout << "Number is not in tree" << endl;
 	}
       } else if(strncmp(input, "del", 3) == 0) {
-	if(del(head, atoi(input + 4)) == true) {
-	  cout << "Deleted node successfully";
+	Node* headChild = NULL;
+	if(head->getRight() != NULL) {
+	  headChild = head->getRight();
+	} else if(head->getLeft() != NULL) {
+	  headChild = head->getLeft();
 	} else {
-	  cout << "Problem deleting node";
+	  headChild = NULL;
+	}
+	if(del(head, atoi(input + 4)) == true) {
+	  cout << "Deleted node successfully" << endl;
+	} else {
+	  cout << "Problem deleting node" << endl;
+	}
+	if(head == NULL) {
+	  if(headChild == NULL) {
+	    head = new Node(0, BLACK);
+	  } else {
+	    head = resetHead(headChild);
+	  }
+	} else {
+	  head = resetHead(head);
 	}
       } else if(strncmp(input, "print", 5) == 0) { //user typed "print"
           cout << "Printing graph" << endl;
