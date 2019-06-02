@@ -33,6 +33,7 @@ int main() {
   cout << "add <number>" << endl;
   cout << "read <filename>" << endl;
   cout << "search <number>" << endl;
+  cout << "del <number>" << endl;
   cout << "print" << endl;
   cout << "quit" << endl;
   char input[21];
@@ -42,7 +43,7 @@ int main() {
   bool cont = true;
   while(cont == true) {
       cin.getline (input, 20);
-
+      
       if(strncmp(input, "add", 3) == 0) { //user typed "add" 
           int number = atoi(input + 4); //convert input characters to int
           insert(head, number);
@@ -69,7 +70,28 @@ int main() {
 	  cout << "Number is not in tree" << endl;
 	}
       } else if(strncmp(input, "del", 3) == 0) {
-        
+	Node* headChild = NULL;
+	if(head->getRight() != NULL) {
+	  headChild = head->getRight();
+	} else if(head->getLeft() != NULL) {
+	  headChild = head->getLeft();
+	} else {
+	  headChild = NULL;
+	}
+	if(del(head, atoi(input + 4)) == true) {
+	  cout << "Deleted node successfully" << endl;
+	} else {
+	  cout << "Problem deleting node" << endl;
+	}
+	if(head == NULL) {
+	  if(headChild == NULL) {
+	    head = new Node(0, BLACK);
+	  } else {
+	    head = resetHead(headChild);
+	  }
+	} else {
+	  head = resetHead(head);
+	}
       } else if(strncmp(input, "print", 5) == 0) { //user typed "print"
           cout << "Printing graph" << endl;
           print(head, 0);  
@@ -263,11 +285,7 @@ bool del(Node* head, int number) {
     } else {
       remNode = node;
     }
-    if(delCase1(remNode) == true) {
-      cout << "Deleted Node successfully";
-    } else {
-      cout << "Problem Deleting node";
-    }
+    return delCase1(remNode);
   }
 }
 
@@ -280,6 +298,7 @@ Node* goRight(Node* current) {
 }
 
 bool delCase1(Node* node) {
+  bool output;
   Node* child;
   if(node->getRight() != NULL) {
     child = node->getRight();
@@ -290,7 +309,7 @@ bool delCase1(Node* node) {
       delete node;
       return true;
     } else {
-      return testAllDel(node);
+      output = testAllDel(node);
     }
   }
   if(node->getParent() != NULL) {
@@ -305,11 +324,19 @@ bool delCase1(Node* node) {
   if(node->getColor() == BLACK and child->getColor() == RED) {
     child->setColor(BLACK);
   } else if(node->getColor() == BLACK and child->getColor() == BLACK) {
-    return testAllDel(child);
+    output = testAllDel(child);
   }
   delete node;
-  return true;
+  return output;
 }
+
+bool testAllDel(Node* node) {
+  if(delCase2) {
+    return true;
+  }
+  return false;
+}
+
 //Case 2: Return true if node is root node, dont change tree
 bool delCase2(Node* node) {
   if(node->getParent() == NULL) { //node is root node
