@@ -23,6 +23,7 @@ Node* goRight(Node* current);
 bool delCase1(Node* node);
 bool testAllDel(Node* node);
 bool delCase2(Node* node);
+bool delCase3(Node* node);
 void print(Node* current, int depth);
 Node* resetHead(Node* head);
 
@@ -316,6 +317,10 @@ bool delCase2(Node* node) {
   } else { //node is not root node
       return false;
   }
+}
+
+bool delCase3(Node* node) {
+
 }
 
 //Copied from previous project binary tree
