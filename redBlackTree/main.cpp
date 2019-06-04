@@ -24,6 +24,7 @@ bool delCase1(Node* node);
 bool testAllDel(Node* node);
 bool delCase2(Node* node);
 bool delCase3(Node* node);
+void rotateR(Node* node);
 void print(Node* current, int depth);
 Node* resetHead(Node* head);
 
@@ -347,9 +348,31 @@ bool delCase2(Node* node) {
 }
 
 bool delCase3(Node* node) {
-
+  if(node->isRight()) {
+    if(node->getParent()->getLeft() != NULL) {
+      if(node->getParent()->getLeft()->getColor() == RED) {
+        
+      }
+    }
+  }
 }
 
+void rotateR(Node* node) {
+  if(node->getParent()->getParent() != NULL) {
+    Node* grandfather = node->getParent()->getParent();
+    if(node->getParent()->isRight()) {
+      grandfather->setRight(node);
+    } else {
+      grandfather->setLeft(node);
+    }
+  }
+  Node* tempRight = node->getRight();
+  Node* tempParent = node->getParent();
+  node->setRight(tempParent);
+  node->getRight()->setLeft(tempRight);
+  case5(node->getRight());
+  
+}
 //Copied from previous project binary tree
 //prints out tree recursively
 void print(Node* current, int depth) {
