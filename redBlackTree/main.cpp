@@ -24,6 +24,7 @@ bool delCase1(Node* node);
 bool testAllDel(Node* node);
 bool delCase2(Node* node);
 bool delCase3(Node* node);
+bool delCase4(Node* node);
 void rotateR(Node* node);
 void print(Node* current, int depth);
 Node* resetHead(Node* head);
@@ -347,17 +348,29 @@ bool delCase2(Node* node) {
   }
 }
 
+//If sibling is red than rotate right through parent and switch colors of parent and sibling
 bool delCase3(Node* node) {
   if(node->isRight()) {
     if(node->getParent()->getLeft() != NULL) {
-      if(node->getParent()->getLeft()->getColor() == RED) {
-        
+      Node* sibling = node->getParent()->getLeft();
+      if(sibling->getColor() == RED) {
+        rotateR(sibling);
+	node->getParent()->setColor(RED);
+	sibling->setColor(BLACK);
       }
     }
   }
 }
 
+bool delCase4(Node* node) {
+  
+}
+
+//Rotate right, inputed node must be left of the parent it's rotating through
 void rotateR(Node* node) {
+  Node* tempRight = node->getRight();
+  Node* tempParent = node->getParent();
+  //If grandfather exists, set grandfather's corresponding child to the node instead of the parent
   if(node->getParent()->getParent() != NULL) {
     Node* grandfather = node->getParent()->getParent();
     if(node->getParent()->isRight()) {
@@ -366,13 +379,28 @@ void rotateR(Node* node) {
       grandfather->setLeft(node);
     }
   }
-  Node* tempRight = node->getRight();
-  Node* tempParent = node->getParent();
   node->setRight(tempParent);
-  node->getRight()->setLeft(tempRight);
-  case5(node->getRight());
-  
+  node->getRight()->setLeft(tempRight);  
 }
+
+//Rotate left, inputed node must be right of the parent it's rotating through
+void rotateL(Node* node) {
+  Node* tempLeft = node->getLeft();
+  Node* tempParent = node->getParent();
+  //If grandfather exists, set grandfather's corresponding child to the node instead of the parent
+  if(node->getParent()->getParent() != NULL) {
+    Node* grandfather = node->getParent()->getParent();
+    if(node->getParent()->isRight()) {
+      grandfather->setRight(node);
+    } else {
+      grandfather->setLeft(node);
+    }
+  }
+  node->setLeft(tempParent);
+  node->getLeft()->setRight(tempLeft);
+  case5(node->getLeft());
+}
+
 //Copied from previous project binary tree
 //prints out tree recursively
 void print(Node* current, int depth) {

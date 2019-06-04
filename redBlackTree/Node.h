@@ -18,6 +18,7 @@ class Node {
   void setColor(bool newColor);
   void setIsR(bool newIsR);
   void setData(int newData);
+  ~Node();
  private:
   Node* right;
   Node* left;
