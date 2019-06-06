@@ -26,6 +26,7 @@ bool delCase2(Node* node);
 bool delCase3(Node* node);
 bool delCase4(Node* node);
 void rotateR(Node* node);
+void rotateL(Node* node);
 void print(Node* current, int depth);
 Node* resetHead(Node* head);
 
@@ -333,7 +334,11 @@ bool delCase1(Node* node) {
 }
 
 bool testAllDel(Node* node) {
-  if(delCase2) {
+  if(delCase2(node)) {
+    return true;
+  }
+  delCase3(node);
+  if(delCase4(node)) {
     return true;
   }
   return false;
@@ -350,20 +355,67 @@ bool delCase2(Node* node) {
 
 //If sibling is red than rotate right through parent and switch colors of parent and sibling
 bool delCase3(Node* node) {
+  Node* sibling;
   if(node->isRight()) {
-    if(node->getParent()->getLeft() != NULL) {
-      Node* sibling = node->getParent()->getLeft();
-      if(sibling->getColor() == RED) {
-        rotateR(sibling);
-	node->getParent()->setColor(RED);
-	sibling->setColor(BLACK);
-      }
+    Node* sibling = node->getParent()->getLeft();
+    if(sibling->getColor() == RED) {
+      rotateR(sibling);
+    }
+  } else if(node->isLeft()) {
+    Node* sibling = node->getParent()->getRight();
+    if(sibling->getColor() == RED) {
+      rotateL(sibling);
     }
   }
+  node->getParent()->setColor(RED);
+  sibling->setColor(BLACK);
+  return true;
 }
 
 bool delCase4(Node* node) {
-  
+  Node* sibling;
+  if(node->isRight()) {
+    if(node->getParent()->getLeft() != NULL) {
+      sibling = node->getParent()->getLeft();
+    }
+  } else {
+    if(node->getParent()->getRight() != NULL) {
+      sibling = node->getParent()->getRight();
+    }
+  }
+  if(sibling->getColor() == BLACK) {
+    sibling->setColor(RED);
+    testAllDel(node->getParent());
+    return true;
+  } else {
+    return false;
+  }
+}
+
+bool delCase5(Node* node) {
+  if(node->getParent()->getColor() == RED) {
+    Node* sibling;
+    if(node->isRight()) {
+      sibling = node->getParent()->getLeft();
+    } else {
+      sibling = node->getParent()->getRight();
+    }
+    if(sibling->getColor() == BLACK) {
+      if(sibling->getRight() != NULL) {
+	if(sibling->getRight()->getColor() == RED) {
+	  return false;
+	}
+      }
+      if(sibling->getLeft() != NULL) {
+	if(sibling->getLeft()->getColor() == RED) {
+	  return false;
+	}
+      }
+      node->getParent()->setColor(BLACK);
+      sibling->setColor(RED);
+      return true;
+    }
+  }
 }
 
 //Rotate right, inputed node must be left of the parent it's rotating through
