@@ -418,6 +418,37 @@ bool delCase5(Node* node) {
   }
 }
 
+bool delCase6(Node* node) {
+  if(node->getParent() == BLACK) {
+    Node* sibling;
+    if(node->isRight()) {
+      sibling = node->getParent()->getLeft();
+      if(sibling->getColor() == BLACK) {
+        if(sibling->getLeft() != NULL and sibling->getRight() != NULL) {
+          if(sibling->getLeft() == BLACK and sibling->getRight == RED) {
+            rotateL(sibling->getRight());
+            sibling->setColor(RED);
+            sibling->getParent()->setColor(BLACK);
+            return true;
+          } 
+        }
+      }
+    } else {
+      sibling = node->getParent()->getRight();
+      if(sibling->getColor() == BLACK) {
+        if(sibling->getRight != NULL and sibling->getLeft() != NULL) {
+          if(sibling->getLeft()->getColor() == RED and sibling->getRight()->getColor() == BLACK) {
+            rotateR(sibling->getLeft());
+            sibling->setColor(RED);
+            sibling->getParent()->setColor(BLACK);
+            return true;
+          }
+        }
+      }
+    }
+  }
+}
+
 //Rotate right, inputed node must be left of the parent it's rotating through
 void rotateR(Node* node) {
   Node* tempRight = node->getRight();
