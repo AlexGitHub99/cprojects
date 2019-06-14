@@ -338,7 +338,12 @@ bool testAllDel(Node* node) {
     return true;
   }
   delCase3(node);
-  if(delCase4(node)) {
+  delCase4(node);
+  if(delCase5(node)) {
+    return true;
+  }
+  delCase6(node);
+  if(delCase7(node)) {
     return true;
   }
   return false;
@@ -447,6 +452,38 @@ bool delCase6(Node* node) {
       }
     }
   }
+}
+
+bool delCase7(Node* node) {
+  Node* sibling;
+  if(node->isRight) {
+    sibling = node->getParent()->getLeft();
+    if(sibling->getColor() == BLACK) {
+      if(sibling->getLeft() != NULL) {
+        if(sibling->getLeft()->getColor() == RED) {
+          rotateR(sibling);
+          sibling->setColor(node->getParent()->getColor());
+          node->getParent()->setColor(BLACK);
+          sibling->getLeft()->setColor(BLACK);
+          return true;
+        }
+      }
+    }
+  } else {
+    sibling = node->getParent()->getRight();
+    if(sibling->getColor() == BLACK) {
+      if(sibling->getRight() != NULL) {
+        if(sibling->getRight()->getColor() == RED) {
+          rotateR(sibling);
+          sibling->setColor(node->getParent()->getColor());
+          node->getParent()->setColor(BLACK);
+          sibling->getRight()->setColor(BLACK);
+          return true;
+        }
+      }
+    }
+  }
+  return false;
 }
 
 //Rotate right, inputed node must be left of the parent it's rotating through
