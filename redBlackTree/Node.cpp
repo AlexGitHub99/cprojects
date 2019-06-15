@@ -80,9 +80,11 @@ void Node::setData(int newData) {
 }
 
 Node::~Node() { //set parents corresponding child to NULL if node is deleted
-  if(isR) { //Node is right
-    this->getParent()->setRight(NULL);
-  } else if(!isR) { //Node is left
-    this->getParent()->setLeft(NULL);
+  if(this->getParent() != NULL) {
+    if(isR) { //Node is right
+      this->getParent()->setRight(NULL);
+    } else { //Node is left
+      this->getParent()->setLeft(NULL);
+    }
   }
 }
