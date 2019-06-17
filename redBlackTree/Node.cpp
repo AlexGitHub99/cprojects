@@ -1,4 +1,5 @@
 #include <iostream>
+#include <cstring>
 #include "Node.h"
 
 using namespace std;
@@ -68,6 +69,19 @@ void Node::setParent(Node* newParent) {
 }
 
 void Node::setColor(bool newColor) {
+  char colorS[6];
+  char newColorS[6];
+  if(color == RED) {
+    strcpy(colorS, "RED");
+  } else {
+    strcpy(colorS, "BLACK");
+  }
+  if(newColor == RED) {
+    strcpy(newColorS, "RED");
+  } else {
+    strcpy(newColorS, "BLACK");
+  }
+  cout << "Changing color of " << this->getData() << " from " << colorS << " to " << newColorS << endl; 
   color = newColor;
 }
 

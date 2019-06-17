@@ -18,7 +18,7 @@ bool case3(Node* node);
 bool case4(Node* node);
 bool case5(Node* node);
 Node* search(Node* current, int number);
-bool del(Node* head, int number);
+bool del(Node* &head, int number);
 Node* goRight(Node* current);
 bool delCase1(Node* node);
 bool testAllDel(Node* node);
@@ -153,6 +153,7 @@ bool case2(Node* node) {
       return true;
     }
   }
+  return false;
 }
 
 bool case3(Node* node) {
@@ -281,7 +282,7 @@ Node* search(Node* current, int number) {
   }
 }
 
-bool del(Node* head, int number) {
+bool del(Node* &head, int number) {
   Node* node = search(head, number);
   if(node != NULL) {
     Node* remNode = NULL;
@@ -296,6 +297,7 @@ bool del(Node* head, int number) {
     }
     return delCase1(remNode);
   }
+  return false;
 }
 
 Node* goRight(Node* current) {
@@ -316,13 +318,16 @@ bool delCase1(Node* node) {
   } else {
     if(node->getColor() == RED) {
       output = true;
+      cout << "Deleting red node " << node->getData() << " with no children" << endl;
     } else {
+      cout << "Deleting black node " << node->getData() << " with no children" << endl;
       output = testAllDel(node);
     }
     delete node;
     return output;
   }
   if(node->getParent() != NULL) {
+    node->setParent(NULL);
     if(node->isRight()) {
       node->getParent()->setRight(child);
     } else {
@@ -333,8 +338,14 @@ bool delCase1(Node* node) {
   }
   if(node->getColor() == BLACK and child->getColor() == RED) {
     child->setColor(BLACK);
+    output = true;
+    cout << "Deleting black node " << node->getData() << " with red child" << endl;
   } else if(node->getColor() == BLACK and child->getColor() == BLACK) {
+    cout << "Deleting black node " << node->getData() << " with black child" << endl;
     output = testAllDel(child);
+  } else {
+    cout << "Deleting red node " << node->getData() << " with black child" << endl;
+    
   }
   delete node;
   return output;
@@ -345,7 +356,10 @@ bool testAllDel(Node* node) {
     return true;
   }
   delCase3(node);
-  delCase4(node);
+  if(delCase4(node)) {
+    testAllDel(node->getParent());
+    return true;
+  }
   if(delCase5(node)) {
     return true;
   }
@@ -358,6 +372,7 @@ bool testAllDel(Node* node) {
 
 //Case 2: Return true if node is root node, dont change tree
 bool delCase2(Node* node) {
+  cout << "Calling delCase 2 on node " << node->getData() << endl;
   if(node->getParent() == NULL) { //node is root node
       return true;
   } else { //node is not root node
@@ -367,16 +382,21 @@ bool delCase2(Node* node) {
 
 //If sibling is red than rotate right through parent and switch colors of parent and sibling
 bool delCase3(Node* node) {
+  cout << "Calling delCase 3 on node " << node->getData() << endl;
   Node* sibling = NULL;
   if(node->isRight()) {
-    Node* sibling = node->getParent()->getLeft();
+    sibling = node->getParent()->getLeft();
     if(sibling->getColor() == RED) {
       rotateR(sibling);
+    } else {
+      return false;
     }
   } else if(node->isLeft()) {
-    Node* sibling = node->getParent()->getRight();
+    sibling = node->getParent()->getRight();
     if(sibling->getColor() == RED) {
       rotateL(sibling);
+    } else {
+      return false;
     }
   }
   node->getParent()->setColor(RED);
@@ -385,6 +405,7 @@ bool delCase3(Node* node) {
 }
 
 bool delCase4(Node* node) {
+  cout << "Calling delCase 4 on node " << node->getData() << endl;
   Node* sibling = NULL;
   if(node->isRight()) {
     if(node->getParent()->getLeft() != NULL) {
@@ -396,8 +417,17 @@ bool delCase4(Node* node) {
     }
   }
   if(sibling->getColor() == BLACK) {
+    if(sibling->getLeft() != NULL) {
+      if(sibling->getLeft()->getColor() == RED) {
+        return false;
+      }
+    }
+    if(sibling->getRight() != NULL) {
+      if(sibling->getRight()->getColor() == RED) {
+        return false;
+      }
+    }
     sibling->setColor(RED);
-    testAllDel(node->getParent());
     return true;
   } else {
     return false;
@@ -405,6 +435,7 @@ bool delCase4(Node* node) {
 }
 
 bool delCase5(Node* node) {
+  cout << "Calling delCase 5 on node " << node->getData() << endl;
   if(node->getParent()->getColor() == RED) {
     Node* sibling = NULL;
     if(node->isRight()) {
@@ -414,30 +445,32 @@ bool delCase5(Node* node) {
     }
     if(sibling->getColor() == BLACK) {
       if(sibling->getRight() != NULL) {
-	if(sibling->getRight()->getColor() == RED) {
-	  return false;
-	}
+        if(sibling->getRight()->getColor() == RED) {
+          return false;
+        }
       }
       if(sibling->getLeft() != NULL) {
-	if(sibling->getLeft()->getColor() == RED) {
-	  return false;
-	}
+        if(sibling->getLeft()->getColor() == RED) {
+          return false;
+        }
       }
       node->getParent()->setColor(BLACK);
       sibling->setColor(RED);
       return true;
     }
   }
+  return false;
 }
 
 bool delCase6(Node* node) {
+  cout << "Calling delCase 6 on node " << node->getData() << endl;
   if(node->getParent()->getColor() == BLACK) {
     Node* sibling = NULL;
     if(node->isRight()) {
       sibling = node->getParent()->getLeft();
       if(sibling->getColor() == BLACK) {
         if(sibling->getLeft() != NULL and sibling->getRight() != NULL) {
-          if(sibling->getLeft()->getColor() == BLACK and sibling->getRight()->getColor() == RED) {
+          if((sibling->getLeft()->getColor() == BLACK or sibling->getLeft() == NULL) and sibling->getRight()->getColor() == RED) {
             rotateL(sibling->getRight());
             sibling->setColor(RED);
             sibling->getParent()->setColor(BLACK);
@@ -449,7 +482,7 @@ bool delCase6(Node* node) {
       sibling = node->getParent()->getRight();
       if(sibling->getColor() == BLACK) {
         if(sibling->getRight() != NULL and sibling->getLeft() != NULL) {
-          if(sibling->getLeft()->getColor() == RED and sibling->getRight()->getColor() == BLACK) {
+          if(sibling->getLeft()->getColor() == RED and (sibling->getRight()->getColor() == BLACK or sibling->getRight() == NULL)) {
             rotateR(sibling->getLeft());
             sibling->setColor(RED);
             sibling->getParent()->setColor(BLACK);
@@ -459,9 +492,11 @@ bool delCase6(Node* node) {
       }
     }
   }
+  return false;
 }
 
 bool delCase7(Node* node) {
+  cout << "Calling delCase 7 on node " << node->getData() << endl;
   Node* sibling = NULL;
   if(node->isRight()) {
     sibling = node->getParent()->getLeft();
@@ -481,7 +516,7 @@ bool delCase7(Node* node) {
     if(sibling->getColor() == BLACK) {
       if(sibling->getRight() != NULL) {
         if(sibling->getRight()->getColor() == RED) {
-          rotateR(sibling);
+          rotateL(sibling);
           sibling->setColor(node->getParent()->getColor());
           node->getParent()->setColor(BLACK);
           sibling->getRight()->setColor(BLACK);
@@ -495,6 +530,7 @@ bool delCase7(Node* node) {
 
 //Rotate right, inputed node must be left of the parent it's rotating through
 void rotateR(Node* node) {
+  cout << "Rotating right through " << node->getParent()->getData() << endl;
   Node* tempRight = node->getRight();
   Node* tempParent = node->getParent();
   //If grandfather exists, set grandfather's corresponding child to the node instead of the parent
@@ -512,6 +548,7 @@ void rotateR(Node* node) {
 
 //Rotate left, inputed node must be right of the parent it's rotating through
 void rotateL(Node* node) {
+  cout << "Rotating left through " << node->getParent()->getData() << endl;
   Node* tempLeft = node->getLeft();
   Node* tempParent = node->getParent();
   //If grandfather exists, set grandfather's corresponding child to the node instead of the parent
