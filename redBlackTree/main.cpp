@@ -1,5 +1,5 @@
 //Author: Alex King
-//Last modified: 4/17/19
+//Last modified: 6/16/19
 //This program creates a self balancing red black tree from console input
 //and prints it out.
 #include <iostream>
@@ -380,7 +380,7 @@ bool delCase2(Node* node) {
   }
 }
 
-//If sibling is red than rotate right through parent and switch colors of parent and sibling
+//Case 3: If sibling is red, rotate right through parent and switch colors of parent and sibling
 bool delCase3(Node* node) {
   cout << "Calling delCase 3 on node " << node->getData() << endl;
   Node* sibling = NULL;
@@ -404,6 +404,7 @@ bool delCase3(Node* node) {
   return true;
 }
 
+//Case 4: If sibling is black and has two black children, set sibling's color to red
 bool delCase4(Node* node) {
   cout << "Calling delCase 4 on node " << node->getData() << endl;
   Node* sibling = NULL;
@@ -434,6 +435,7 @@ bool delCase4(Node* node) {
   }
 }
 
+//Case 5: If parent is red, sibling is black, and sibling has two black children, set parent's color to black and sibling's color to red
 bool delCase5(Node* node) {
   cout << "Calling delCase 5 on node " << node->getData() << endl;
   if(node->getParent()->getColor() == RED) {
@@ -462,6 +464,9 @@ bool delCase5(Node* node) {
   return false;
 }
 
+//Case 6: If parent is black, sibling is black, 
+//node is right and sibling's left is black and right is red OR node is left and sibling's left is red and right is black,
+//rotate the sibling's red child through the sibling, set the old sibling's color to red and the new sibling's color to black
 bool delCase6(Node* node) {
   cout << "Calling delCase 6 on node " << node->getData() << endl;
   if(node->getParent()->getColor() == BLACK) {
@@ -495,6 +500,9 @@ bool delCase6(Node* node) {
   return false;
 }
 
+//Case 7: If sibling is black,
+//node is right and sibling has a red left child OR node is left and sibling has a red right child,
+//rotate the sibling through the parent, switch the colors of the parent and old sibling, and set the new sibling's color to black
 bool delCase7(Node* node) {
   cout << "Calling delCase 7 on node " << node->getData() << endl;
   Node* sibling = NULL;
