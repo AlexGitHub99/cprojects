@@ -1,5 +1,5 @@
 //Author: Alex King
-//Last modified: 6/16/19
+//Last modified: 7/3/19
 //This program creates a self balancing red black tree from console input
 //and prints it out.
 #include <iostream>
@@ -327,12 +327,12 @@ bool delCase1(Node* node) {
     return output;
   }
   if(node->getParent() != NULL) {
-    node->setParent(NULL);
     if(node->isRight()) {
       node->getParent()->setRight(child);
     } else {
       node->getParent()->setLeft(child);
     }
+    node->setParent(NULL);
   } else {
     child->setParent(NULL);
   }
@@ -380,7 +380,7 @@ bool delCase2(Node* node) {
   }
 }
 
-//Case 3: If sibling is red, rotate right through parent and switch colors of parent and sibling
+//Case 3: If sibling is red, rotate sibling through parent and switch colors of parent and sibling
 bool delCase3(Node* node) {
   cout << "Calling delCase 3 on node " << node->getData() << endl;
   Node* sibling = NULL;
@@ -408,31 +408,32 @@ bool delCase3(Node* node) {
 bool delCase4(Node* node) {
   cout << "Calling delCase 4 on node " << node->getData() << endl;
   Node* sibling = NULL;
-  if(node->isRight()) {
-    if(node->getParent()->getLeft() != NULL) {
-      sibling = node->getParent()->getLeft();
-    }
-  } else {
-    if(node->getParent()->getRight() != NULL) {
-      sibling = node->getParent()->getRight();
-    }
-  }
-  if(sibling->getColor() == BLACK) {
-    if(sibling->getLeft() != NULL) {
-      if(sibling->getLeft()->getColor() == RED) {
-        return false;
+  if(node->getParent()->getColor() == BLACK) {
+    if(node->isRight()) {
+      if(node->getParent()->getLeft() != NULL) {
+        sibling = node->getParent()->getLeft();
+      }
+    } else {
+      if(node->getParent()->getRight() != NULL) {
+        sibling = node->getParent()->getRight();
       }
     }
-    if(sibling->getRight() != NULL) {
-      if(sibling->getRight()->getColor() == RED) {
-        return false;
+    if(sibling->getColor() == BLACK) {
+      if(sibling->getLeft() != NULL) {
+        if(sibling->getLeft()->getColor() == RED) {
+          return false;
+        }
       }
+      if(sibling->getRight() != NULL) {
+        if(sibling->getRight()->getColor() == RED) {
+          return false;
+        }
+      }
+      sibling->setColor(RED);
+      return true;
     }
-    sibling->setColor(RED);
-    return true;
-  } else {
-    return false;
   }
+  return false;
 }
 
 //Case 5: If parent is red, sibling is black, and sibling has two black children, set parent's color to black and sibling's color to red
@@ -474,8 +475,13 @@ bool delCase6(Node* node) {
     if(node->isRight()) {
       sibling = node->getParent()->getLeft();
       if(sibling->getColor() == BLACK) {
-        if(sibling->getLeft() != NULL and sibling->getRight() != NULL) {
-          if((sibling->getLeft()->getColor() == BLACK or sibling->getLeft() == NULL) and sibling->getRight()->getColor() == RED) {
+        if(sibling->getRight() != NULL) {
+          if(sibling->getRight()->getColor() == RED) {
+            if(sibling->getLeft() != NULL) {
+              if(sibling->getLeft()->getColor() == RED) {
+                return false;
+              }
+            }
             rotateL(sibling->getRight());
             sibling->setColor(RED);
             sibling->getParent()->setColor(BLACK);
@@ -486,8 +492,13 @@ bool delCase6(Node* node) {
     } else {
       sibling = node->getParent()->getRight();
       if(sibling->getColor() == BLACK) {
-        if(sibling->getRight() != NULL and sibling->getLeft() != NULL) {
-          if(sibling->getLeft()->getColor() == RED and (sibling->getRight()->getColor() == BLACK or sibling->getRight() == NULL)) {
+        if(sibling->getLeft() != NULL) {
+          if(sibling->getLeft()->getColor() == RED) {
+            if(sibling->getRight() != NULL) {
+              if(sibling->getRight()->getColor() == RED) {
+                return false;
+              }
+            }
             rotateR(sibling->getLeft());
             sibling->setColor(RED);
             sibling->getParent()->setColor(BLACK);
@@ -549,6 +560,8 @@ void rotateR(Node* node) {
     } else {
       grandfather->setLeft(node);
     }
+  } else {
+    node->setParent(NULL);
   }
   node->setRight(tempParent);
   node->getRight()->setLeft(tempRight);  
@@ -567,10 +580,11 @@ void rotateL(Node* node) {
     } else {
       grandfather->setLeft(node);
     }
+  } else {
+    node->setParent(NULL);
   }
   node->setLeft(tempParent);
   node->getLeft()->setRight(tempLeft);
-  case5(node->getLeft());
 }
 
 //Copied from previous project binary tree
